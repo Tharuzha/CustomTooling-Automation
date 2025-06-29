@@ -5,7 +5,7 @@
 
 ## Before Each Test case
 
-- Navigate to https://www.advantageonlineshopping.com/#/
+- Navigate to <https://cte-dev.iclick.nz/>
 
 ## Ater Each Test case
 
@@ -14,6 +14,7 @@
 ## Test Cases
 
 ## TC 001 - Login as a valid user
+
 ### Priority : Medium
 
-- Login as the user in [User Data](c:\Users\ASUS\Downloads\CTE Web_Automation\CustomTooling-Automation\TestData\UserData.md) file.
+- Login as the user in [User Data](CustomTooling-Automation\TestData\UserData.md) file.
