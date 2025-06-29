@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Execution Report - Custom Tooling Automation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+        header {
+            background-color: #005a9e;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        h1, h2, h3 {
+            margin-top: 0;
+            color: #444;
+        }
+        header h1 {
+            color: white;
+        }
+        .summary {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .summary-box {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            width: 30%;
+            box-shadow: 0 0 5px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
+        }
+        .chart-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .chart {
+            width: 48%;
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #005a9e;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .status {
+            font-weight: bold;
+        }
+        .pass {
+            color: #008000;
+        }
+        .fail {
+            color: #e60000;
+        }
+        .skip {
+            color: #ff8c00;
+        }
+        .screenshot {
+            max-width: 100%;
+            height: auto;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
+            font-size: 0.9em;
+        }
+        /* Chart styles */
+        .pie-chart {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #4CAF50 0% 100%,
+                #F44336 0% 0%,
+                #FFC107 0% 0%
+            );
+            margin: 20px auto;
+        }
+        .legend {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 0 10px;
+        }
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+            border-radius: 3px;
+        }
+        .pass-color {
+            background-color: #4CAF50;
+        }
+        .fail-color {
+            background-color: #F44336;
+        }
+        .skip-color {
+            background-color: #FFC107;
+        }
+        .trend-chart {
+            width: 100%;
+            max-width: 500px;
+            height: 250px;
+            margin: 0 auto;
+        }
+        .trend-bar {
+            display: inline-block;
+            width: 40px;
+            margin: 0 10px;
+            background-color: #4CAF50;
+            position: relative;
+            bottom: 0;
+        }
+        .trend-label {
+            text-align: center;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .trend-container {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            height: 200px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Test Execution Report</h1>
+            <p>Custom Tooling Automation</p>
+        </header>
+        
+        <div class="summary">
+            <div class="summary-box">
+                <h3>Test Run Information</h3>
+                <p><strong>Date:</strong> June 29, 2025</p>
+                <p><strong>Time:</strong> 07:14:00 PM</p>
+                <p><strong>Environment:</strong> Chrome Browser</p>
+            </div>
+            <div class="summary-box">
+                <h3>Test Suite</h3>
+                <p><strong>Name:</strong> User Login Test Suite</p>
+                <p><strong>Priority:</strong> Medium</p>
+                <p><strong>Total Test Cases:</strong> 1</p>
+            </div>
+            <div class="summary-box">
+                <h3>Test Results Summary</h3>
+                <p><strong>Total:</strong> 1</p>
+                <p><strong>Passed:</strong> 1</p>
+                <p><strong>Failed:</strong> 0</p>
+                <p><strong>Skipped:</strong> 0</p>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart">
+                <h3>Test Results</h3>
+                <div class="pie-chart"></div>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color pass-color"></div>
+                        <span>Pass (100%)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color fail-color"></div>
+                        <span>Fail (0%)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color skip-color"></div>
+                        <span>Skip (0%)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart">
+                <h3>Test Results Trend</h3>
+                <div class="trend-container">
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div class="trend-bar" style="height: 100%"></div>
+                        <div class="trend-label">Run #1</div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div class="trend-bar" style="height: 100%"></div>
+                        <div class="trend-label">Run #2</div>
+                    </div>
+                </div>
+                <div class="legend" style="margin-top: 20px;">
+                    <div class="legend-item">
+                        <div class="legend-color pass-color"></div>
+                        <span>Pass Rate</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Detailed Test Results</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Test Case ID</th>
+                    <th>Test Case Name</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Execution Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>TC001</td>
+                    <td>Login as a valid user</td>
+                    <td>Medium</td>
+                    <td class="status pass">PASS</td>
+                    <td>June 29, 2025 07:13:50 PM</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2>Test Case Details</h2>
+        <div>
+            <h3>TC001 - Login as a valid user</h3>
+            <p><strong>Status:</strong> <span class="status pass">PASS</span></p>
+            <p><strong>Description:</strong> Verify that a valid user can successfully login to the application.</p>
+            
+            <h4>Test Steps:</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Step</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Navigate to https://cte-dev.iclick.nz/</td>
+                        <td class="status pass">PASS</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Enter email: admin@email.com</td>
+                        <td class="status pass">PASS</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Enter password: Admin@123</td>
+                        <td class="status pass">PASS</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Click Login button</td>
+                        <td class="status pass">PASS</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Verify successful login</td>
+                        <td class="status pass">PASS</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h4>Expected Results:</h4>
+            <p>User should be successfully logged in and redirected to the Dashboard page.</p>
+            
+            <h4>Actual Results:</h4>
+            <p>User was successfully logged in and redirected to the Dashboard page. Success message was displayed: "You have logged in successfully."</p>
+        </div>
+        
+        <footer>
+            <p>Test Report Generated on June 29, 2025 | Custom Tooling Automation Framework</p>
+        </footer>
+    </div>
+</body>
+</html>
