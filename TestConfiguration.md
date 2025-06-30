@@ -8,7 +8,7 @@
 - If any test step fails or verification is fail, then consider as that entire test case is failed. Only take a screenshot of the current screen when a test cases fails. No screenshots are needed for passing test cases.
 - Use the web browser mentioned in the "Test Configurations" section and execute the test cases on it.
 - Once a test case execution is done, go to the next test case.
-- once all the test cases are run. Generate a Test report in .html format under the [TestResults](CustomTooling-Automation\TestResults) folder and include all the necessary information it should have for a test case execution report.
+- once all the test cases are run. Generate a Test report in .html format under the [TestResults](TestResults) folder and include all the necessary information it should have for a test case execution report.
 - Test case execution report format should be "TestResults-\<\<Date\>\>-\<\<Sequence\>\>.html". Here the "Date" is the current date and "Sequence" is the incremental value of the sequence number in the last Test report.
 - Add a pie chart in the test report to show the execution summary.
 - Show a Test results trend by reading past test results history.
@@ -23,4 +23,4 @@
 
 ## Test Suite
 
--[User Login](CustomTooling-Automation\TestSuites\UserLogin.md)
+-[User Login](TestSuites\UserLogin.md)

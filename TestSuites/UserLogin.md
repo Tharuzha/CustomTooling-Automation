@@ -17,18 +17,18 @@
 
 ### Priority TC 001 : High
 
-- Login as the user in [User Data](..\..\CustomTooling-Automation\TestData\UserData.md) file.
+- Login as the user in [User Data](..\TestData\UserData.md) file.
 
 ## TC 002 - Login as a Valid email and Invalid Password
 
 ### Priority TC 002 : Medium
 
-- Use the valid email from [User Data](..\..\CustomTooling-Automation\TestData\UserData.md) file but enter an incorrect password like "WrongPassword123".
+- Use the valid email from [User Data](..\TestData\UserData.md) file but enter an incorrect password like "WrongPassword123".
 - Verify that the login fails and an appropriate error message is displayed.
 
 ## TC 003 - Login with Invalid email and Valid Password
 
 ### Priority TC 003 : Medium
 
-- Use an invalid email (e.g., "<invalid@email.com>") and the valid password from [User Data](..\..\CustomTooling-Automation\TestData\UserData.md) file.
+- Use an invalid email (e.g., "<invalid@email.com>") and the valid password from [User Data](..\TestData\UserData.md) file.
 - Verify that the login fails and an appropriate error message is displayed. 
