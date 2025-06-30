@@ -25,3 +25,10 @@
 
 - Use the valid email from [User Data](CustomTooling-Automation\TestData\UserData.md) file but enter an incorrect password like "WrongPassword123".
 - Verify that the login fails and an appropriate error message is displayed.
+
+## TC 003 - Login with Invalid email and Valid Password
+
+### Priority : Medium
+
+- Use an invalid email (e.g., "invalid@email.com") and the valid password from [User Data](CustomTooling-Automation\TestData\UserData.md) file.
+- Verify that the login fails and an appropriate error message is displayed. 
