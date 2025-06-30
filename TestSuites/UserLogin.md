@@ -31,7 +31,7 @@
 ### Priority TC 003 : Medium
 
 - Use an invalid email (e.g., "<invalid@email.com>") and the valid password from [User Data](..\TestData\UserData.md) file.
-- Verify that the login fails and an appropriate error message is displayed. 
+- Verify that the login fails and an appropriate error message is displayed.
 
 ## TC 004 - Verify Email Format Validation
 
