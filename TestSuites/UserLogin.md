@@ -32,3 +32,14 @@
 
 - Use an invalid email (e.g., "<invalid@email.com>") and the valid password from [User Data](..\TestData\UserData.md) file.
 - Verify that the login fails and an appropriate error message is displayed. 
+
+## TC 004 - Verify Email Format Validation
+
+### Priority TC 004 : Medium
+
+- Enter an email with incorrect format (e.g., "userexample.com" - missing '@' symbol)
+- Enter any password (e.g., "password123")
+- Click on the login button
+- Verify the system shows an appropriate error message for incorrect email format
+- Try another invalid email format (e.g., "user@" - missing domain)
+- Verify the system correctly validates and rejects the malformed email address
