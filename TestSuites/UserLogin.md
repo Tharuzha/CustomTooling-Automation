@@ -37,12 +37,13 @@
 
 ### Priority TC 004 : Medium
 
-- Enter an email with incorrect format (e.g., "userexample.com" - missing '@' symbol)
+- Enter an email with incorrect format (e.g., "userexample.com" - missing @ symbol)
 - Enter any password (e.g., "password123")
 - Click on the login button
-- Verify the system shows an appropriate error message for incorrect email format
-- Try another invalid email format (e.g., "user@" - missing domain)
-- Verify the system correctly validates and rejects the malformed email address
+- Verify the system shows an HTML5 browser validation error message for incorrect email format (e.g., "Please include an '@' in the email address. 'userexample.com' is missing an '@'.")
+- Verify that form submission is prevented until valid email format is entered
+- Test with another invalid format (e.g., "user@" - missing domain) and verify appropriate validation message appears
+- Ensure the validation message appears immediately after clicking login and prevents form submission
 
 ## TC 005 - Verify Empty Email Field Validation
 
