@@ -12,6 +12,16 @@
 - Test case execution report format should be "TestResults-\<\<Date\>\>-\<\<Sequence\>\>.html". Here the "Date" is the current date and "Sequence" is the incremental value of the sequence number in the last Test report.
 - Add a pie chart in the test report to show the execution summary.
 - Make the Test report should be user friendly and nicely done.
+- Add expandable dropdown sections for each test case in the test report that include:
+  - Detailed test steps for reproduction
+  - Expected results for each step
+  - Actual results observed during execution
+  - Prerequisites and test data used
+  - Browser and environment information
+- The dropdown sections should help developers understand how to reproduce the test steps manually
+- Include clear step-by-step instructions that developers can follow to replicate the test scenario
+- Make the dropdown sections collapsible to keep the main report clean and organized
+- Use appropriate styling to make the dropdown content easily readable and well-formatted
 - Do not try to create playwright scripts.
 - Do not capture any snapshots
 
