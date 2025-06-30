@@ -43,3 +43,13 @@
 - Verify the system shows an appropriate error message for incorrect email format
 - Try another invalid email format (e.g., "user@" - missing domain)
 - Verify the system correctly validates and rejects the malformed email address
+
+## TC 005 - Verify Empty Email Field Validation
+
+### Priority TC 005 : Medium
+
+- Leave the email field empty (clear any existing text)
+- Enter any password (e.g., "password123")
+- Click on the login button
+- Verify the system shows an appropriate error message indicating that email is required
+- Verify the login is prevented
