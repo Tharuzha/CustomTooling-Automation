@@ -21,7 +21,7 @@
 
 ## TC 002 - Login as a Valid email and Invalid Password
 
-### Priority : High
+### Priority : Medium
 
 - Use the valid email from [User Data](CustomTooling-Automation\TestData\UserData.md) file but enter an incorrect password like "WrongPassword123".
 - Verify that the login fails and an appropriate error message is displayed.
