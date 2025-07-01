@@ -9,7 +9,7 @@
 
 - Navigate to <https://cte-dev.iclick.nz/suppliers>
 
-## Ater Each Test case
+## After Each Test case
 
 - Close the web browser.
 
