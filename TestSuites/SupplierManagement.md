@@ -271,7 +271,7 @@
   - Clear the search box and verify all suppliers return to the list
   - Type "Universal" and verify "Universal Supply Chain" appears
   - Type "supply" and verify suppliers with "supply" in the name appear
-  - Type a non-existent supplier name and verify "no results" or empty list is shown
+  - Type a non-existent supplier name and verify "no results" or empty list is shown (e.g., "Johan")
 - Verify search behavior:
   - Verify search is case-insensitive (typing "UN", "un", "Un" should work)
   - Verify partial matches work correctly
@@ -285,3 +285,72 @@
   - Verify search works properly with pagination (if applicable)
   - Verify search results maintain proper formatting and layout
   - Verify action menus work correctly on search results
+
+## TC 014 - Verify Filter Suppliers by Status (Active/Inactive)
+
+### Priority TC 014 : High
+
+- Navigate to the suppliers page
+- Verify the "Filters" button is visible on the left side of the page
+- Click on the "Filters" button
+- Verify the filter panel opens/expands
+- Verify the "Active" filter dropdown is available
+- Verify the filter dropdown shows "All" as the default selection
+- Test filter dropdown options:
+  - Click on the "Active" filter dropdown
+  - Verify the dropdown shows the following options:
+    - All
+    - Yes  
+    - No
+- Test "All" filter option:
+  - Select "All" from the dropdown (if not already selected)
+  - Verify all suppliers are displayed in the list
+  - Verify both Active and Inactive suppliers are shown
+  - Verify the supplier count includes all suppliers
+- Test "Yes" filter option (Active Suppliers):
+  - Select "Yes" from the Active filter dropdown
+  - Verify the filter is applied automatically
+  - Verify only Active suppliers are displayed in the list
+  - Verify all displayed suppliers show "Active" status in the STATUS column
+  - Verify Inactive suppliers are filtered out and not visible
+  - Verify the supplier count reflects only Active suppliers
+  - Verify search results update to show filtered Active suppliers only
+- Test "No" filter option (Inactive Suppliers):
+  - Select "No" from the Active filter dropdown
+  - Verify the filter is applied automatically
+  - Verify only Inactive suppliers are displayed in the list
+  - Verify all displayed suppliers show "Inactive" status in the STATUS column
+  - Verify Active suppliers are filtered out and not visible
+  - Verify the supplier count reflects only Inactive suppliers
+  - Verify search results update to show filtered Inactive suppliers only
+- Test filter functionality with existing suppliers:
+  - Verify filter works correctly with the current supplier data
+  - Verify suppliers like "Universal Supply Chain", "ama edirisighe", etc. are filtered properly based on their status
+  - Verify the filter maintains the table structure and columns
+- Test filter reset functionality:
+  - After filtering by "Yes" or "No", select "All" again
+  - Verify all suppliers (both Active and Inactive) are displayed again
+  - Verify the filter reset works correctly
+  - Verify the supplier list returns to the original unfiltered state
+- Verify filter interaction with other features:
+  - Test filter with search functionality:
+    - Apply "Yes" filter for Active suppliers
+    - Use the search box to search for a specific supplier
+    - Verify search results respect the Active filter
+    - Verify only Active suppliers matching the search term are shown
+  - Test filter with pagination (if applicable):
+    - Apply filter and verify pagination updates accordingly
+    - Verify page navigation works correctly with filtered results
+  - Test filter with supplier actions:
+    - Apply filter and verify action menus (three dots) work on filtered results
+    - Verify all table functionalities work properly with filtered data
+- Verify filter UI behavior:
+  - Verify the filter dropdown shows the selected option correctly
+  - Verify the filter state is maintained during page interactions
+  - Verify filter selection is clearly indicated in the UI
+  - Verify filter controls are accessible and user-friendly
+- Test edge cases:
+  - If no Active suppliers exist, verify "Yes" filter shows empty list or appropriate message
+  - If no Inactive suppliers exist, verify "No" filter shows empty list or appropriate message
+  - Verify filter works correctly when suppliers change status
+  - Verify filter functionality doesn't cause errors or performance issues
