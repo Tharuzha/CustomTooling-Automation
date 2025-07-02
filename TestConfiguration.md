@@ -10,7 +10,6 @@
 - Once a test case execution is done, go to the next test case.
 - once all the test cases are run. Generate a Test report in .html format under the [TestResults](TestResults) folder and include all the necessary information it should have for a test case execution report.
 - Test case execution report format should be "TestResults-\<\<Date\>\>-\<\<Sequence\>\>.html". Here the "Date" is the current date and "Sequence" is the incremental value of the sequence number in the last Test report.
-- Add a pie chart in the test report to show the execution summary.
 - Make the Test report should be user friendly and nicely done.
 - Add expandable dropdown sections for each test case in the test report that include:
   - Detailed test steps for reproduction

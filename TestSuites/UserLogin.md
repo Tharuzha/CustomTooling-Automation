@@ -54,3 +54,16 @@
 - Click on the login button
 - Verify the system shows an appropriate error message indicating that email is required
 - Verify the login is prevented
+
+## TC 006 - Verify Unauthorized Access Redirect
+
+### Priority TC 006 : High
+
+- Ensure no user is currently logged in (clear browser session/cookies if needed)
+- Directly navigate to the dashboard URL: "https://cte-dev.iclick.nz/dashboard"
+- Verify that the user is automatically redirected back to the login page
+- Verify that the URL changes to "https://cte-dev.iclick.nz/login" or similar login URL
+- Verify that the login form is displayed instead of the dashboard content
+- Ensure unauthorized users cannot access protected dashboard content directly
+
+
