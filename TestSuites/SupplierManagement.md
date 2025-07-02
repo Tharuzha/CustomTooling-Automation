@@ -17,7 +17,7 @@
 
 ## TC 001 - Verify Suppliers Page Interface
 
-### Priority TC 001 : High
+### Priority TC 007 : High
 
 - Navigate to the suppliers page
 - Verify the page title displays "Suppliers"
@@ -35,7 +35,7 @@
 - Verify that each supplier row shows:
   - Supplier name in the first column
   - Physical address details (when available)
-  - Mailing address details (when available) 
+  - Mailing address details (when available)
   - Status indicator showing "Active" in green
   - Actions dropdown menu (three dots) in the last column
 - Verify that the interface is responsive and properly formatted
@@ -43,7 +43,7 @@
 
 ## TC 002 - Verify Add Supplier Form Fields
 
-### Priority TC 002 : High
+### Priority TC 008 : High
 
 - Navigate to the suppliers page
 - Click on the "+ Supplier" button
@@ -85,3 +85,48 @@
   - "Save" button (filled blue)
 - Verify all form fields are properly labeled and accessible
 - Verify the form layout is responsive and well-organized
+
+## TC 009 - Add New Supplier with Valid Data
+
+### Priority TC 009 : High
+
+- Navigate to the suppliers page
+- Click on the "+ Supplier" button
+- Verify the "Add Supplier" page is loaded
+- Fill in BASIC INFORMATION section:
+  - Select "Active" from Status dropdown (if not already selected)
+  - Enter "Test Automation Supplier Ltd" in Supplier Name field
+- Fill in CONTACT DETAILS section:
+  - Physical Address:
+    - Enter "123 Business Park Avenue" in Address Line 1
+    - Enter "Suite 200" in Address Line 2
+    - Enter "Industrial Zone" in Address Line 3
+  - Mailing Address:
+    - Enter "PO Box 456" in Address Line 1
+    - Enter "Business District" in Address Line 2
+    - Enter "Commercial Area" in Address Line 3
+  - Enter "+1-555-123-4567" in Phone field
+  - Enter "+1-555-123-4568" in Fax field
+  - Enter "contact@testautomationsupplier.com" in Email field
+  - MAIN CONTACT section:
+    - Enter "John Anderson" in Name field
+    - Enter "+1-555-987-6543" in Phone field
+    - Enter "john.anderson@testautomationsupplier.com" in Email field
+- Fill in PAYMENT DETAILS section:
+  - Select "In a Given No of Days" from Payment is Due dropdown
+  - Enter "45" in Discount Days field
+  - Enter "60" in Balance Due Days field
+  - Check the "Use 31 for EOM" checkbox
+- Fill in Note section:
+  - Enter "Test supplier created for automation testing purposes. Specializes in office supplies and equipment." in Note text area
+- Click the "Save" button
+- Verify successful supplier creation:
+  - Verify redirection to suppliers list page
+  - Verify success message is displayed (if applicable)
+  - Verify the new supplier "Test Automation Supplier Ltd" appears in the suppliers table
+  - Verify the new supplier shows "Active" status
+  - Verify the supplier data is correctly displayed in the table columns
+- Verify supplier details:
+  - Click on the newly created supplier's action menu (three dots)
+  - Verify options are available for viewing/editing the supplier
+  - Verify all entered data is saved correctly in the system
