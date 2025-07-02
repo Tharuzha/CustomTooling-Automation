@@ -441,3 +441,77 @@
   - Click "Cancel" button (if available)
   - Verify redirection to suppliers list without saving changes
   - Verify the original data remains unchanged
+
+## TC 016 - Delete Supplier Functionality
+
+### Priority TC 016 : High
+
+- Navigate to the suppliers page
+- Click on the "+ Supplier" button to create a new supplier for deletion testing
+- Verify the "Add Supplier" page is loaded
+- Fill in only the mandatory field:
+  - Enter "Test Delete Supplier" in Supplier Name field (mandatory field marked with *)
+  - Leave all other fields empty (since only supplier name is mandatory)
+- Click the "Save" button
+- Verify successful supplier creation:
+  - Verify redirection to suppliers list page
+  - Verify success message is displayed (if applicable)
+  - Verify the new supplier "Test Delete Supplier" appears in the suppliers table
+  - Verify the new supplier shows "Active" status by default
+- Locate the newly created supplier for deletion:
+  - Find "Test Delete Supplier" in the suppliers table
+  - Verify the supplier is visible in the SUPPLIER column
+  - Verify the supplier has an action menu (three dots) in the ACTIONS column
+- Access delete functionality:
+  - Click on the "Test Delete Supplier" action menu (three dots)
+  - Verify the action dropdown menu opens with available options
+  - Verify "Delete" option is available in the dropdown menu
+  - Click "Delete" option from the dropdown menu
+- Verify delete confirmation popup:
+  - Verify a popup/modal window appears for delete confirmation
+  - Verify the popup contains appropriate delete confirmation message
+  - Verify the popup shows the supplier name being deleted
+  - Verify the popup has confirmation buttons (e.g., "Cancel" and "Delete" or "Yes" and "No")
+  - Verify the popup overlay prevents interaction with the background
+- Test delete cancellation:
+  - Click "Cancel" or "No" button in the confirmation popup
+  - Verify the popup closes without deleting the supplier
+  - Verify the supplier "Test Delete Supplier" is still visible in the suppliers table
+  - Verify no changes occurred to the supplier list
+- Test delete confirmation:
+  - Click on the "Test Delete Supplier" action menu (three dots) again
+  - Click "Delete" option from the dropdown menu
+  - Verify the delete confirmation popup appears again
+  - Click "Delete" or "Yes" button to confirm deletion
+  - Verify the popup closes after confirmation
+- Verify successful deletion:
+  - Verify the supplier "Test Delete Supplier" is removed from the suppliers table
+  - Verify the supplier no longer appears in the SUPPLIER column
+  - Verify the total supplier count is updated (decreased by 1)
+  - Verify success message is displayed (if applicable)
+  - Verify the suppliers list refreshes properly
+- Verify deletion persistence:
+  - Refresh the suppliers page (F5 or reload)
+  - Verify the deleted supplier "Test Delete Supplier" does not reappear
+  - Verify the deletion is permanent and persisted in the database
+  - Verify the supplier count remains updated after page refresh
+- Test delete functionality with different suppliers:
+  - Create another test supplier for deletion testing
+  - Enter "Test Delete Supplier 2" in Supplier Name field
+  - Save the supplier and verify it appears in the table
+  - Repeat the delete process to ensure consistency
+  - Verify the delete functionality works across different supplier records
+- Verify delete permissions:
+  - Verify the admin can successfully access delete functionality
+  - Verify the delete option is available in the action menu
+  - Verify the delete confirmation process works without errors
+- Test edge cases:
+  - Verify delete functionality works with suppliers that have minimal data (only name)
+  - Verify delete functionality works with suppliers that have complete data
+  - Verify the system handles delete operations without causing errors
+  - Verify other suppliers in the list are not affected by deletion
+- Verify table updates after deletion:
+  - After deletion, verify the suppliers table updates immediately
+  - Verify pagination adjusts correctly if needed
+  - Verify search and filtering still work correctly after deletion
+  - Verify the remaining suppliers maintain proper formatting and functionality
