@@ -505,13 +505,39 @@
   - Verify the admin can successfully access delete functionality
   - Verify the delete option is available in the action menu
   - Verify the delete confirmation process works without errors
-- Test edge cases:
-  - Verify delete functionality works with suppliers that have minimal data (only name)
-  - Verify delete functionality works with suppliers that have complete data
-  - Verify the system handles delete operations without causing errors
-  - Verify other suppliers in the list are not affected by deletion
-- Verify table updates after deletion:
-  - After deletion, verify the suppliers table updates immediately
-  - Verify pagination adjusts correctly if needed
-  - Verify search and filtering still work correctly after deletion
-  - Verify the remaining suppliers maintain proper formatting and functionality
+
+## TC 017 - Restrict Delete When Invoices Exist
+
+### Priority TC 017 : High
+
+- Navigate to the suppliers page
+- Verify the suppliers list is loaded and displayed
+- Locate a supplier that has invoices linked (e.g., "Apex Manufacturing")
+- Verify the supplier is visible in the suppliers table
+- Access delete functionality:
+  - Click on the supplier's action menu (three dots) in the ACTIONS column
+  - Verify the action dropdown menu opens with available options
+  - Verify "Delete" option is available in the dropdown menu
+  - Click "Delete" option from the dropdown menu
+- Verify delete restriction:
+  - Verify a popup/modal window appears indicating deletion is not allowed
+  - Verify the popup contains appropriate error message about invoices
+  - Verify the message indicates the supplier cannot be deleted due to linked invoices
+  - Verify the popup has an "OK" or "Close" button to dismiss the message
+- Test error message dismissal:
+  - Click "OK" or "Close" button in the error popup
+  - Verify the popup closes and returns to the suppliers list
+  - Verify the supplier remains in the suppliers table (no deletion occurred)
+  - Verify the total supplier count remains unchanged
+- Verify supplier still exists:
+  - Verify the supplier "Apex Manufacturing" is still visible in the SUPPLIER column
+  - Verify the supplier status and other details remain unchanged
+  - Verify the action menu is still available for the supplier
+- Test with different suppliers having invoices:
+  - Try the same delete process with other suppliers that have invoices
+  - Verify consistent behavior - deletion should be blocked for all suppliers with invoices
+  - Verify appropriate error messages are displayed for each attempt
+- Verify system integrity:
+  - Verify no data corruption occurs when deletion is blocked
+  - Verify the suppliers table remains functional after blocked deletion attempts
+  - Verify other supplier operations (view, edit) still work normally
