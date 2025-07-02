@@ -15,7 +15,7 @@
 
 ## Test Cases
 
-## TC 001 - Verify Suppliers Page Interface
+## TC 007 - Verify Suppliers Page Interface
 
 ### Priority TC 007 : High
 
@@ -41,7 +41,7 @@
 - Verify that the interface is responsive and properly formatted
 - Verify that all existing suppliers are listed (e.g., "ama edirisighe", "john smith", "test 222", "Innova Pvt", "Universal Supply Chain")
 
-## TC 002 - Verify Add Supplier Form Fields
+## TC 008 - Verify Add Supplier Form Fields
 
 ### Priority TC 008 : High
 
@@ -107,11 +107,11 @@
     - Enter "Commercial Area" in Address Line 3
   - Enter "+1-555-123-4567" in Phone field
   - Enter "+1-555-123-4568" in Fax field
-  - Enter "contact@testautomationsupplier.com" in Email field
+  - Enter "<contact@testautomationsupplier.com>" in Email field
   - MAIN CONTACT section:
     - Enter "John Anderson" in Name field
     - Enter "+1-555-987-6543" in Phone field
-    - Enter "john.anderson@testautomationsupplier.com" in Email field
+    - Enter "<john.anderson@testautomationsupplier.com>" in Email field
 - Fill in PAYMENT DETAILS section:
   - Select "In a Given No of Days" from Payment is Due dropdown
   - Enter "45" in Discount Days field
@@ -130,3 +130,75 @@
   - Click on the newly created supplier's action menu (three dots)
   - Verify options are available for viewing/editing the supplier
   - Verify all entered data is saved correctly in the system
+
+## TC 010 - Set Supplier Status (Active/Inactive)
+
+### Priority TC 010 : Medium
+
+- Navigate to the suppliers page
+- Locate an existing supplier in the suppliers table
+- Click on the supplier's action menu (three dots)
+- Select "Edit" or equivalent option from the dropdown
+- Verify the supplier edit page/form is loaded
+- Verify the Status dropdown field is available with Active/Inactive options
+- Select "Inactive" status if currently "Active" (or "Active" if currently "Inactive")
+- Click the "Save" button
+- Verify successful status update:
+  - Verify redirection to suppliers list page
+  - Verify success message is displayed (if applicable)
+  - Verify the supplier's status is updated in the suppliers table
+  - Verify the status change is correctly reflected (Active/Inactive)
+- Verify status persistence:
+  - Click on the same supplier's action menu again
+  - Select "Edit" or view details
+  - Verify the status field shows the updated status value
+  - Verify the status information is correctly saved in the system
+
+## TC 011 - Verify Payment Details Dropdown Options
+
+### Priority TC 011 : High
+
+- Navigate to the suppliers page
+- Click on the "+ Supplier" button
+- Verify the "Add Supplier" page is loaded
+- Fill in mandatory BASIC INFORMATION section:
+  - Enter "Payment Test Supplier" in Supplier Name field (mandatory field)
+- Navigate to PAYMENT DETAILS section
+- Verify "Payment is Due" dropdown functionality:
+  - Click on the "Payment is Due" dropdown
+  - Verify all dropdown options are available:
+    - C.O.D
+    - Prepaid
+    - In a Given No of Days
+    - On a Day of the Month
+    - No Of Days After EOM
+    - Day of Month After EOM
+- Test each dropdown option selection:
+  - Select "C.O.D" option
+  - Verify "C.O.D" is displayed in the dropdown field
+  - Select "Prepaid" option
+  - Verify "Prepaid" is displayed in the dropdown field
+  - Select "In a Given No of Days" option
+  - Verify "In a Given No of Days" is displayed in the dropdown field
+  - Select "On a Day of the Month" option
+  - Verify "On a Day of the Month" is displayed in the dropdown field
+  - Select "No Of Days After EOM" option
+  - Verify "No Of Days After EOM" is displayed in the dropdown field
+  - Select "Day of Month After EOM" option
+  - Verify "Day of Month After EOM" is displayed in the dropdown field
+- Test supplier creation with dropdown value:
+  - Select "Prepaid" from Payment is Due dropdown
+  - Enter "15" in Discount Days field
+  - Enter "30" in Balance Due Days field
+  - Click the "Save" button
+- Verify successful supplier creation:
+  - Verify redirection to suppliers list page
+  - Verify success message is displayed (if applicable)
+  - Verify the new supplier "Payment Test Supplier" appears in the suppliers table
+- Verify payment details are saved correctly:
+  - Click on the newly created supplier's action menu (three dots)
+  - Select "Edit" or view details
+  - Verify the Payment is Due dropdown shows "Prepaid" as selected
+  - Verify Discount Days field shows "15"
+  - Verify Balance Due Days field shows "30"
+  - Verify all payment details are correctly saved in the system
