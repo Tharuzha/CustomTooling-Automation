@@ -202,3 +202,86 @@
   - Verify Discount Days field shows "15"
   - Verify Balance Due Days field shows "30"
   - Verify all payment details are correctly saved in the system
+
+## TC 012 - View All Suppliers with Pagination
+
+### Priority TC 012 : High
+
+- Navigate to the suppliers page
+- Verify the page title displays "Suppliers"
+- Verify the suppliers list is loaded and displayed
+- Verify supplier list with relevant information is displayed:
+  - Verify SUPPLIER column shows supplier names
+  - Verify PHYSICAL ADDRESS column shows address details
+  - Verify MAILING ADDRESS column shows mailing details
+  - Verify STATUS column shows Active/Inactive status
+  - Verify ACTIONS column shows action menu (three dots)
+- Verify all existing suppliers are visible in the list
+- Test pagination functionality (if applicable):
+  - Check if pagination controls are present at the bottom of the table
+  - Verify current page number is highlighted/selected
+  - If multiple pages exist:
+    - Click on "Next" button or page number 2
+    - Verify navigation to next page works correctly
+    - Verify different suppliers are displayed on the new page
+    - Verify page number is updated accordingly
+    - Click on "Previous" button or page number 1
+    - Verify navigation back to previous page works correctly
+    - Verify original suppliers are displayed again
+- Verify supplier count and total records:
+  - Check if total supplier count is displayed
+  - Verify the count matches the actual number of suppliers
+  - Verify pagination shows correct "showing X of Y records" information
+- Test view all functionality:
+  - Verify admin can access and view complete supplier list
+  - Verify no restrictions on viewing supplier information
+  - Verify all supplier data is accessible and readable
+  - Verify supplier list loads without errors or timeouts
+- Verify list responsiveness:
+  - Verify the supplier list is properly formatted
+  - Verify all columns are aligned and readable
+  - Verify the interface is responsive on different screen sizes
+
+## TC 013 - Search Supplier Functionality
+
+### Priority TC 013 : High
+
+- Navigate to the suppliers page
+- Verify the search box is visible with "Search..." placeholder text
+- Verify the search box is clickable and functional
+- Test basic search functionality:
+  - Click on the search box
+  - Type "un" in the search field
+  - Verify the search is triggered (either automatically or after pressing Enter)
+  - Verify matching suppliers appear in the results
+  - Verify suppliers containing "un" are displayed (e.g., "Universal Supply Chain")
+  - Verify non-matching suppliers are filtered out from the list
+- Verify search results display:
+  - Verify search results show relevant supplier information
+  - Verify SUPPLIER column displays matching supplier names
+  - Verify PHYSICAL ADDRESS column shows address details for matching suppliers
+  - Verify MAILING ADDRESS column shows mailing details for matching suppliers
+  - Verify STATUS column shows Active/Inactive status for matching suppliers
+  - Verify ACTIONS column shows action menu (three dots) for matching suppliers
+- Test search result count:
+  - Verify "Showing X results" or similar count is displayed
+  - Verify the count matches the actual number of search results shown
+  - Verify the search result count updates correctly
+- Test search functionality with different scenarios:
+  - Clear the search box and verify all suppliers return to the list
+  - Type "Universal" and verify "Universal Supply Chain" appears
+  - Type "supply" and verify suppliers with "supply" in the name appear
+  - Type a non-existent supplier name and verify "no results" or empty list is shown
+- Verify search behavior:
+  - Verify search is case-insensitive (typing "UN", "un", "Un" should work)
+  - Verify partial matches work correctly
+  - Verify search results update in real-time or after input completion
+  - Verify search functionality works without page refresh
+- Test search with special characters and edge cases:
+  - Type special characters and verify no errors occur
+  - Type numbers and verify appropriate results appear
+  - Test empty search and verify all suppliers are displayed
+- Verify search interaction with other features:
+  - Verify search works properly with pagination (if applicable)
+  - Verify search results maintain proper formatting and layout
+  - Verify action menus work correctly on search results
