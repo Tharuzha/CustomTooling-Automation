@@ -341,9 +341,6 @@
   - Test filter with pagination (if applicable):
     - Apply filter and verify pagination updates accordingly
     - Verify page navigation works correctly with filtered results
-  - Test filter with supplier actions:
-    - Apply filter and verify action menus (three dots) work on filtered results
-    - Verify all table functionalities work properly with filtered data
 - Verify filter UI behavior:
   - Verify the filter dropdown shows the selected option correctly
   - Verify the filter state is maintained during page interactions
@@ -354,3 +351,93 @@
   - If no Inactive suppliers exist, verify "No" filter shows empty list or appropriate message
   - Verify filter works correctly when suppliers change status
   - Verify filter functionality doesn't cause errors or performance issues
+
+## TC 015 - Edit Existing Supplier Details
+
+### Priority TC 015 : High
+
+- Navigate to the suppliers page
+- Verify the suppliers list is loaded and displayed
+- Locate an existing supplier in the suppliers table (e.g., "Universal Supply Chain", "ama edirisighe", etc.)
+- Click on the supplier's action menu (three dots) in the ACTIONS column
+- Verify the action dropdown menu opens with available options
+- Click "Edit" option from the dropdown menu
+- Verify the "Edit Supplier" page is loaded
+- Verify the page title displays "Edit Supplier" or similar
+- Verify the breadcrumb navigation shows "Dashboard > Suppliers > Edit Supplier"
+- Verify all existing supplier data is pre-populated in the form fields
+- Verify the form sections are available:
+  - BASIC INFORMATION section
+  - CONTACT DETAILS section  
+  - PAYMENT DETAILS section
+  - Note section
+- Test editing BASIC INFORMATION section:
+  - Verify the current Status is displayed (Active/Inactive)
+  - Verify the current Supplier Name is displayed
+  - Update the Supplier Name (e.g., add "- Updated" to the name)
+  - Verify the changes can be made in the field
+- Test editing CONTACT DETAILS section:
+  - Update Physical Address fields:
+    - Modify Address Line 1 (e.g., change street number or add "Suite")
+    - Update Address Line 2 if needed
+    - Update Address Line 3 if needed
+  - Update Mailing Address fields:
+    - Modify mailing address details
+    - Verify changes can be made
+  - Update Phone field (e.g., change last few digits)
+  - Update Fax field if applicable
+  - Update Email field (e.g., change domain or add suffix)
+  - Update MAIN CONTACT section:
+    - Change contact person Name
+    - Update contact Phone number
+    - Update contact Email address
+- Test editing PAYMENT DETAILS section:
+  - Change "Payment is Due" dropdown selection
+  - Update "Discount Days" field value
+  - Update "Balance Due Days" field value
+  - Toggle "Use 31 for EOM" checkbox if applicable
+- Test editing Note section:
+  - Update the note text area with additional information
+  - Verify the text can be modified and saved
+- Verify form validation:
+  - Ensure required fields (marked with *) cannot be left empty
+  - Verify proper field validation is in place
+  - Test with invalid data if applicable (e.g., invalid email format)
+- Save the changes:
+  - Click the "Save" button
+  - Verify the save operation is initiated
+  - Verify redirection to suppliers list page
+  - Verify success message is displayed (if applicable)
+- Verify changes are reflected:
+  - Locate the updated supplier in the suppliers table
+  - Verify the updated supplier name is displayed in the SUPPLIER column
+  - Verify any address changes are reflected in PHYSICAL ADDRESS and MAILING ADDRESS columns
+  - Verify the STATUS column shows the correct status
+  - Verify the supplier data is correctly updated in the table
+- Verify data persistence:
+  - Click on the updated supplier's action menu (three dots) again
+  - Select "Edit" option to view the supplier details
+  - Verify all the changes made previously are saved and displayed correctly:
+    - Updated Supplier Name
+    - Updated contact details (addresses, phone, email)
+    - Updated payment details
+    - Updated notes
+  - Verify no data loss occurred during the edit process
+- Test edit permissions:
+  - Verify the admin can successfully edit supplier information
+  - Verify all form fields are editable and accessible
+  - Verify the edit functionality works without errors
+- Test edit with different suppliers:
+  - Select another supplier from the list
+  - Repeat the edit process to ensure consistency
+  - Verify the edit functionality works across different supplier records
+- Verify table updates:
+  - After editing, verify the suppliers table reflects the changes immediately
+  - Verify sorting and filtering still work correctly with updated data
+  - Verify pagination maintains the updated information
+- Test cancel functionality:
+  - Start editing a supplier
+  - Make some changes to the form
+  - Click "Cancel" button (if available)
+  - Verify redirection to suppliers list without saving changes
+  - Verify the original data remains unchanged
