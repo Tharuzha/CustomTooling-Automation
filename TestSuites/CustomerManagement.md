@@ -87,12 +87,17 @@
 
 ### Priority TC 020 : High
 
+**MUST FOLLOW EXACT TEST STEPS:**
+
+- Execute each test case using the EXACT data specified in the test steps
+- DO NOT use generic or assumed data
+
 - Navigate to the customers page
 - Click on the "+ Customer" button
 - Verify the "Add Customer" page is loaded
 - Fill in BASIC INFORMATION section:
   - Select "Active" from Status dropdown (if not already selected)
-  - Enter "Test Automation Customer Ltd" in Customer field
+  - Enter "Test Automation Tharusha" in Customer field
 - Fill in CONTACT DETAILS section:
   - Physical Address:
     - Enter "456 Business Center Road" in Address Line 1
@@ -197,10 +202,15 @@
 
 ### Priority TC 024 : High
 
+**MUST FOLLOW EXACT TEST STEPS:**
+
+- Execute each test case using the EXACT data specified in the test steps
+- DO NOT use generic or assumed data
+
 - Navigate to the customers page
 - Verify the customers table is displayed with existing customers
 - Select a customer to edit:
-  - Locate an existing customer in the table (e.g., "Test Automation Customer Ltd")
+  - Locate an existing customer in the table (e.g., "Test Automation Tharusha")
   - Click on the actions menu (three dots) for the selected customer
   - Click on "Edit" or equivalent action from the dropdown menu
 - Verify the "Edit Customer" page is loaded:
