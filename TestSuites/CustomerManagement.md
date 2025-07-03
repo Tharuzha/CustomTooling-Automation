@@ -126,45 +126,20 @@
   - Verify the new customer shows "Active" status
   - Verify the customer data is correctly displayed in the table columns
 
-## TC 020: Add New Customer with Valid Data
+## TC 021 - Verify Mandatory Fields Validation
 
-**Test Case ID:** TC 020  
-**Test Case Name:** Add New Customer with Valid Data  
-**Priority:** High  
-**Precondition:** User must be logged in with valid credentials  
+### Priority TC 021 : High
 
-**Test Steps:**
-
-1. Navigate to the Customers page
-2. Click the "+Customer" button
-3. Fill in the Customer name: "Test Automation Customer Ltd"
-4. Select Category: "Power"
-5. Fill in Physical Address: "456 Business Center Road"
-6. Fill in Phone: "+64 9 123 4567"
-7. Fill in Email: "<info@testautomation.co.nz>"
-8. Fill in Main Contact Name: "John Smith"
-9. Fill in Main Contact Phone: "+64 9 123 4568"
-10. Fill in Main Contact Email: "<john.smith@testautomation.co.nz>"
-11. Tick the "Show Deliveries on Invoice" checkbox
-12. Fill in Note: "Test customer created for automation testing purposes."
-13. Click "Save" button
-14. Verify the new customer appears in the customers list with correct details
-
-**Expected Result:** Customer is successfully created and appears in the customers list with all entered data correctly displayed and "Active" status.
-
-**Test Data:**
-
-- Customer: Test Automation Customer Ltd
-- Category: Power
-- Physical Address: 456 Business Center Road
-- Phone: +64 9 123 4567
-- Email: <info@testautomation.co.nz>
-- Main Contact: John Smith
-- Main Contact Phone: +64 9 123 4568
-- Main Contact Email: <john.smith@testautomation.co.nz>
-- Show Deliveries on Invoice: Checked
-- Note: Test customer created for automation testing purposes.
-
-**Test Results:** ✅ PASSED - Customer successfully created and appears in the list with correct data and Active status.
-
----
+- Navigate to the customers page
+- Click on the "+ Customer" button
+- Verify the "Add Customer" page is loaded
+- Attempt to create customer without filling mandatory fields:
+  - Leave the Customer field empty (required field marked with *)
+  - Leave other mandatory fields empty if any
+- Click the "Save" button
+- Verify mandatory field validation:
+  - Verify error message appears for the Customer field
+  - Verify the form does not submit
+  - Verify customer is not created
+  - Verify user remains on the Add Customer page
+  
