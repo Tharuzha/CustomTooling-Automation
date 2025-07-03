@@ -142,4 +142,27 @@
   - Verify the form does not submit
   - Verify customer is not created
   - Verify user remains on the Add Customer page
-  
+
+## TC 022 - Verify Complete Form Validation with All Fields Empty
+
+### Priority TC 022 : High
+
+- Navigate to the customers page
+- Click on the "+ Customer" button
+- Verify the "Add Customer" page is loaded
+- Attempt to create customer with all fields empty:
+  - Leave ALL form fields empty (including Customer field marked with *)
+  - Do not fill any field in BASIC INFORMATION section
+  - Do not fill any field in CONTACT DETAILS section
+  - Do not fill any field in ADDITIONAL DETAILS section
+  - Do not fill any field in PAYMENT DETAILS section
+  - Do not fill any field in Note section
+- Click the "Save" button
+- Verify complete form validation:
+  - Verify error message appears for all mandatory fields
+  - Verify the form does not submit
+  - Verify customer is not created
+  - Verify user remains on the Add Customer page
+  - Verify no partial customer record is created in the system
+
+
