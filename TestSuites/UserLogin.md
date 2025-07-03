@@ -7,7 +7,7 @@
 
 - Navigate to <https://cte-dev.iclick.nz/>
 
-## Ater Each Test case
+## After Each Test case
 
 - Close the web browser.
 
@@ -60,10 +60,8 @@
 ### Priority TC 006 : High
 
 - Ensure no user is currently logged in (clear browser session/cookies if needed)
-- Directly navigate to the dashboard URL: "https://cte-dev.iclick.nz/dashboard"
+- Directly navigate to the dashboard URL: <https://cte-dev.iclick.nz/dashboard>
 - Verify that the user is automatically redirected back to the login page
-- Verify that the URL changes to "https://cte-dev.iclick.nz/login" or similar login URL
+- Verify that the URL changes to "<https://cte-dev.iclick.nz/login>" or similar login URL
 - Verify that the login form is displayed instead of the dashboard content
 - Ensure unauthorized users cannot access protected dashboard content directly
-
-
