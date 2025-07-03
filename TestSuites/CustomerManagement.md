@@ -81,5 +81,90 @@
 - Verify form action buttons:
   - "Cancel" button (outlined)
   - "Save" button (filled blue)
-- Verify all form fields are properly labeled and accessible
+- Verify all form fields are properly labeled and accessible.
 
+## TC 020 - Add New Customer with Valid Data
+
+### Priority TC 020 : High
+
+- Navigate to the customers page
+- Click on the "+ Customer" button
+- Verify the "Add Customer" page is loaded
+- Fill in BASIC INFORMATION section:
+  - Select "Active" from Status dropdown (if not already selected)
+  - Enter "Test Automation Customer Ltd" in Customer field
+- Fill in CONTACT DETAILS section:
+  - Physical Address:
+    - Enter "456 Business Center Road" in Address Line 1
+    - Enter "Floor 3, Suite 300" in Address Line 2
+    - Enter "Tech District" in Address Line 3
+  - Mailing Address:
+    - Enter "PO Box 789" in Address Line 1
+    - Enter "Commercial Hub" in Address Line 2
+    - Enter "Business Zone" in Address Line 3
+  - Enter "+1-555-456-7890" in Phone field
+  - Enter "+1-555-456-7891" in Fax field
+  - Enter "<contact@testautomationcustomer.com>" in Email field
+  - MAIN CONTACT section:
+    - Enter "Sarah Wilson" in Name field
+    - Enter "+1-555-123-9876" in Phone field
+    - Enter "<sarah.wilson@testautomationcustomer.com>" in Email field
+- Fill in ADDITIONAL DETAILS section:
+  - Select "Power" from Category dropdown
+  - Tick the "Show Deliveries on Invoice" checkbox
+- Fill in PAYMENT DETAILS section:
+  - Select "In a Given No of Days" from Payment is Due dropdown
+  - Enter "15" in Discount Days field
+  - Enter "45" in Balance Due Days field
+- Fill in Note section:
+  - Enter "Test customer created for automation testing purposes. Specializes in power equipment and solutions." in Note text area
+- Click the "Save" button
+- Verify successful customer creation:
+  - Verify redirection to customers list page
+  - Verify success message is displayed (if applicable)
+  - Verify the new customer "Test Automation Customer Ltd" appears in the customers table
+  - Verify the new customer shows "Active" status
+  - Verify the customer data is correctly displayed in the table columns
+
+## TC 020: Add New Customer with Valid Data
+
+**Test Case ID:** TC 020  
+**Test Case Name:** Add New Customer with Valid Data  
+**Priority:** High  
+**Precondition:** User must be logged in with valid credentials  
+
+**Test Steps:**
+
+1. Navigate to the Customers page
+2. Click the "+Customer" button
+3. Fill in the Customer name: "Test Automation Customer Ltd"
+4. Select Category: "Power"
+5. Fill in Physical Address: "456 Business Center Road"
+6. Fill in Phone: "+64 9 123 4567"
+7. Fill in Email: "<info@testautomation.co.nz>"
+8. Fill in Main Contact Name: "John Smith"
+9. Fill in Main Contact Phone: "+64 9 123 4568"
+10. Fill in Main Contact Email: "<john.smith@testautomation.co.nz>"
+11. Tick the "Show Deliveries on Invoice" checkbox
+12. Fill in Note: "Test customer created for automation testing purposes."
+13. Click "Save" button
+14. Verify the new customer appears in the customers list with correct details
+
+**Expected Result:** Customer is successfully created and appears in the customers list with all entered data correctly displayed and "Active" status.
+
+**Test Data:**
+
+- Customer: Test Automation Customer Ltd
+- Category: Power
+- Physical Address: 456 Business Center Road
+- Phone: +64 9 123 4567
+- Email: <info@testautomation.co.nz>
+- Main Contact: John Smith
+- Main Contact Phone: +64 9 123 4568
+- Main Contact Email: <john.smith@testautomation.co.nz>
+- Show Deliveries on Invoice: Checked
+- Note: Test customer created for automation testing purposes.
+
+**Test Results:** ✅ PASSED - Customer successfully created and appears in the list with correct data and Active status.
+
+---
