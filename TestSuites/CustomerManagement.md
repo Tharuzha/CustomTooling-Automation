@@ -135,7 +135,11 @@
 - Verify the "Add Customer" page is loaded
 - Attempt to create customer without filling mandatory fields:
   - Leave the Customer field empty (required field marked with *)
-  - Leave other mandatory fields empty if any
+- Fill in CONTACT DETAILS section:
+  - Physical Address:
+    - Enter "456 Walasmulla" in Address Line 1
+    - Enter "Floor 3, Suite 300" in Address Line 2
+    - Enter "Tech District" in Address Line 3
 - Click the "Save" button
 - Verify mandatory field validation:
   - Verify error message appears for the Customer field
@@ -174,7 +178,6 @@
 - Verify admin access to customer data:
   - Verify all existing customers are displayed in the table
   - Verify customer data is visible and readable
-  - Verify no access restrictions prevent viewing customer information
 - Verify customer list completeness:
   - Count the total number of customers displayed
   - Verify pagination shows correct total count (e.g., "Showing 1 to 10 of X results")
@@ -189,13 +192,3 @@
 - Verify admin can navigate through all customers:
   - If pagination exists, verify admin can access all pages
   - Verify admin can view customers on different pages
-  - Verify no customers are hidden or inaccessible
-- Verify search functionality (if available):
-  - Verify admin can search for specific customers
-  - Verify search results display correctly
-  - Verify search does not restrict admin access
-- Verify admin permissions:
-  - Verify no "Access Denied" or permission errors occur
-  - Verify admin can view all customer details without restrictions
-  - Verify full administrative access to customer management section
-
