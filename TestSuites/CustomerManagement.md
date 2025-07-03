@@ -255,4 +255,98 @@
   - Click on the actions menu for the updated customer
   - Click on "Edit" to view the customer details again
   - Verify all modified fields display the updated values
-  
+
+## TC 025 - Verify Customer Filter Functionality
+
+### Priority TC 025 : High
+
+- Navigate to the customers page
+- Verify the customers table is displayed with existing customers
+- Verify the "Filters" button is present on the left side
+- Click on the "Filters" button
+- Verify the filter panel opens:
+  - Verify the "Active" filter dropdown is displayed
+  - Verify the "Clear" button is available
+  - Verify the filter counter shows "1" next to the Filters button
+- Test Active filter functionality:
+  - Click on the "Active" dropdown
+  - Verify dropdown options are displayed (e.g., "Yes", "No")
+  - Select "No" from the dropdown
+  - Verify the filter is applied and customer list updates
+  - Verify only inactive customers are displayed (if any)
+  - Verify the applied filter shows "Active: No" in the filter area
+- Test Clear filter functionality:
+  - Click on the "Clear" button
+  - Verify all filters are removed
+  - Verify the customer list returns to show all customers
+  - Verify the "Active: No" filter is removed from the filter area
+- Test filter with different status:
+  - Click on the "Active" dropdown again
+  - Select "Yes" from the dropdown
+  - Verify only active customers are displayed
+  - Verify the applied filter shows "Active: Yes" in the filter area
+- Test filter persistence:
+  - Apply the "Active: No" filter
+  - Navigate away from the customers page
+  - Return to the customers page
+  - Verify the filter is still applied and showing inactive customers
+- Verify filter results accuracy:
+  - Count the number of customers displayed with filter applied
+  - Verify the count matches the pagination text (e.g., "Showing 1 to X of Y results")
+  - Verify all displayed customers match the filter criteria
+
+## TC 026 - Verify Customer Search Functionality
+
+### Priority TC 026 : High
+
+- Navigate to the customers page
+- Verify the customers table is displayed with existing customers
+- Verify the search box is available with "Search..." placeholder text
+- Test search functionality with valid customer name:
+  - Click on the search box
+  - Enter "Test Automation" in the search box
+  - Verify the search is applied automatically (or press Enter if needed)
+  - Verify the customer list updates to show matching results
+  - Verify only customers with "Test Automation" in their name are displayed
+  - Verify the search results show customers like "Test Automation Tharusha" and "Test Automation Customer Ltd - Updated"
+- Test search functionality with partial customer name:
+  - Clear the search box
+  - Enter "Mike" in the search box
+  - Verify the search is applied and customer list updates
+  - Verify only customers with "Mike" in their name are displayed (e.g., "Mike John")
+  - Verify the pagination text updates to show correct result count
+- Test search functionality with full customer name:
+  - Clear the search box
+  - Enter "THARUSHA TEST" in the search box
+  - Verify the search is applied and customer list updates
+  - Verify only the exact customer "THARUSHA TEST" is displayed
+  - Verify the result count shows "Showing 1 results" or similar
+- Test search functionality with case sensitivity:
+  - Clear the search box
+  - Enter "tharusha" (lowercase) in the search box
+  - Verify the search works regardless of case
+  - Verify customers with "Tharusha" or "THARUSHA" in their name are displayed
+- Test search functionality with no matching results:
+  - Clear the search box
+  - Enter "NonExistentCustomer" in the search box
+  - Verify the search is applied
+  - Verify no customers are displayed in the table
+  - Verify appropriate message is shown for no results (if applicable)
+  - Verify the pagination text shows "Showing 0 results" or similar
+- Test search functionality with empty search:
+  - Clear the search box completely
+  - Verify all customers are displayed again
+  - Verify the customer list returns to show all customers
+  - Verify the pagination text shows the original total count (e.g., "Showing 1 to 10 of 18 results")
+- Test search functionality with special characters:
+  - Clear the search box
+  - Enter customer name with special characters (e.g., "Test Automation Customer Ltd - Updated")
+  - Verify the search works correctly with special characters like hyphens
+  - Verify the matching customer is displayed
+- Verify search box behavior:
+  - Verify the search box placeholder text displays "Search..."
+  - Verify the search box accepts text input
+  - Verify the search box has a search icon or button
+  - Verify the search box can be cleared using backspace or clear button
+
+
