@@ -192,3 +192,57 @@
 - Verify admin can navigate through all customers:
   - If pagination exists, verify admin can access all pages
   - Verify admin can view customers on different pages
+
+## TC 024 - Verify Edit Customer Details
+
+### Priority TC 024 : High
+
+- Navigate to the customers page
+- Verify the customers table is displayed with existing customers
+- Select a customer to edit:
+  - Locate an existing customer in the table (e.g., "Test Automation Customer Ltd")
+  - Click on the actions menu (three dots) for the selected customer
+  - Click on "Edit" or equivalent action from the dropdown menu
+- Verify the "Edit Customer" page is loaded:
+  - Verify the page title displays "Edit Customer" or similar
+  - Verify the breadcrumb navigation shows "Dashboard > Customers > Edit Customer"
+  - Verify all form fields are pre-populated with existing customer data
+- Modify customer details in BASIC INFORMATION section:
+  - Change Customer name to "Updated Test Automation Customer Ltd"
+  - Verify Status dropdown shows current value and can be modified
+- Modify customer details in CONTACT DETAILS section:
+  - Physical Address:
+    - Change Address Line 1 to "789 Updated Business Center Road"
+    - Change Address Line 2 to "Floor 5, Suite 500"
+    - Change Address Line 3 to "Updated Tech District"
+  - Mailing Address:
+    - Change Address Line 1 to "PO Box 999"
+    - Change Address Line 2 to "Updated Commercial Hub"
+    - Change Address Line 3 to "Updated Business Zone"
+  - Change Phone to "+1-555-999-8888"
+  - Change Fax to "+1-555-999-8889"
+  - Change Email to "<updated.contact@testautomationcustomer.com>"
+  - MAIN CONTACT section:
+    - Change Name to "Updated Sarah Wilson"
+    - Change Phone to "+1-555-999-7777"
+    - Change Email to "<updated.sarah.wilson@testautomationcustomer.com>"
+- Modify customer details in ADDITIONAL DETAILS section:
+  - Change Category from "Power" to "Flues"
+  - Toggle the "Show Deliveries on Invoice" checkbox (if previously checked, uncheck it)
+- Modify customer details in PAYMENT DETAILS section:
+  - Change Payment is Due to "Prepaid"
+  - Change Discount Days to "20"
+  - Change Balance Due Days to "60"
+- Modify Note section:
+  - Change Note to "Updated test customer for automation testing purposes. Now specializes in flue systems and solutions."
+- Click the "Save" button
+- Verify successful customer update:
+  - Verify redirection to customers list page
+  - Verify success message is displayed (if applicable)
+  - Verify the updated customer "Updated Test Automation Customer Ltd" appears in the customers table
+  - Verify the updated customer data is correctly displayed in the table columns
+- Verify changes are persisted:
+  - Click on the actions menu for the updated customer
+  - Click on "Edit" to view the customer details again
+  - Verify all modified fields display the updated values
+  - Verify no data loss or corruption occurred during the update
