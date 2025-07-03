@@ -135,10 +135,7 @@
 - Verify the "Add Customer" page is loaded
 - Attempt to create customer without filling mandatory fields:
   - Leave the Customer field empty (required field marked with *)
- -MAIN CONTACT section:
-    - Enter "Sarah Wilson" in Name field
-    - Enter "+1-555-123-9876" in Phone field
-    - Enter "<sarah.wilson@testautomationcustomer.com>" in Email field
+  - Leave other mandatory fields empty if any
 - Click the "Save" button
 - Verify mandatory field validation:
   - Verify error message appears for the Customer field
@@ -167,3 +164,38 @@
   - Verify customer is not created
   - Verify user remains on the Add Customer page
   - Verify no partial customer record is created in the system
+
+## TC 023 - Verify Admin Can View Full Customer List
+
+### Priority TC 023 : High
+
+- Navigate to the customers page
+- Verify the page loads successfully and displays the customers table
+- Verify admin access to customer data:
+  - Verify all existing customers are displayed in the table
+  - Verify customer data is visible and readable
+  - Verify no access restrictions prevent viewing customer information
+- Verify customer list completeness:
+  - Count the total number of customers displayed
+  - Verify pagination shows correct total count (e.g., "Showing 1 to 10 of X results")
+  - Verify all customer records are accessible through pagination
+- Verify customer information visibility:
+  - Verify customer names are displayed in the CUSTOMER column
+  - Verify physical addresses are displayed (when available)
+  - Verify mailing addresses are displayed (when available)
+  - Verify categories are displayed (e.g., "Flues", "Power", "-")
+  - Verify status information is displayed (e.g., "Active")
+  - Verify actions menu is available for each customer
+- Verify admin can navigate through all customers:
+  - If pagination exists, verify admin can access all pages
+  - Verify admin can view customers on different pages
+  - Verify no customers are hidden or inaccessible
+- Verify search functionality (if available):
+  - Verify admin can search for specific customers
+  - Verify search results display correctly
+  - Verify search does not restrict admin access
+- Verify admin permissions:
+  - Verify no "Access Denied" or permission errors occur
+  - Verify admin can view all customer details without restrictions
+  - Verify full administrative access to customer management section
+
