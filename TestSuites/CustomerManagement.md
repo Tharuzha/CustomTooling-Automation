@@ -245,4 +245,4 @@
   - Click on the actions menu for the updated customer
   - Click on "Edit" to view the customer details again
   - Verify all modified fields display the updated values
-  - Verify no data loss or corruption occurred during the update
+  
