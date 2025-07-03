@@ -135,7 +135,10 @@
 - Verify the "Add Customer" page is loaded
 - Attempt to create customer without filling mandatory fields:
   - Leave the Customer field empty (required field marked with *)
-  - Leave other mandatory fields empty if any
+ -MAIN CONTACT section:
+    - Enter "Sarah Wilson" in Name field
+    - Enter "+1-555-123-9876" in Phone field
+    - Enter "<sarah.wilson@testautomationcustomer.com>" in Email field
 - Click the "Save" button
 - Verify mandatory field validation:
   - Verify error message appears for the Customer field
@@ -164,5 +167,3 @@
   - Verify customer is not created
   - Verify user remains on the Add Customer page
   - Verify no partial customer record is created in the system
-
-
