@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Management Test Report - July 3, 2025</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background-color: #f8f9fa;
+        }
+        .summary-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid;
+        }
+        .summary-card.passed { border-left-color: #28a745; }
+        .summary-card.failed { border-left-color: #dc3545; }
+        .summary-card.total { border-left-color: #007bff; }
+        .summary-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .summary-card p {
+            margin: 0;
+            color: #666;
+            font-size: 1.1em;
+        }
+        .test-details {
+            padding: 30px;
+        }
+        .test-case {
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .test-header {
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .test-header:hover {
+            background-color: #f8f9fa;
+        }
+        .test-header.passed {
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+        }
+        .test-header.failed {
+            background-color: #f8d7da;
+            border-left: 5px solid #dc3545;
+        }
+        .test-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin: 0;
+        }
+        .test-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .status-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .status-badge.passed { background-color: #28a745; }
+        .status-badge.failed { background-color: #dc3545; }
+        .chevron {
+            transition: transform 0.3s ease;
+        }
+        .chevron.expanded {
+            transform: rotate(180deg);
+        }
+        .test-content {
+            display: none;
+            padding: 0 20px 20px 20px;
+            border-top: 1px solid #eee;
+        }
+        .test-content.expanded {
+            display: block;
+        }
+        .test-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .info-section {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+        }
+        .info-section h4 {
+            margin: 0 0 10px 0;
+            color: #495057;
+            font-size: 1.1em;
+        }
+        .info-section p {
+            margin: 0;
+            color: #666;
+            line-height: 1.5;
+        }
+        .steps-section {
+            margin-top: 20px;
+        }
+        .steps-section h4 {
+            margin: 0 0 15px 0;
+            color: #495057;
+            font-size: 1.2em;
+        }
+        .step {
+            background-color: #f8f9fa;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            border-left: 3px solid #007bff;
+        }
+        .step-number {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .config-info {
+            background-color: #e9ecef;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #6c757d;
+        }
+        .config-info h3 {
+            margin: 0 0 15px 0;
+            color: #495057;
+        }
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .config-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .config-item:last-child {
+            border-bottom: none;
+        }
+        .config-label {
+            font-weight: 600;
+            color: #495057;
+        }
+        .config-value {
+            color: #666;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Customer Management Test Report</h1>
+            <p>Automated Test Execution Results - July 3, 2025</p>
+        </div>
+
+        <div class="summary">
+            <div class="summary-card total">
+                <h3>7</h3>
+                <p>Total Test Cases</p>
+            </div>
+            <div class="summary-card passed">
+                <h3>7</h3>
+                <p>Passed</p>
+            </div>
+            <div class="summary-card failed">
+                <h3>0</h3>
+                <p>Failed</p>
+            </div>
+            <div class="summary-card total">
+                <h3>100%</h3>
+                <p>Success Rate</p>
+            </div>
+        </div>
+
+        <div class="config-info">
+            <h3>Test Configuration</h3>
+            <div class="config-grid">
+                <div>
+                    <div class="config-item">
+                        <span class="config-label">Test Suite:</span>
+                        <span class="config-value">Customer Management</span>
+                    </div>
+                    <div class="config-item">
+                        <span class="config-label">Browser:</span>
+                        <span class="config-value">Chrome</span>
+                    </div>
+                    <div class="config-item">
+                        <span class="config-label">Environment:</span>
+                        <span class="config-value">Development</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="config-item">
+                        <span class="config-label">Application URL:</span>
+                        <span class="config-value">https://cte-dev.iclick.nz/</span>
+                    </div>
+                    <div class="config-item">
+                        <span class="config-label">Test Priority:</span>
+                        <span class="config-value">High</span>
+                    </div>
+                    <div class="config-item">
+                        <span class="config-label">Automation Tool:</span>
+                        <span class="config-value">Playwright</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-details">
+            <!-- TC 018 -->
+            <div class="test-case">
+                <div class="test-header passed" onclick="toggleTestContent(this)">
+                    <h3 class="test-title">TC 018: Verify Customers Page - UI Elements and Data Display</h3>
+                    <div class="test-status">
+                        <span class="status-badge passed">PASSED</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                </div>
+                <div class="test-content">
+                    <div class="test-info">
+                        <div class="info-section">
+                            <h4>Test Objective</h4>
+                            <p>Verify that admin can navigate to Customers page and view all UI elements, table columns, and customer data correctly.</p>
+                        </div>
+                        <div class="info-section">
+                            <h4>Prerequisites</h4>
+                            <p>Admin user logged into the system with valid credentials.</p>
+                        </div>
+                    </div>
+                    <div class="steps-section">
+                        <h4>Test Steps Executed</h4>
+                        <div class="step">
+                            <span class="step-number">1.</span> Navigate to https://cte-dev.iclick.nz/
+                        </div>
+                        <div class="step">
+                            <span class="step-number">2.</span> Login with admin credentials (admin@cte.nz)
+                        </div>
+                        <div class="step">
+                            <span class="step-number">3.</span> Navigate to Customers page via sidebar menu
+                        </div>
+                        <div class="step">
+                            <span class="step-number">4.</span> Verify page title and breadcrumb navigation
+                        </div>
+                        <div class="step">
+                            <span class="step-number">5.</span> Verify table columns: Customer, Physical Address, Mailing Address, Category, Status, Actions
+                        </div>
+                        <div class="step">
+                            <span class="step-number">6.</span> Verify +Customer button and search functionality
+                        </div>
+                        <div class="step">
+                            <span class="step-number">7.</span> Verify customer data is displayed in table rows
+                        </div>
+                        <div class="step">
+                            <span class="step-number">8.</span> Verify pagination controls (showing 1 to 10 of 17 results)
+                        </div>
+                    </div>
+                    <div class="info-section">
+                        <h4>Result</h4>
+                        <p><strong>✅ PASSED:</strong> All UI elements, table columns, and customer data are displayed correctly. Pagination shows proper counts. Navigation and layout are functional.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TC 019 -->
+            <div class="test-case">
+                <div class="test-header passed" onclick="toggleTestContent(this)">
+                    <h3 class="test-title">TC 019: Verify Add Customer Form - Field Structure</h3>
+                    <div class="test-status">
+                        <span class="status-badge passed">PASSED</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                </div>
+                <div class="test-content">
+                    <div class="test-info">
+                        <div class="info-section">
+                            <h4>Test Objective</h4>
+                            <p>Verify that admin can access Add Customer form and all required fields and sections are present and properly labeled.</p>
+                        </div>
+                        <div class="info-section">
+                            <h4>Prerequisites</h4>
+                            <p>Admin user on Customers page with access to +Customer button.</p>
+                        </div>
+                    </div>
+                    <div class="steps-section">
+                        <h4>Test Steps Executed</h4>
+                        <div class="step">
+                            <span class="step-number">1.</span> Click on "+Customer" button from Customers page
+                        </div>
+                        <div class="step">
+                            <span class="step-number">2.</span> Verify "Add Customer" page title and breadcrumb
+                        </div>
+                        <div class="step">
+                            <span class="step-number">3.</span> Verify Basic Information section with Status and Customer fields
+                        </div>
+                        <div class="step">
+                            <span class="step-number">4.</span> Verify Contact Details section with address fields
+                        </div>
+                        <div class="step">
+                            <span class="step-number">5.</span> Verify Phone, Fax, Email fields with proper labels
+                        </div>
+                        <div class="step">
+                            <span class="step-number">6.</span> Verify Main Contact section with Name, Phone, Email
+                        </div>
+                        <div class="step">
+                            <span class="step-number">7.</span> Verify Additional Details section with Category dropdown
+                        </div>
+                        <div class="step">
+                            <span class="step-number">8.</span> Verify Payment Details section with payment terms
+                        </div>
+                        <div class="step">
+                            <span class="step-number">9.</span> Verify Save and Cancel buttons are present
+                        </div>
+                    </div>
+                    <div class="info-section">
+                        <h4>Result</h4>
+                        <p><strong>✅ PASSED:</strong> All required form sections and fields are present. Customer field is marked as mandatory (*). All dropdowns, text fields, and buttons are properly labeled and accessible.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TC 020 -->
+            <div class="test-case">
+                <div class="test-header passed" onclick="toggleTestContent(this)">
+                    <h3 class="test-title">TC 020: Create New Customer - Complete Data Entry and Validation</h3>
+                    <div class="test-status">
+                        <span class="status-badge passed">PASSED</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                </div>
+                <div class="test-content">
+                    <div class="test-info">
+                        <div class="info-section">
+                            <h4>Test Objective</h4>
+                            <p>Create a new customer with complete data, save it, and verify that the customer appears in the customer list with correct information.</p>
+                        </div>
+                        <div class="info-section">
+                            <h4>Test Data Used</h4>
+                            <p>Customer: Test Automation Customer Ltd<br>
+                            Address: 456 Business Center Road<br>
+                            Phone: +64 21 555 7890<br>
+                            Email: info@testautomation.com<br>
+                            Contact: John Smith</p>
+                        </div>
+                    </div>
+                    <div class="steps-section">
+                        <h4>Test Steps Executed</h4>
+                        <div class="step">
+                            <span class="step-number">1.</span> Navigate to Customers page and check for existing test customer
+                        </div>
+                        <div class="step">
+                            <span class="step-number">2.</span> Delete existing "Test Automation Customer Ltd" if present
+                        </div>
+                        <div class="step">
+                            <span class="step-number">3.</span> Click "+Customer" to open Add Customer form
+                        </div>
+                        <div class="step">
+                            <span class="step-number">4.</span> Fill Customer field: "Test Automation Customer Ltd"
+                        </div>
+                        <div class="step">
+                            <span class="step-number">5.</span> Fill Physical Address: "456 Business Center Road"
+                        </div>
+                        <div class="step">
+                            <span class="step-number">6.</span> Fill Phone: "+64 21 555 7890"
+                        </div>
+                        <div class="step">
+                            <span class="step-number">7.</span> Fill Email: "info@testautomation.com"
+                        </div>
+                        <div class="step">
+                            <span class="step-number">8.</span> Fill Main Contact Name: "John Smith"
+                        </div>
+                        <div class="step">
+                            <span class="step-number">9.</span> Fill Main Contact Phone: "+64 21 555 7890"
+                        </div>
+                        <div class="step">
+                            <span class="step-number">10.</span> Fill Main Contact Email: "john.smith@testautomation.com"
+                        </div>
+                        <div class="step">
+                            <span class="step-number">11.</span> Click "Save" button to create customer
+                        </div>
+                        <div class="step">
+                            <span class="step-number">12.</span> Verify redirect to Customers page
+                        </div>
+                        <div class="step">
+                            <span class="step-number">13.</span> Verify new customer appears at top of list with correct data
+                        </div>
+                    </div>
+                    <div class="info-section">
+                        <h4>Result</h4>
+                        <p><strong>✅ PASSED:</strong> Customer created successfully. "Test Automation Customer Ltd" appears at the top of the customer list with correct physical address "456 Business Center Road" and "Active" status. All data was saved correctly.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TC 021 -->
+            <div class="test-case">
+                <div class="test-header passed" onclick="toggleTestContent(this)">
+                    <h3 class="test-title">TC 021: Verify Mandatory Field Validation</h3>
+                    <div class="test-status">
+                        <span class="status-badge passed">PASSED</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                </div>
+                <div class="test-content">
+                    <div class="test-info">
+                        <div class="info-section">
+                            <h4>Test Objective</h4>
+                            <p>Verify that the system properly validates mandatory fields and displays appropriate error messages when attempting to save with empty required fields.</p>
+                        </div>
+                        <div class="info-section">
+                            <h4>Expected Behavior</h4>
+                            <p>System should display validation error for Customer name field and prevent form submission.</p>
+                        </div>
+                    </div>
+                    <div class="steps-section">
+                        <h4>Test Steps Executed</h4>
+                        <div class="step">
+                            <span class="step-number">1.</span> Navigate to Add Customer form
+                        </div>
+                        <div class="step">
+                            <span class="step-number">2.</span> Leave Customer name field empty (mandatory field marked with *)
+                        </div>
+                        <div class="step">
+                            <span class="step-number">3.</span> Leave all other fields empty
+                        </div>
+                        <div class="step">
+                            <span class="step-number">4.</span> Click "Save" button
+                        </div>
+                        <div class="step">
+                            <span class="step-number">5.</span> Verify validation error message appears
+                        </div>
+                        <div class="step">
+                            <span class="step-number">6.</span> Verify form is not submitted
+                        </div>
+                        <div class="step">
+                            <span class="step-number">7.</span> Verify user remains on Add Customer page
+                        </div>
+                    </div>
+                    <div class="info-section">
+                        <h4>Result</h4>
+                        <p><strong>✅ PASSED:</strong> Validation works correctly. Error message "The name field is required." appears below the Customer name field. Form submission is prevented and user remains on the Add Customer page.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TC 022 -->
+            <div class="test-case">
+                <div class="test-header passed" onclick="toggleTestContent(this)">
+                    <h3 class="test-title">TC 022: Verify Form Validation - All Fields Empty</h3>
+                    <div class="test-status">
+                        <span class="status-badge passed">PASSED</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                </div>
+                <div class="test-content">
+                    <div class="test-info">
+                        <div class="info-section">
+                            <h4>Test Objective</h4>
+                            <p>Verify that the system properly handles form submission when all fields are empty and shows appropriate validation messages.</p>
+                        </div>
+                        <div class="info-section">
+                            <h4>Test Coverage</h4>
+                            <p>This test validates the comprehensive form validation system and ensures data integrity requirements are enforced.</p>
+                        </div>
+                    </div>
+                    <div class="steps-section">
+                        <h4>Test Steps Executed</h4>
+                        <div class="step">
+                            <span class="step-number">1.</span> Open Add Customer form with all fields empty
+                        </div>
+                        <div class="step">
+                            <span class="step-number">2.</span> Verify no data is entered in any field
+                        </div>
+                        <div class="step">
+                            <span class="step-number">3.</span> Attempt to save the form by clicking Save button
+                        </div>
+                        <div class="step">
+                            <span class="step-number">4.</span> Verify validation error messages appear
+                        </div>
+                        <div class="step">
+                            <span class="step-number">5.</span> Verify form submission is blocked
+                        </div>
+                    </div>
+                    <div class="info-section">
+                        <h4>Result</h4>
+                        <p><strong>✅ PASSED:</strong> Form validation correctly identifies and prevents submission with empty mandatory fields. The Customer name field validation error is displayed as expected.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TC 023 -->
+            <div class="test-case">
+                <div class="test-header passed" onclick="toggleTestContent(this)">
+                    <h3 class="test-title">TC 023: Verify Admin Customer List View with Pagination</h3>
+                    <div class="test-status">
+                        <span class="status-badge passed">PASSED</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                </div>
+                <div class="test-content">
+                    <div class="test-info">
+                        <div class="info-section">
+                            <h4>Test Objective</h4>
+                            <p>Verify that admin can view the complete customer list with proper pagination, search functionality, and data organization.</p>
+                        </div>
+                        <div class="info-section">
+                            <h4>Data Validation</h4>
+                            <p>Total customers: 17, Page 1 shows 1-10, Page 2 shows 11-17. Pagination controls work correctly.</p>
+                        </div>
+                    </div>
+                    <div class="steps-section">
+                        <h4>Test Steps Executed</h4>
+                        <div class="step">
+                            <span class="step-number">1.</span> Navigate to Customers page
+                        </div>
+                        <div class="step">
+                            <span class="step-number">2.</span> Verify customer list displays with proper table structure
+                        </div>
+                        <div class="step">
+                            <span class="step-number">3.</span> Verify pagination shows "Showing 1 to 10 of 17 results"
+                        </div>
+                        <div class="step">
+                            <span class="step-number">4.</span> Click "Go to page 2" button
+                        </div>
+                        <div class="step">
+                            <span class="step-number">5.</span> Verify page 2 shows "Showing 11 to 17 of 17 results"
+                        </div>
+                        <div class="step">
+                            <span class="step-number">6.</span> Verify different customers are displayed on page 2
+                        </div>
+                        <div class="step">
+                            <span class="step-number">7.</span> Click "Go to page 1" to return to first page
+                        </div>
+                        <div class="step">
+                            <span class="step-number">8.</span> Verify search functionality is available
+                        </div>
+                        <div class="step">
+                            <span class="step-number">9.</span> Verify all customer data columns are properly displayed</p>
+                        </div>
+                    </div>
+                    <div class="info-section">
+                        <h4>Result</h4>
+                        <p><strong>✅ PASSED:</strong> Admin can view complete customer list with working pagination. Page navigation functions correctly, showing 10 customers per page. All customer data is properly organized and displayed in table format.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TC 024 -->
+            <div class="test-case">
+                <div class="test-header passed" onclick="toggleTestContent(this)">
+                    <h3 class="test-title">TC 024: Edit Customer Details and Verify Data Persistence</h3>
+                    <div class="test-status">
+                        <span class="status-badge passed">PASSED</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                </div>
+                <div class="test-content">
+                    <div class="test-info">
+                        <div class="info-section">
+                            <h4>Test Objective</h4>
+                            <p>Verify that admin can edit existing customer details, save changes, and confirm that modifications persist correctly in the system.</p>
+                        </div>
+                        <div class="info-section">
+                            <h4>Changes Made</h4>
+                            <p>Customer Name: "Test Automation Customer Ltd" → "Test Automation Customer Ltd - Updated"<br>
+                            Category: "-" → "Power"</p>
+                        </div>
+                    </div>
+                    <div class="steps-section">
+                        <h4>Test Steps Executed</h4>
+                        <div class="step">
+                            <span class="step-number">1.</span> Locate "Test Automation Customer Ltd" in customer list
+                        </div>
+                        <div class="step">
+                            <span class="step-number">2.</span> Click Actions menu (⋮) for the customer
+                        </div>
+                        <div class="step">
+                            <span class="step-number">3.</span> Select "Edit" option from dropdown menu
+                        </div>
+                        <div class="step">
+                            <span class="step-number">4.</span> Verify Edit Customer form loads with existing data
+                        </div>
+                        <div class="step">
+                            <span class="step-number">5.</span> Modify Customer name to "Test Automation Customer Ltd - Updated"
+                        </div>
+                        <div class="step">
+                            <span class="step-number">6.</span> Change Category from "-" to "Power"
+                        </div>
+                        <div class="step">
+                            <span class="step-number">7.</span> Click "Update" button to save changes
+                        </div>
+                        <div class="step">
+                            <span class="step-number">8.</span> Verify redirect to Customers page
+                        </div>
+                        <div class="step">
+                            <span class="step-number">9.</span> Verify updated customer name in the list
+                        </div>
+                        <div class="step">
+                            <span class="step-number">10.</span> Verify updated category shows as "Power"
+                        </div>
+                    </div>
+                    <div class="info-section">
+                        <h4>Result</h4>
+                        <p><strong>✅ PASSED:</strong> Customer details updated successfully. Both the customer name and category changes are visible in the customer list, confirming that data persistence works correctly. Edit functionality is fully operational.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Test Report Generated on July 3, 2025 at 8:38 PM | Automated with Playwright | Browser: Chrome</p>
+            <p>Test Environment: https://cte-dev.iclick.nz/ | Test Suite: Customer Management | Priority: High</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleTestContent(header) {
+            const content = header.nextElementSibling;
+            const chevron = header.querySelector('.chevron');
+            
+            content.classList.toggle('expanded');
+            chevron.classList.toggle('expanded');
+        }
+
+        // Auto-expand first test case on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstTestCase = document.querySelector('.test-case');
+            if (firstTestCase) {
+                const header = firstTestCase.querySelector('.test-header');
+                toggleTestContent(header);
+            }
+        });
+    </script>
+</body>
+</html>
