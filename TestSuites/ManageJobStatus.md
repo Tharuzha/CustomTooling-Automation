@@ -34,3 +34,18 @@
 - Verify table shows action buttons
 - Verify pagination functionality works
 - Verify showing results information displays
+
+## TC 032 - Edit Job Status Name and Colors
+
+### Priority TC 032 : High
+
+- Select any existing job status
+- Click edit action button
+- Change status name to "Updated Progress"
+- Set background color to "CFFFE2"
+- Set font color to "1B3C53"
+- Click Save button
+- Verify success message appears
+- Verify updated status displays in list
+- Verify new name shows as "Updated Progress"
+- Verify colors are applied correctly
