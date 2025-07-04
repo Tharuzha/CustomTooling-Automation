@@ -56,3 +56,28 @@
 - Verify all sections are properly organized and labeled
 - Verify the page layout is responsive and user-friendly
 
+## TC 029 - Update all system setting fields and verify
+
+### Priority TC 029 : High
+
+- Update Buy/Sell Premium field with new value
+- Update Purchase Margin field with new value
+- Update Labor Cost field with new value
+- Update Material Cost Percentage field with new value
+- Update Invoice Cost Percentage field with new value
+- Update GST Rate field with new value
+- Update Send Email To field with new email address
+- Add new email to CC Emails field (e.g., "<tharu@email.lk>")
+- Type this Email on CC Emails fields and after type a comma
+- Update Stop/Start Time Allowance field with new value
+- Update Staff Clock Minutes field with new value
+- Update Clock Grace Minutes field with new value
+- Click on Lunch Start Time field to open time picker
+- Select new time using the time picker for Lunch Start Time
+- Click on Lunch Stop Time field to open time picker  
+- Select new time using the time picker for Lunch Stop Time
+- Toggle Automatic Lunch Break checkbox
+- Click Save button
+- Verify success message appears
+- Refresh the page
+- Verify all updated values are saved and displayed correctly
