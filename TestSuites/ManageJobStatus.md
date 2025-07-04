@@ -23,3 +23,14 @@
 - Verify Job Status page opens
 - Verify page URL contains "/job-status"
 - Verify page title displays "Settings-Job Status"
+
+## TC 031 - Verify View Existing Job Statuses
+
+### Priority TC 031 : High
+
+- Verify job status list displays
+- Verify table shows status names
+- Verify table shows active status
+- Verify table shows action buttons
+- Verify pagination functionality works
+- Verify showing results information displays
