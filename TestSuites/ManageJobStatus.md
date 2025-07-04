@@ -49,3 +49,46 @@
 - Verify updated status displays in list
 - Verify new name shows as "Updated Progress"
 - Verify colors are applied correctly
+
+## TC 033 - Add new job status
+
+- Click on the "+ Status" button
+- Set status name to "Waiting"
+- Set background color to "FFFBDE"
+- Set font color to "0D5EA6"
+- Click Save button
+- Verify success message appears
+- Verify updated status displays in list
+- Verify name shows as "Waiting"
+- Verify colors are applied correctly
+
+## TC 034 - Delete Job Status
+
+### Priority TC 034 : High
+
+- Select any existing job status from the list
+- Click the action menu (⋮) for the selected status
+- Click "Delete" from the dropdown menu
+- Verify confirmation dialog appears
+- Verify dialog shows "Are you sure?" message
+- Verify dialog shows "This action cannot be undone." warning
+- Verify dialog has "Yes, delete it!" and "Cancel" buttons
+- Click "Yes, delete it!" button
+- Verify success message appears
+- Verify deleted status no longer appears in the list
+- Verify total count of statuses is reduced by 1
+
+## TC 035 - Cancel Delete Job Status
+
+### Priority TC 035 : High
+
+- Select any existing job status from the list
+- Click the action menu (⋮) for the selected status  
+- Click "Delete" from the dropdown menu
+- Verify confirmation dialog appears
+- Click "Cancel" button
+- Verify dialog closes
+- Verify job status remains in the list (not deleted)
+- Verify no success or error message appears
+- Verify total count of statuses remains unchanged
+
