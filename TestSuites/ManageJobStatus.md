@@ -91,4 +91,3 @@
 - Verify job status remains in the list (not deleted)
 - Verify no success or error message appears
 - Verify total count of statuses remains unchanged
-

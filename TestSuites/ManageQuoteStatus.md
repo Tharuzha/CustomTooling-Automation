@@ -124,4 +124,32 @@
 - Click Save button
 - Verify status is successfully saved
 
+## TC 044 - Delete Quote Status
 
+### Priority TC 044 : High
+
+- Select any existing quote status from the list
+- Click the action menu (⋮) for the selected status
+- Click "Delete" from the dropdown menu
+- Verify confirmation dialog appears
+- Verify dialog shows "Are you sure?" message
+- Verify dialog shows "This action cannot be undone." warning
+- Verify dialog has "Yes, delete it!" and "Cancel" buttons
+- Click "Yes, delete it!" button
+- Verify success message appears
+- Verify deleted status no longer appears in the list
+- Verify total count of statuses is reduced by 1
+
+## TC 045 - Cancel Delete Quote Status
+
+### Priority TC 045 : High
+
+- Select any existing quote status from the list
+- Click the action menu (⋮) for the selected status  
+- Click "Delete" from the dropdown menu
+- Verify confirmation dialog appears
+- Click "Cancel" button
+- Verify dialog closes
+- Verify quote status remains in the list (not deleted)
+- Verify no success or error message appears
+- Verify total count of statuses remains unchanged
