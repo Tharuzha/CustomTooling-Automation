@@ -119,3 +119,30 @@
 - Verify unit remains in the list (not deleted)
 - Verify no success or error message appears
 - Verify total count of units remains unchanged
+
+## TC 054 - Verify Search Functionality by Description
+
+### Priority TC 054 : High
+
+- Verify units list displays with multiple units
+- Note the total number of units showing
+- Enter "Kilogram" in the search box
+- Verify search filters the results
+- Verify only units with "Kilogram" in description are shown
+- Verify units not matching "Kilogram" are hidden
+- Verify results count updates to show filtered results
+- Clear the search box
+- Verify all units display again
+- Verify results count returns to original total
+
+## TC 055 - Verify Search with No Results
+
+### Priority TC 055 : High
+
+- Enter "NonExistentUnit" in the search box
+- Verify no units are displayed in the list
+- Verify "No items found, try to broaden your search" or similar message appears
+- Verify results count shows 0 units
+- Clear the search box
+- Verify all units display again
+- Verify results count returns to original total
