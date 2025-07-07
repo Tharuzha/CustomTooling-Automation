@@ -58,7 +58,7 @@
 - Change stock location name to "Updated Storage"
 - Click Save button
 - Verify success message appears
-- Verify updated stock location displays in list
+- Verify updated stoc k location displays in list
 - Verify new name shows as "Updated Storage"
 - Verify status shows as "Inactive"
 
@@ -153,10 +153,10 @@
 
 - Click on "Filters" button
 - Verify filter options appear
-- Apply filter for "Active" status only
+- Shoudld apply filter for "Active" status only
 - Verify only active locations are displayed
 - Verify inactive locations are hidden
-- Apply filter for "Inactive" status only
+- Should apply filter for "Inactive" status only
 - Verify only inactive locations are displayed
 - Verify active locations are hidden
 - Clear all filters
