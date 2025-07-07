@@ -515,3 +515,48 @@
 - Verify Sub Total updates to include both parts
 - Verify GST (16%) updates based on new subtotal
 - Verify Total updates to include all parts with GST
+
+## TC 088 - Delete Quote and Verify
+
+### Priority TC 088 : High
+
+#### Step 1: Navigate to Quotes List
+
+- Navigate to Quotes page
+- Verify Quotes page loads successfully
+- Verify quotes list displays with existing quotes
+- Record the total number of quotes displayed (e.g., "Showing 1 to 10 of 17 results")
+- Select a quote to delete from the list (choose any quote that is not critical for other tests)
+
+#### Step 2: Access Delete Functionality
+
+- Locate the target older quote in the quotes list
+- Click on the action menu button (⋮) for the selected quote
+- Verify action dropdown menu opens
+- Verify menu contains options: "View", "Edit", "Delete"
+- Click on "Delete" option
+- Verify "Delete" button is clickable and accessible
+
+#### Step 3: Confirm Deletion
+
+- Verify confirmation dialog appears with title "Are you sure?"
+- Verify dialog displays warning message "This action cannot be undone."
+- Verify dialog contains two buttons: "Yes, delete it!" and "Cancel"
+- Click "Yes, delete it!" button to confirm deletion
+- Verify confirmation dialog closes after clicking confirm
+
+#### Step 4: Verify Successful Deletion
+
+- Verify success message appears: "Quote successfully deleted!"
+- Verify success notification is displayed prominently
+- Verify the deleted quote is no longer visible in the quotes list
+- Verify the quote row has been completely removed from the table
+- Verify total results count has decreased by 1 (e.g., from "17 results" to "16 results")
+- Verify page automatically updates to show remaining quotes
+- Verify pagination updates correctly if applicable
+
+#### Step 5: Verify Data Persistence
+
+- Refresh the page manually
+- Verify the deleted quote remains absent from the list
+- Verify total count remains updated after page refresh
