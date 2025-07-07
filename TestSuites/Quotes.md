@@ -45,12 +45,12 @@
 ### Priority TC 080 : High
 
 - Click on the search box
-- Enter "0016" in the search box
+- Should Enter "0016" in the search box
 - Verify search filters the results as user types
 - Verify only quote "0016" is displayed
 - Verify other quotes are hidden from the list
 - Verify "Showing 1 results" appears at bottom
 - Verify quote details match (Jane Smith, Regular, 170.00, DRAFT status)
-- Clear the search box
+- Should Clear the search box
 - Verify all quotes display again
 - Verify results count returns to original total
