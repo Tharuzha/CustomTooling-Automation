@@ -409,3 +409,109 @@
 - Verify FILE ATTACHMENTS section no longer shows "No items found" message
 - Verify file attachment is properly integrated with the quote
 - Verify "Refresh Data" button is available for refreshing attachment list
+
+## TC 087 - Add New Quote As One Off Customer
+
+### Priority TC 087 : High
+
+#### Step 1: Adding main details for One Off
+
+- Click on "+ Quote" button
+- Select Customer Type "One-Off"
+- Verify "Quote Number" field is automatically generated
+- Verify "Quote Number" field displays auto-generated number (e.g., "0017")
+- Verify "Quote Number" field is non-editable (frozen/disabled)
+- Click on "Status" dropdown
+- Verify status dropdown opens with options
+- Verify all status options are displayed (Draft, Pending Approval, Approved, Rejected, Expired, Converted to Job, Canceled, Sent, Viewed, In Negotiation, Waiting for Documents)
+- Select "Draft" from the status dropdown
+- Verify "Draft" status is selected and displayed
+- Verify status dropdown closes after selection
+- Should click on "Customer" dropdown
+- Should Add on Customer Name field (e.g., "Test OneOff")
+- Should add on Customer P.0 Number (e.g., "33333)
+- Should add on phone number field (e.g., "0781212122")
+- Should Add description text in the "Description" field (e.g., "We gonna be testing new quote as One Off")
+- Verify "QUOTE DETAILS" section is visible
+- Verify "Date" field shows current date (e.g., "07/07/2025")
+- Verify "Est. Delivery Date" field shows current date (e.g., "07/07/2025")
+- Verify "Est. Completion Date" field shows current date (e.g., "07/07/2025")
+- Click on "Est. Delivery Date" date picker icon
+- Select a future date from the date picker (e.g., "07/20/2025")
+- Verify "Est. Delivery Date" field updates with selected date
+- Click on "Est. Completion Date" date picker icon
+- Select a future date from the date picker (e.g., "07/25/2025")
+- Verify "Est. Completion Date" field updates with selected date
+- Click on "Finish/Outwork" dropdown
+- Select an option from "Finish/Outwork" dropdown
+- Verify "Finish/Outwork" selection is displayed
+- Click "Save" button
+- Verify quote is saved successfully
+- Verify the success message after saving
+- Verify page remains on edit quote page (does not redirect to quotes list)
+- Verify "PARTS" section becomes unlocked/accessible after saving
+- Verify "Refresh Data" button is available in PARTS section
+- Verify "+ Add Part" button is now visible and enabled
+- Verify PARTS table shows columns: PART TYPE, PART NO, DESCRIPTION, VERSION, QTY, UNIT, UNIT PRICE, TOTAL, ACTION
+- Verify "No items found, try to broaden your search" message appears in PARTS section
+- Verify Sub Total shows "$0.00"
+- Verify GST (16%) shows "$0.00"
+- Verify Total shows "$0.00"
+- Verify "FILE ATTACHMENTS" section becomes unlocked/accessible after saving
+- Verify "Refresh Data" button is available in FILE ATTACHMENTS section
+- Verify "+ File" button is now visible and enabled
+- Verify FILE ATTACHMENTS table shows columns: NAME, DATE, FILE, ACTION
+- Verify "No items found, try to broaden your search" message appears in FILE ATTACHMENTS section
+
+#### Step 2: Modifying Parts Section as One off customer
+
+- Click On "+ Add Part" Button
+- Verify "Add Part" dialog opens
+- Verify "One Off" checkbox is unchecked (do not tick "One Off")
+- Click on "Part Code" dropdown
+- Select "PN-0006" from the part code dropdown
+- Verify part code selection changes to "PN-0006"
+- Verify "Part Description" field auto-populates with "PN-0006 Description"
+- Enter quantity "20" in the "Qty" field
+- Verify quantity field shows "20"
+- Enter "v2" in the "Version" field (if available)
+- Click on "Units" dropdown
+- Select a unit from the Units dropdown
+- Verify unit selection is displayed
+- Enter "30" in the "Unit Price" field
+- Verify unit price field shows "30"
+- Click "Save" button
+- Verify part is added successfully
+- Verify part appears in the PARTS table
+- Verify part row shows: PN-0006, Description, v2, 20, selected unit, 30, calculated total
+- Verify Sub Total updates to reflect the new part total
+- Verify GST (16%) updates based on new subtotal
+- Verify Total updates to include GST
+
+#### Step 3: Add another Part as One off in One Off Customer
+
+- Click On "+ Add Part" Button
+- Verify "Add Part" dialog opens
+- Tick the "One Off" checkbox
+- Verify "One Off" checkbox is checked
+- Verify "Part Code" field becomes empty text input (not dropdown)
+- Manually enter "CUSTOM-001" in the "Part Code" field
+- Verify part code field shows "CUSTOM-001"
+- Manually enter "Custom One-Off Part Description" in the "Part Description" field
+- Verify part description field shows entered text
+- Enter quantity "15" in the "Qty" field
+- Verify quantity field shows "15"
+- Enter "v1" in the "Version" field
+- Verify version field shows "v1"
+- Click on "Units" dropdown
+- Select a unit from the Units dropdown
+- Verify unit selection is displayed
+- Enter "45" in the "Unit Price" field
+- Verify unit price field shows "45"
+- Click "Save" button
+- Verify one-off part is added successfully
+- Verify part appears in the PARTS table
+- Verify part row shows: One Off type, CUSTOM-001, Custom description, v1, 15, selected unit, 45, calculated total
+- Verify Sub Total updates to include both parts
+- Verify GST (16%) updates based on new subtotal
+- Verify Total updates to include all parts with GST
