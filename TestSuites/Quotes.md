@@ -133,3 +133,86 @@
 - All quote statuses configured in Settings > Quote Status should appear exactly in Quotes page filters
 - No discrepancies between Settings configuration and Filter options
 - Filter functionality works correctly for all configured statuses
+
+## TC 083 - Verify View Quote Details (Read-Only Mode)
+
+### Priority TC 083 : High
+
+#### Step 1: Navigate to View Quote
+
+- From the Quotes list page, locate a quote with customer data
+- Click on the quote number or three dots menu to access quote details
+- Select "View" or click directly on quote to open quote details page
+- Verify page navigates to View Quote page
+- Verify page URL contains "/quotes/view" or similar quote view path
+- Verify page title displays "View Quote"
+
+#### Step 2: Verify Customer Information Section (Read-Only)
+
+- Verify "CUSTOMER INFORMATION" section is visible
+- Verify "Type" field displays customer type (Regular/One Off) and is read-only
+- Verify "Customer" field shows selected customer name and is non-editable
+- Verify customer dropdown is disabled/read-only (cannot be changed)
+- Verify "Address" fields display complete customer address in read-only format:
+  - Street address line 1 (non-editable)
+  - Street address line 2 (non-editable if applicable)
+  - City, State, ZIP code (non-editable)
+- Verify "Description" field displays quote description and is read-only
+
+#### Step 3: Verify Quote Header Information (Read-Only)
+
+- Verify "Status" field displays current quote status and is read-only
+- Verify status matches the status shown in quotes list
+- Verify "Quote Number" field displays unique quote identifier and is read-only
+- Verify quote number cannot be edited or modified
+- Verify "Customer P.O Number" field displays value and is non-editable
+- Verify "Phone" field displays customer contact number and is read-only
+
+#### Step 4: Verify Quote Details Section (Read-Only)
+
+- Verify "QUOTE DETAILS" section is visible
+- Verify "Date" field displays quote creation/issue date and is read-only
+- Verify "Est. Delivery Date" field shows estimated delivery and is non-editable
+- Verify "Est. Completion Date" field shows estimated completion and is non-editable
+- Verify date fields use proper date format (MM/DD/YYYY) and cannot be modified
+- Verify "Finish/Outwork" field displays selected value and is read-only
+- Verify "Fabrication" section displays information and is non-editable
+
+#### Step 5: Verify Parts Section (Display Only)
+
+- Verify "PARTS" section is displayed
+- Verify "Refresh Data" button is available for data refresh only
+- Verify parts table contains the following columns in read-only format:
+  - PART TYPE (display only)
+  - PART NO (display only)
+  - DESCRIPTION (display only)
+  - VERSION (display only)
+  - QTY (display only)
+  - UNIT (display only)
+  - UNIT PRICE (display only)
+  - TOTAL (display only)
+  - ACTION (view/display actions only)
+- Verify parts data is displayed but cannot be edited
+- Verify each part row shows complete information in read-only format
+- Verify "Sub Total" displays sum of all part totals (calculated, non-editable)
+- Verify "GST (16%)" displays calculated tax amount (read-only)
+- Verify "Total" displays final amount including GST (calculated, non-editable)
+
+#### Step 6: Verify File Attachments Section (Display Only)
+
+- Verify "FILE ATTACHMENTS" section is displayed
+- Verify "Refresh Data" button is available for refreshing attachment list only
+- Verify attachments table contains columns in read-only format:
+  - NAME (display only)
+  - DATE (display only)
+  - FILE (display only with download/view capability)
+  - ACTION (view/download actions only)
+- Verify file attachments are listed if any exist but cannot be modified
+- Verify attachment names are clickable for viewing/downloading only
+- Verify file types are properly displayed (e.g., PDF links) for viewing only
+
+#### Step 7: Verify Navigation and Breadcrumbs
+
+- Verify breadcrumb navigation shows: Dashboard > Quotes > View Quote
+- Verify breadcrumb links are functional
+- Verify user can navigate back to quotes list
