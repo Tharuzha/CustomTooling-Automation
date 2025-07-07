@@ -72,3 +72,40 @@
 - Next should enter "noname"
 - Verify No results from that name
 - Verify displayed message "No items found, try to broaden your search"
+
+## TC 082 - Verify Filters Functionality
+
+### Priority TC 082 : High
+
+- Click on the "Filters" button
+- Verify filters dropdown opens
+- Verify "Status" filter section is visible
+- Verify Status dropdown shows "All" as default selection
+- Click on Status dropdown
+- Verify all status options are available:
+  - All
+  - Approved
+  - Canceled
+  - Converted to Job
+  - Draft
+  - Expired
+  - In Negotiation
+  - Pending Approval
+  - Rejected
+  - Sent
+  - Viewed
+  - Waiting for Documents
+- Select "Draft" from Status dropdown
+- Verify only quotes with "Draft" status are displayed
+- Verify all visible quotes show "Draft" status badge
+- Verify results count updates to show filtered results only
+- Select "Approved" from Status dropdown
+- Verify only quotes with "Approved" status are displayed
+- Verify all visible quotes show "Approved" status badge
+- Verify results count updates accordingly
+- Select "All" from Status dropdown
+- Verify all quotes display again regardless of status
+- Verify results count returns to original total
+- Click outside filters area or close filters
+- Verify filters dropdown closes
+- Verify table maintains current filter settings
