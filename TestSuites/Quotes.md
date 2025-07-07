@@ -560,3 +560,54 @@
 - Refresh the page manually
 - Verify the deleted quote remains absent from the list
 - Verify total count remains updated after page refresh
+
+## TC 089 - Convert Quote to a Job
+
+### Priority TC 089 : High
+
+#### Step 1: Navigate to Edit Quote page
+
+- Navigate to Quotes page
+- Verify Quotes page loads successfully
+- From the Quotes list page, locate a quote with customer data (e.g., quote 0016)
+- Click on the action menu button (⋮) for the selected quote
+- Verify action dropdown menu opens
+- Verify menu contains options: "View", "Edit", "Delete"
+- Click on "Edit" option
+- Verify page navigates to Edit Quote page
+- Verify page URL contains "/quote" with edit intent
+- Verify page title displays "Edit Quote"
+- Verify breadcrumb navigation shows: Dashboard > Quotes > Edit Quote
+
+#### Step 2: Initiate Quote to Job Conversion
+
+- Verify "Make into Job" button is visible in the top action bar
+- Click on "Make into Job" button
+- Verify confirmation dialog appears
+- Verify dialog title displays "Are you sure?"
+- Verify dialog shows warning icon (!)
+- Verify dialog displays message: "Do you want to convert this quote into a job?"
+- Verify dialog contains two buttons: "Yes, convert it!" and "Cancel"
+
+#### Step 3: Confirm Quote to Job Conversion
+
+- Click "Yes, convert it!" button to confirm conversion
+- Verify confirmation dialog closes after clicking confirm
+- Verify page navigation occurs (URL changes from quote to job)
+
+#### Step 4: Verify Successful Conversion to Job
+
+- Verify page URL changes to "/job/" format (e.g., contains job UUID)
+- Verify page title changes from "Edit Quote" to "Edit Job"
+- Verify breadcrumb navigation updates to: Dashboard > Jobs > Edit Job
+- Verify job number is auto-generated and displayed (e.g., "0032")
+- Verify job number field is non-editable/disabled
+
+#### Step 5: Verify Job Details Section
+
+- Verify "Job Details" section is visible
+- Verify "Job No" field displays auto-generated job number and is disabled
+- Verify "Job Status" dropdown shows "Pending" as default selection
+- Verify "Job Type" dropdown shows "MTO - Make To Order" as default selection
+- Verify "Order Date" field shows current date (e.g., "2025-07-07")
+- Verify "Delivery Date" field inherits value from quote's estimated delivery date
