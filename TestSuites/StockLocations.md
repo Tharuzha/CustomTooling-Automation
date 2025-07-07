@@ -153,10 +153,10 @@
 
 - Click on "Filters" button
 - Verify filter options appear
-- Apply filter for "Active" status only
+- Shoudld apply filter for "Active" status only
 - Verify only active locations are displayed
 - Verify inactive locations are hidden
-- Apply filter for "Inactive" status only
+- Should apply filter for "Inactive" status only
 - Verify only inactive locations are displayed
 - Verify active locations are hidden
 - Clear all filters

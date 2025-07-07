@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes Test Execution Report - Phase 1 & 2</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.2em;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8fafc;
+        }
+        .summary-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .summary-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .passed { color: #10b981; }
+        .failed { color: #ef4444; }
+        .in-progress { color: #f59e0b; }
+        .total { color: #6366f1; }
+        .environment {
+            padding: 20px 30px;
+            background: #f1f5f9;
+            border-left: 4px solid #3b82f6;
+        }
+        .content {
+            padding: 30px;
+        }
+        .phase-section {
+            margin-bottom: 40px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .phase-header {
+            background: #1e293b;
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        .test-case {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .test-case:last-child {
+            border-bottom: none;
+        }
+        .test-header {
+            background: #f8fafc;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+        .test-header:hover {
+            background: #f1f5f9;
+        }
+        .test-title {
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .status-passed {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .status-failed {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .status-in-progress {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .test-details {
+            display: none;
+            padding: 20px;
+            background: white;
+        }
+        .test-details.active {
+            display: block;
+        }
+        .step-list {
+            margin: 15px 0;
+        }
+        .step {
+            margin: 10px 0;
+            padding: 12px;
+            border-left: 3px solid #e2e8f0;
+            background: #f8fafc;
+            border-radius: 4px;
+        }
+        .step-passed {
+            border-left-color: #10b981;
+            background: #f0fdf4;
+        }
+        .step-failed {
+            border-left-color: #ef4444;
+            background: #fef2f2;
+        }
+        .verification-list {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+        .verification-list li {
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+        }
+        .verification-list li:before {
+            content: "✅";
+            margin-right: 8px;
+        }
+        .toggle-icon {
+            transition: transform 0.2s;
+        }
+        .toggle-icon.rotated {
+            transform: rotate(180deg);
+        }
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        .execution-details {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        .execution-details h4 {
+            margin: 0 0 10px 0;
+            color: #1e293b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Quotes Module Test Execution Report</h1>
+            <p>Phase 1 & Phase 2 - Test Cases TC 078 through TC 086</p>
+            <p>Execution Date: July 7, 2025 | Browser: Chrome | Environment: Development</p>
+        </div>
+
+        <div class="summary">
+            <div class="summary-card">
+                <div class="summary-number total">8</div>
+                <div>Total Test Cases</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-number passed">7</div>
+                <div>Passed</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-number failed">0</div>
+                <div>Failed</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-number in-progress">1</div>
+                <div>In Progress</div>
+            </div>
+        </div>
+
+        <div class="environment">
+            <h3>Test Environment Details</h3>
+            <p><strong>Application URL:</strong> https://cte-dev.iclick.nz/</p>
+            <p><strong>Browser:</strong> Chrome (Playwright Automation)</p>
+            <p><strong>Test User:</strong> Jane Doe (Administrator)</p>
+            <p><strong>Operating System:</strong> Windows</p>
+            <p><strong>Execution Time:</strong> 07:45 PM - 07:55 PM</p>
+            <p><strong>Test Framework:</strong> Playwright MCP with VS Code Integration</p>
+        </div>
+
+        <div class="content">
+            <!-- Phase 1 Section -->
+            <div class="phase-section">
+                <div class="phase-header">
+                    Phase 1: Basic Quote Operations (TC 078 - TC 082)
+                </div>
+
+                <div class="test-case">
+                    <div class="test-header" onclick="toggleTest('tc078')">
+                        <div class="test-title">TC 078 - Verify Quotes Page Navigation and UI Elements</div>
+                        <div>
+                            <span class="status-badge status-passed">PASSED</span>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                    </div>
+                    <div id="tc078" class="test-details">
+                        <div class="execution-details">
+                            <h4>Test Objective</h4>
+                            <p>Verify that users can successfully navigate to the Quotes page and all UI elements are displayed correctly.</p>
+                        </div>
+                        <div class="step-list">
+                            <div class="step step-passed">
+                                <strong>Step 1:</strong> Navigate to Quotes page
+                                <ul class="verification-list">
+                                    <li>URL navigation successful</li>
+                                    <li>Page title "Custom Tooling Dashboard" verified</li>
+                                    <li>Breadcrumb shows "Dashboard > Quotes"</li>
+                                </ul>
+                            </div>
+                            <div class="step step-passed">
+                                <strong>Step 2:</strong> Verify UI elements
+                                <ul class="verification-list">
+                                    <li>"+Quote" button visible and functional</li>
+                                    <li>"Filters" button available</li>
+                                    <li>Search functionality accessible</li>
+                                    <li>Quotes table with all required columns displayed</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p><strong>Result:</strong> All navigation and UI elements verified successfully. Page loads correctly with all expected functionality.</p>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-header" onclick="toggleTest('tc079')">
+                        <div class="test-title">TC 079 - Verify Quotes List Display and Data Integrity</div>
+                        <div>
+                            <span class="status-badge status-passed">PASSED</span>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                    </div>
+                    <div id="tc079" class="test-details">
+                        <div class="execution-details">
+                            <h4>Test Objective</h4>
+                            <p>Validate that the quotes list displays correctly with proper data, columns, and formatting.</p>
+                        </div>
+                        <div class="step-list">
+                            <div class="step step-passed">
+                                <strong>Step 1:</strong> Verify table structure
+                                <ul class="verification-list">
+                                    <li>All required columns present: Quote, Customer Type, Customer, Total, Status, Actions</li>
+                                    <li>Table headers properly formatted</li>
+                                    <li>Data alignment correct</li>
+                                </ul>
+                            </div>
+                            <div class="step step-passed">
+                                <strong>Step 2:</strong> Validate data integrity
+                                <ul class="verification-list">
+                                    <li>Quote numbers display correctly (e.g., 0020, 0019, 0018)</li>
+                                    <li>Customer types show "Regular" and "One Off"</li>
+                                    <li>Customer names display properly</li>
+                                    <li>Total amounts formatted correctly with currency</li>
+                                    <li>Status values appropriate (Draft, Approved, etc.)</li>
+                                    <li>Action menu (⋮) buttons functional</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p><strong>Result:</strong> Quotes list displays 18 total results with proper pagination. All data integrity checks passed.</p>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-header" onclick="toggleTest('tc080')">
+                        <div class="test-title">TC 080 - Verify Search by Quote Number Functionality</div>
+                        <div>
+                            <span class="status-badge status-passed">PASSED</span>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                    </div>
+                    <div id="tc080" class="test-details">
+                        <div class="execution-details">
+                            <h4>Test Objective</h4>
+                            <p>Test search functionality using quote numbers to ensure accurate filtering and results.</p>
+                        </div>
+                        <div class="step-list">
+                            <div class="step step-passed">
+                                <strong>Step 1:</strong> Search by existing quote number
+                                <ul class="verification-list">
+                                    <li>Searched for quote "0020"</li>
+                                    <li>Results filtered to show only matching quote</li>
+                                    <li>Pagination updated to "Showing 1 to 1 of 1 results"</li>
+                                    <li>Correct quote data displayed</li>
+                                </ul>
+                            </div>
+                            <div class="step step-passed">
+                                <strong>Step 2:</strong> Test search reset
+                                <ul class="verification-list">
+                                    <li>Cleared search field</li>
+                                    <li>All quotes restored to list</li>
+                                    <li>Pagination reset to full results</li>
+                                    <li>Search functionality working bidirectionally</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p><strong>Result:</strong> Search by quote number works accurately with proper filtering and reset functionality.</p>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-header" onclick="toggleTest('tc081')">
+                        <div class="test-title">TC 081 - Verify Search by Customer Name Functionality</div>
+                        <div>
+                            <span class="status-badge status-passed">PASSED</span>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                    </div>
+                    <div id="tc081" class="test-details">
+                        <div class="execution-details">
+                            <h4>Test Objective</h4>
+                            <p>Verify search functionality using customer names including partial matches and no-results scenarios.</p>
+                        </div>
+                        <div class="step-list">
+                            <div class="step step-passed">
+                                <strong>Step 1:</strong> Search by customer name
+                                <ul class="verification-list">
+                                    <li>Searched for "Jane Smith"</li>
+                                    <li>Multiple matching quotes displayed (5 results)</li>
+                                    <li>All results contain "Jane Smith" as customer</li>
+                                    <li>Pagination updated correctly</li>
+                                </ul>
+                            </div>
+                            <div class="step step-passed">
+                                <strong>Step 2:</strong> Test no-results scenario
+                                <ul class="verification-list">
+                                    <li>Searched for non-existent customer "XYZ"</li>
+                                    <li>No results displayed appropriately</li>
+                                    <li>Pagination shows "0 results"</li>
+                                    <li>No data table rows shown</li>
+                                </ul>
+                            </div>
+                            <div class="step step-passed">
+                                <strong>Step 3:</strong> Reset and verify
+                                <ul class="verification-list">
+                                    <li>Cleared search to restore all quotes</li>
+                                    <li>Full list restored successfully</li>
+                                    <li>All 18 results available again</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p><strong>Result:</strong> Customer name search works for both positive and negative test cases with proper reset functionality.</p>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-header" onclick="toggleTest('tc082')">
+                        <div class="test-title">TC 082 - Verify Filters Integration with Quote Status</div>
+                        <div>
+                            <span class="status-badge status-passed">PASSED</span>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                    </div>
+                    <div id="tc082" class="test-details">
+                        <div class="execution-details">
+                            <h4>Test Objective</h4>
+                            <p>Test the advanced filtering system integration with Settings > Quote Status including multiple status filtering.</p>
+                        </div>
+                        <div class="step-list">
+                            <div class="step step-passed">
+                                <strong>Step 1:</strong> Access and verify quote statuses
+                                <ul class="verification-list">
+                                    <li>Navigated to Settings > Quote Status</li>
+                                    <li>Verified all status types available</li>
+                                    <li>Confirmed status management functionality</li>
+                                    <li>Returned to Quotes page</li>
+                                </ul>
+                            </div>
+                            <div class="step step-passed">
+                                <strong>Step 2:</strong> Test status filtering
+                                <ul class="verification-list">
+                                    <li>Opened Filters panel</li>
+                                    <li>Selected "Draft" status filter</li>
+                                    <li>Results filtered to show only Draft quotes (12 results)</li>
+                                    <li>All displayed quotes have "Draft" status</li>
+                                </ul>
+                            </div>
+                            <div class="step step-passed">
+                                <strong>Step 3:</strong> Test multiple status filtering
+                                <ul class="verification-list">
+                                    <li>Added "Approved" to existing "Draft" filter</li>
+                                    <li>Results include both Draft and Approved quotes (13 results)</li>
+                                    <li>Multiple status selection working correctly</li>
+                                    <li>Filter logic properly implemented</li>
+                                </ul>
+                            </div>
+                            <div class="step step-passed">
+                                <strong>Step 4:</strong> Reset filters
+                                <ul class="verification-list">
+                                    <li>Used "Reset" button to clear all filters</li>
+                                    <li>All quotes restored to full list</li>
+                                    <li>Filter panel closed automatically</li>
+                                    <li>Complete reset functionality verified</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p><strong>Result:</strong> Advanced filtering system works correctly with single and multiple status selections, proper reset functionality.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2 Section -->
+            <div class="phase-section">
+                <div class="phase-header">
+                    Phase 2: Quote Management Operations (TC 083 - TC 086)
+                </div>
+
+                <div class="test-case">
+                    <div class="test-header" onclick="toggleTest('tc083')">
+                        <div class="test-title">TC 083 - Verify View Existing Quote Functionality</div>
+                        <div>
+                            <span class="status-badge status-passed">PASSED</span>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                    </div>
+                    <div id="tc083" class="test-details">
+                        <div class="execution-details">
+                            <h4>Test Objective</h4>
+                            <p>Verify that users can view existing quotes in read-only mode with all sections and data displayed correctly.</p>
+                        </div>
+                        <div class="step-list">
+                            <div class="step step-passed">
+                                <strong>Step 1:</strong> Navigate to View Quote
+                                <ul class="verification-list">
+                                    <li>Selected quote 0020 from quotes list</li>
+                                    <li>Clicked "View" from action menu</li>
+                                    <li>Page navigated to View Quote mode</li>
+                                    <li>Breadcrumb shows "Dashboard > Quotes > View Quote"</li>
+                                </ul>
+                            </div>
+                            <div class="step step-passed">
+                                <strong>Step 2:</strong> Verify Customer Information (Read-Only)
+                                <ul class="verification-list">
+                                    <li>Type field shows "Regular" (disabled)</li>
+                                    <li>Customer field shows "Jane Smith" (non-editable)</li>
+                                    <li>Address fields display complete information (read-only)</li>
+                                    <li>Description field shows quote description (disabled)</li>
+                                </ul>
+                            </div>
+                            <div class="step step-passed">
+                                <strong>Step 3:</strong> Verify Quote Header (Read-Only)
+                                <ul class="verification-list">
+                                    <li>Status displays "Draft" (disabled)</li>
+                                    <li>Quote Number shows "0020" (non-editable)</li>
+                                    <li>Customer P.O Number displays "22222" (read-only)</li>
+                                    <li>Phone shows "0761253273" (disabled)</li>
+                                </ul>
+                            </div>
+                            <div class="step step-passed">
+                                <strong>Step 4:</strong> Verify Quote Details (Read-Only)
+                                <ul class="verification-list">
+                                    <li>Date shows "2025-07-07" (disabled)</li>
+                                    <li>Est. Delivery Date shows "2025-07-15" (read-only)</li>
+                                    <li>Est. Completion Date shows "2025-07-20" (disabled)</li>
+                                    <li>Finish/Outwork shows "Anodise" (read-only)</li>
+                                </ul>
+                            </div>
+                            <div class="step step-passed">
+                                <strong>Step 5:</strong> Verify Parts Section (Display Only)
+                                <ul class="verification-list">
+                                    <li>Parts table displays 2 parts correctly</li>
+                                    <li>Regular part: PN-0006 with quantities and pricing</li>
+                                    <li>One-Off part: CUSTOM-001 with custom description</li>
+                                    <li>Sub Total: $1,275.00, GST: $204.00, Total: $1,479.00</li>
+                                </ul>
+                            </div>
+                            <div class="step step-passed">
+                                <strong>Step 6:</strong> Verify File Attachments (Display Only)
+                                <ul class="verification-list">
+                                    <li>File attachments section visible</li>
+                                    <li>Attachment "test file pdf" displayed</li>
+                                    <li>PDF link available for viewing/downloading</li>
+                                    <li>Refresh Data button available</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p><strong>Result:</strong> View mode displays all quote information correctly in read-only format with proper data integrity.</p>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-header" onclick="toggleTest('tc084')">
+                        <div class="test-title">TC 084 - Verify Edit Existing Quote Functionality</div>
+                        <div>
+                            <span class="status-badge status-passed">PASSED</span>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                    </div>
+                    <div id="tc084" class="test-details">
+                        <div class="execution-details">
+                            <h4>Test Objective</h4>
+                            <p>Test the ability to edit existing quotes, modify fields, save changes, and verify data persistence.</p>
+                        </div>
+                        <div class="step-list">
+                            <div class="step step-passed">
+                                <strong>Step 1:</strong> Navigate to Edit Quote
+                                <ul class="verification-list">
+                                    <li>Selected quote 0016 from quotes list</li>
+                                    <li>Clicked "Edit" from action dropdown</li>
+                                    <li>Page navigated to Edit Quote mode</li>
+                                    <li>Breadcrumb shows "Dashboard > Quotes > Edit Quote"</li>
+                                </ul>
+                            </div>
+                            <div class="step step-passed">
+                                <strong>Step 2:</strong> Modify Quote Fields
+                                <ul class="verification-list">
+                                    <li>Customer set to "THARUSHA TEST" with phone "0713240554"</li>
+                                    <li>Description updated to "Updated quote description for testing QUOTES"</li>
+                                    <li>All form fields editable and responsive</li>
+                                    <li>Form shows modified state correctly</li>
+                                </ul>
+                            </div>
+                            <div class="step step-passed">
+                                <strong>Step 3:</strong> Save and Verify Changes
+                                <ul class="verification-list">
+                                    <li>Clicked "Update" button to save changes</li>
+                                    <li>Success message "Quote updated successfully!" displayed</li>
+                                    <li>Changes saved without errors</li>
+                                    <li>Data persistence verified in quotes list</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p><strong>Result:</strong> Edit functionality works correctly with successful field modifications, save operations, and data persistence.</p>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-header" onclick="toggleTest('tc085')">
+                        <div class="test-title">TC 085 - Verify Cancel Functionality</div>
+                        <div>
+                            <span class="status-badge status-passed">PASSED</span>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                    </div>
+                    <div id="tc085" class="test-details">
+                        <div class="execution-details">
+                            <h4>Test Objective</h4>
+                            <p>Test the cancel functionality to ensure temporary changes are not saved and original data remains intact.</p>
+                        </div>
+                        <div class="step-list">
+                            <div class="step step-passed">
+                                <strong>Step 1:</strong> Make Temporary Changes
+                                <ul class="verification-list">
+                                    <li>Accessed edit mode for quote 0016</li>
+                                    <li>Modified Description field to "CANCEL" (temporary change)</li>
+                                    <li>Form reflected the temporary modification</li>
+                                    <li>Changes visible in form fields</li>
+                                </ul>
+                            </div>
+                            <div class="step step-passed">
+                                <strong>Step 2:</strong> Test Cancel Operation
+                                <ul class="verification-list">
+                                    <li>Clicked "Cancel" button</li>
+                                    <li>Page returned to quotes list without saving</li>
+                                    <li>No save confirmation or error messages</li>
+                                    <li>Navigation successful</li>
+                                </ul>
+                            </div>
+                            <div class="step step-passed">
+                                <strong>Step 3:</strong> Verify Data Integrity
+                                <ul class="verification-list">
+                                    <li>Navigated back to view the same quote</li>
+                                    <li>Original description "Updated quote description for testing QUOTES" intact</li>
+                                    <li>Temporary change "CANCEL" not saved</li>
+                                    <li>All original data preserved correctly</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p><strong>Result:</strong> Cancel functionality works perfectly, preventing unwanted changes and preserving original data integrity.</p>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-header" onclick="toggleTest('tc086')">
+                        <div class="test-title">TC 086 - Add New Quote As Regular Customer</div>
+                        <div>
+                            <span class="status-badge status-in-progress">IN PROGRESS</span>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                    </div>
+                    <div id="tc086" class="test-details">
+                        <div class="execution-details">
+                            <h4>Test Objective</h4>
+                            <p>Create a new quote for a regular customer with complete details including parts and file attachments.</p>
+                        </div>
+                        <div class="step-list">
+                            <div class="step step-passed">
+                                <strong>Step 1:</strong> Navigate to Add Quote
+                                <ul class="verification-list">
+                                    <li>Clicked "+Quote" button from quotes list</li>
+                                    <li>Page navigated to Add Quote form</li>
+                                    <li>Customer Type pre-selected as "Regular"</li>
+                                    <li>Quote Number auto-generated as "0021"</li>
+                                </ul>
+                            </div>
+                            <div class="step">
+                                <strong>Step 2:</strong> Configure Quote Details (In Progress)
+                                <ul class="verification-list">
+                                    <li>Status dropdown ready for "Draft" selection</li>
+                                    <li>Customer dropdown ready for "Jane Smith" selection</li>
+                                    <li>Form fields accessible for data entry</li>
+                                    <li>Date fields pre-populated with current date</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p><strong>Status:</strong> Test case initiated successfully. Form setup complete, ready for detailed data entry and parts configuration.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Test Execution completed on July 7, 2025 using Playwright automation framework</p>
+            <p>Report generated automatically - Custom Tooling Quality Assurance Team</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleTest(testId) {
+            const testDetails = document.getElementById(testId);
+            const toggleIcon = testDetails.previousElementSibling.querySelector('.toggle-icon');
+            
+            if (testDetails.classList.contains('active')) {
+                testDetails.classList.remove('active');
+                toggleIcon.textContent = '▼';
+                toggleIcon.classList.remove('rotated');
+            } else {
+                testDetails.classList.add('active');
+                toggleIcon.textContent = '▲';
+                toggleIcon.classList.add('rotated');
+            }
+        }
+
+        // Auto-expand first test case for demonstration
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleTest('tc078');
+        });
+    </script>
+</body>
+</html>
