@@ -714,3 +714,58 @@
   - Original quote: same quote number as before (e.g., "0018")
   - Copied quote: new quote number (e.g., "0020")
   - Both quotes: same customer, total amount, and status
+
+## TC 091 - Email Quote to Customer
+
+### Priority TC 091 : High
+
+#### Step 1: Navigate to quotes
+
+- Navigate to Quotes page
+- Verify Quotes page loads successfully
+- From the Quotes list page, locate an existing quote with customer data (e.g., quote 0020)
+- Click on the action menu button (⋮) for the selected quote
+- Verify action dropdown menu opens
+- Verify menu contains options: "View", "Edit", "Delete"
+- Click on "Edit" option
+- Verify page navigates to Edit Quote page
+- Verify page title displays "Edit Quote"
+
+#### Step 2: Verify Email Quote Button
+
+- Verify "Email Quote" button is visible in the top action bar
+- Verify "Email Quote" button is clickable and enabled
+- Verify button displays email icon and "Email Quote" text
+- Verify button appears alongside other action buttons (Make into Job, Copy Quote, Print)
+
+## TC 092: Print Existing Quote
+
+### Priority TC 092 : High
+
+#### Step 1: Navigate to quotes for cheking Print
+
+- Navigate to Quotes page
+- Verify Quotes page loads successfully
+- From the Quotes list page, locate an existing quote with customer data (e.g., quote 0020)
+- Click on the action menu button (⋮) for the selected quote
+- Verify action dropdown menu opens
+- Verify menu contains options: "View", "Edit", "Delete"
+- Click on "Edit" option
+- Verify page navigates to Edit Quote page
+- Verify page title displays "Edit Quote"
+
+#### Step 2: Verify and Click Print Button
+
+- Verify "Print" button is visible in the top action bar
+- Verify "Print" button is clickable and enabled
+- Verify button displays print icon and "Print" text
+- Verify button appears alongside other action buttons (Make into Job, Copy Quote, Email Quote)
+- Click on "Print" button
+- Verify print dialog opens or PDF is generated
+- Verify the generated document contains all quote details:
+  - Quote number
+  - Customer information
+  - Quote date
+  - Parts list with quantities and prices
+  - Total amount
+  - Company branding/header
