@@ -216,3 +216,163 @@
 - Verify breadcrumb navigation shows: Dashboard > Quotes > View Quote
 - Verify breadcrumb links are functional
 - Verify user can navigate back to quotes list
+
+## TC 084 - Verify Edit Existing Quote Functionality
+
+### Priority TC 084 : High
+
+#### Step 1: Navigate to Edit Quote
+
+- From the Quotes list page, locate a quote with customer data
+- Click on the three dots menu to access quote actions
+- Select "Edit" from the dropdown menu
+- Verify page navigates to Edit Quote page
+- Verify page URL contains "/quote" with edit intent or similar edit path
+- Verify page title displays "Edit Quote"
+- Verify breadcrumb navigation shows: Dashboard > Quotes > Edit Quote
+
+#### Step 2: Modify Quote Fields
+
+- Click on "Customer" dropdown and select Customer "THARUSHA TEST" from the list
+- Verify customer selection changes and updates associated fields
+- Should set and set his phone number "0713240554".
+- Add description text in the "Description" field (e.g., "Updated quote description for testing QUOTES")
+- Verify all changes are reflected in the form fields
+- Verify form shows modified state
+
+- Click the "Update" button to save changes
+- Verify page shows success indication or redirects appropriately
+- Verify changes are saved successfully
+
+#### Step 3: Verify Changes Persistence
+
+- Navigate back to the quotes list page
+- Locate the same quote that was edited
+- Verify the changes are reflected in the quotes list:
+- Click to view the quote details again
+- Verify all saved changes are persistent
+
+## TC 085 - Verify Cancel Functionality
+
+### Priority TC 085 : Medium
+
+- From the Quotes list page, locate a quote with customer data
+- Click on the three dots menu to access quote actions
+- Select "Edit" from the dropdown menu
+- Make some temporary changes to fields (without saving)
+- Change description text in the "Description" field (e.g., "CANCEL")
+- Click the "Cancel" button
+- Verify page returns to previous state or quotes list
+- Verify temporary changes are not saved
+- Verify original data remains unchanged
+
+## TC 086 - Add New Quote As Regular Customer
+
+### Priority TC 086 : High
+
+#### Step 1: Adding main details
+
+- Click on "+ Quote" button
+- Select Customer Type "Regular"
+- Verify "Quote Number" field is automatically generated
+- Verify "Quote Number" field displays auto-generated number (e.g., "0017")
+- Verify "Quote Number" field is non-editable (frozen/disabled)
+- Click on "Status" dropdown
+- Verify status dropdown opens with options
+- Verify all status options are displayed (Draft, Pending Approval, Approved, Rejected, Expired, Converted to Job, Canceled, Sent, Viewed, In Negotiation, Waiting for Documents)
+- Select "Draft" from the status dropdown
+- Verify "Draft" status is selected and displayed
+- Verify status dropdown closes after selection
+- Should click on "Customer" dropdown
+- Should select "Jane Smith" from customer dropdown
+- Verify customer selection changes to "Jane Smith"
+- Verify "Phone" field auto-populates with customer's phone number (e.g., "0761253273")
+- Verify "Address" fields auto-populate with customer's address
+- If phone or address fields are empty, manually enter the required details:
+  - Enter phone number in "Phone" field if not auto-populated
+  - Enter address details in "Address" fields if not auto-populated
+- Should add Customer P.0 Number (e.g., "22222)
+- Should Add description text in the "Description" field (e.g., "We gonna be testing new quote as Regular")
+- Verify "QUOTE DETAILS" section is visible
+- Verify "Date" field shows current date (e.g., "07/07/2025")
+- Verify "Est. Delivery Date" field shows current date (e.g., "07/07/2025")
+- Verify "Est. Completion Date" field shows current date (e.g., "07/07/2025")
+- Click on "Est. Delivery Date" date picker icon
+- Select a future date from the date picker (e.g., "07/15/2025")
+- Verify "Est. Delivery Date" field updates with selected date
+- Click on "Est. Completion Date" date picker icon
+- Select a future date from the date picker (e.g., "07/20/2025")
+- Verify "Est. Completion Date" field updates with selected date
+- Click on "Finish/Outwork" dropdown
+- Select an option from "Finish/Outwork" dropdown
+- Verify "Finish/Outwork" selection is displayed
+- Click "Save" button
+- Verify quote is saved successfully
+- Verify the success message after saving
+- Verify page remains on edit quote page (does not redirect to quotes list)
+- Verify "PARTS" section becomes unlocked/accessible after saving
+- Verify "Refresh Data" button is available in PARTS section
+- Verify "+ Add Part" button is now visible and enabled
+- Verify PARTS table shows columns: PART TYPE, PART NO, DESCRIPTION, VERSION, QTY, UNIT, UNIT PRICE, TOTAL, ACTION
+- Verify "No items found, try to broaden your search" message appears in PARTS section
+- Verify Sub Total shows "$0.00"
+- Verify GST (16%) shows "$0.00"
+- Verify Total shows "$0.00"
+- Verify "FILE ATTACHMENTS" section becomes unlocked/accessible after saving
+- Verify "Refresh Data" button is available in FILE ATTACHMENTS section
+- Verify "+ File" button is now visible and enabled
+- Verify FILE ATTACHMENTS table shows columns: NAME, DATE, FILE, ACTION
+- Verify "No items found, try to broaden your search" message appears in FILE ATTACHMENTS section
+
+#### Step 2: Modifying Parts Section as normally
+
+- Click On "+ Add Part" Button
+- Verify "Add Part" dialog opens
+- Verify "One Off" checkbox is unchecked (do not tick "One Off")
+- Click on "Part Code" dropdown
+- Select "PN-0006" from the part code dropdown
+- Verify part code selection changes to "PN-0006"
+- Verify "Part Description" field auto-populates with "PN-0006 Description"
+- Enter quantity "20" in the "Qty" field
+- Verify quantity field shows "20"
+- Enter "v2" in the "Version" field (if available)
+- Click on "Units" dropdown
+- Select a unit from the Units dropdown
+- Verify unit selection is displayed
+- Enter "30" in the "Unit Price" field
+- Verify unit price field shows "30"
+- Click "Save" button
+- Verify part is added successfully
+- Verify part appears in the PARTS table
+- Verify part row shows: PN-0006, Description, v2, 20, selected unit, 30, calculated total
+- Verify Sub Total updates to reflect the new part total
+- Verify GST (16%) updates based on new subtotal
+- Verify Total updates to include GST
+
+#### Step 3: Add another Part as One off
+
+- Click On "+ Add Part" Button
+- Verify "Add Part" dialog opens
+- Tick the "One Off" checkbox
+- Verify "One Off" checkbox is checked
+- Verify "Part Code" field becomes empty text input (not dropdown)
+- Manually enter "CUSTOM-001" in the "Part Code" field
+- Verify part code field shows "CUSTOM-001"
+- Manually enter "Custom One-Off Part Description" in the "Part Description" field
+- Verify part description field shows entered text
+- Enter quantity "15" in the "Qty" field
+- Verify quantity field shows "15"
+- Enter "v1" in the "Version" field
+- Verify version field shows "v1"
+- Click on "Units" dropdown
+- Select a unit from the Units dropdown
+- Verify unit selection is displayed
+- Enter "45" in the "Unit Price" field
+- Verify unit price field shows "45"
+- Click "Save" button
+- Verify one-off part is added successfully
+- Verify part appears in the PARTS table
+- Verify part row shows: One Off type, CUSTOM-001, Custom description, v1, 15, selected unit, 45, calculated total
+- Verify Sub Total updates to include both parts
+- Verify GST (16%) updates based on new subtotal
+- Verify Total updates to include all parts with GST
