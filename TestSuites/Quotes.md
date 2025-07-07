@@ -73,39 +73,63 @@
 - Verify No results from that name
 - Verify displayed message "No items found, try to broaden your search"
 
-## TC 082 - Verify Filters Functionality
+## TC 082 - Verify Filters Functionality (Settings Integration)
 
 ### Priority TC 082 : High
+
+#### Step 1: Verify Quote Status Configuration in Settings
+
+- Navigate to Settings > Quote Status
+- Verify Quote Status settings page opens
+- Record all configured quote statuses from the settings
+- Note down all status names (e.g., Draft, Approved, Rejected, etc.)
+- Verify each status has proper configuration (name, color, etc.)
+
+#### Step 2: Navigate Back to Quotes Page
+
+- Navigate back to Quotes page
+- Verify Quotes page loads successfully
+
+#### Step 3: Verify Filters Functionality
 
 - Click on the "Filters" button
 - Verify filters dropdown opens
 - Verify "Status" filter section is visible
 - Verify Status dropdown shows "All" as default selection
 - Click on Status dropdown
-- Verify all status options are available:
-  - All
-  - Approved
-  - Canceled
-  - Converted to Job
-  - Draft
-  - Expired
-  - In Negotiation
-  - Pending Approval
-  - Rejected
-  - Sent
-  - Viewed
-  - Waiting for Documents
-- Select "Draft" from Status dropdown
-- Verify only quotes with "Draft" status are displayed
-- Verify all visible quotes show "Draft" status badge
+- Verify "All" option is available as first option
+- Verify all quote status options from Settings > Quote Status appear exactly in the dropdown
+- Verify no additional statuses appear that are not configured in Settings
+- Verify no configured statuses are missing from the dropdown
+
+#### Step 4: Test Filter Functionality
+
+- Select first available status from dropdown (based on Settings configuration)
+- Verify only quotes with that status are displayed
+- Verify all visible quotes show the selected status badge
 - Verify results count updates to show filtered results only
-- Select "Approved" from Status dropdown
-- Verify only quotes with "Approved" status are displayed
-- Verify all visible quotes show "Approved" status badge
+- Verify "Applied Filters" section appears showing selected status
+- Verify "Clear" button is available in applied filters
+
+#### Step 5: Test Second Filter Option
+
+- Select different status from dropdown (based on Settings configuration)
+- Verify only quotes with the new status are displayed
+- Verify all visible quotes show the new status badge
 - Verify results count updates accordingly
+- Verify applied filters updates to show the new status
+
+#### Step 6: Reset and Close Filters
+
 - Select "All" from Status dropdown
 - Verify all quotes display again regardless of status
 - Verify results count returns to original total
+- Verify "Applied Filters" section disappears
+- Verify Filters button shows no count indicator
 - Click outside filters area or close filters
 - Verify filters dropdown closes
 - Verify table maintains current filter settings
+
+- All quote statuses configured in Settings > Quote Status should appear exactly in Quotes page filters
+- No discrepancies between Settings configuration and Filter options
+- Filter functionality works correctly for all configured statuses
