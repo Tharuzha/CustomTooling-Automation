@@ -611,3 +611,106 @@
 - Verify "Job Type" dropdown shows "MTO - Make To Order" as default selection
 - Verify "Order Date" field shows current date (e.g., "2025-07-07")
 - Verify "Delivery Date" field inherits value from quote's estimated delivery date
+
+## TC 090 - Duplicate an Existing Quote
+
+### Priority TC 090 : High
+
+#### Step 1: Navigate to Edit Quote Page
+
+- Navigate to Quotes page
+- Verify Quotes page loads successfully
+- From the Quotes list page, locate an existing quote with complete data (e.g., quote 0018)
+- Click on the action menu button (⋮) for the selected quote
+- Verify action dropdown menu opens
+- Verify menu contains options: "View", "Edit", "Delete"
+- Click on "Edit" option
+- Verify page navigates to Edit Quote page
+- Verify page URL contains "/quote" with edit intent
+- Verify page title displays "Edit Quote"
+- Verify breadcrumb navigation shows: Dashboard > Quotes > Edit Quote
+
+#### Step 2: Initiate Quote Duplication
+
+- Verify "Copy Quote" button is visible in the top action bar
+- Click on "Copy Quote" button
+- Verify confirmation dialog appears
+- Verify dialog title displays "Are you sure?"
+- Verify dialog shows warning icon (!)
+- Verify dialog displays message: "Do you want to copy this quote into new?"
+- Verify dialog contains two buttons: "Yes, copy it!" and "Cancel"
+
+#### Step 3: Confirm Quote Duplication
+
+- Click "Yes, copy it!" button to confirm duplication
+- Verify confirmation dialog closes after clicking confirm
+- Verify page navigation occurs (URL changes to new quote)
+
+#### Step 4: Verify Successful Quote Duplication
+
+- Verify page URL changes to new quote format (e.g., contains new quote UUID)
+- Verify page title remains "Edit Quote"
+- Verify breadcrumb navigation shows: Dashboard > Quotes > Edit Quote
+- Verify new quote number is auto-generated and displayed (e.g., "0020")
+- Verify new quote number field is non-editable/disabled
+- Verify new quote number is different from original quote number
+
+#### Step 5: Verify Customer Information is Copied
+
+- Verify "Customer Information" section displays copied data
+- Verify "Type" field shows same customer type as original (e.g., "Regular")
+- Verify "Status" field shows same status as original (e.g., "Draft")
+- Verify "Customer" field shows same customer name as original (e.g., "Jane Smith")
+- Verify "Customer P.O Number" field shows same value as original
+- Verify "Phone" field shows same phone number as original
+- Verify "Address" fields show same address as original
+- Verify "Description" field shows same description as original
+
+#### Step 6: Verify Quote Details are Copied
+
+- Verify "Quote Details" section displays copied data
+- Verify "Date" field shows current date (e.g., "2025-07-07")
+- Verify "Est. Delivery Date" field shows same date as original
+- Verify "Est. Completion Date" field shows same date as original
+- Verify "Finish/Outwork" field shows same selection as original
+- Verify "Fabrication" checkbox shows same state as original
+
+#### Step 7: Verify Parts Section is Copied
+
+- Verify "Parts" section displays all copied parts data
+- Verify parts table shows same number of parts as original
+- Verify each part row contains same data as original:
+  - Part Type (Regular/One-Off)
+  - Part No (e.g., PN-0006, CUSTOM-001)
+  - Description
+  - Version
+  - Quantity
+  - Unit
+  - Unit Price
+  - Total
+- Verify "Sub Total" shows same amount as original (e.g., "$1,275.00")
+- Verify "GST (16%)" shows same amount as original (e.g., "$204.00")
+- Verify "Total" shows same amount as original (e.g., "$1,479.00")
+
+#### Step 8: Verify File Attachments are Copied
+
+- Verify "File Attachments" section displays copied attachments
+- Verify file attachments table shows same files as original
+- Verify each attachment row contains:
+  - Same file name as original
+  - Date may show "N/A" for copied files
+  - Same file link (may reference original quote storage)
+  - Action menu available
+
+#### Step 9: Navigate Back and Verify Both Quotes Exist
+
+- Navigate back to Quotes page
+- Verify Quotes page loads successfully
+- Verify quotes list displays both original and copied quotes
+- Verify total results count has increased by 1
+- Verify original quote is still present in the list
+- Verify new copied quote appears in the list (usually at the top)
+- Verify both quotes show identical data except for quote numbers:
+  - Original quote: same quote number as before (e.g., "0018")
+  - Copied quote: new quote number (e.g., "0020")
+  - Both quotes: same customer, total amount, and status
