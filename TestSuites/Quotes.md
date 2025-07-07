@@ -39,3 +39,18 @@
 - Verify table shows status badges (DRAFT, APPROVED, WAITING FOR DOCUMENTS, IN NEGOTIATION, VIEWED, SENT)
 - Verify table shows actions column with three dots menu
 - Verify quotes are displayed in rows
+
+## TC 080 - Verify Search Functionality by Quote Number
+
+### Priority TC 080 : High
+
+- Click on the search box
+- Enter "0016" in the search box
+- Verify search filters the results as user types
+- Verify only quote "0016" is displayed
+- Verify other quotes are hidden from the list
+- Verify "Showing 1 results" appears at bottom
+- Verify quote details match (Jane Smith, Regular, 170.00, DRAFT status)
+- Clear the search box
+- Verify all quotes display again
+- Verify results count returns to original total
