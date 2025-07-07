@@ -54,3 +54,21 @@
 - Should Clear the search box
 - Verify all quotes display again
 - Verify results count returns to original total
+
+## TC 081 - Verify Search Functionality by Customer Name
+
+### Priority TC 081 : High
+
+- Click on the search box
+- Should Enter "Jane" in the search box
+- Verify search filters the results as user types
+- Verify only quotes with customer name containing "Jane" are displayed
+- Verify other quotes are hidden from the list
+- Verify all displayed quotes show "Jane Smith" as customer name
+- Verify results count updates to show filtered results only
+- Should Clear the search box
+- Verify all quotes display again
+- Verify results count returns to original total
+- Next should enter "noname"
+- Verify No results from that name
+- Verify displayed message "No items found, try to broaden your search"
