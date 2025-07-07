@@ -58,7 +58,7 @@
 - Change stock location name to "Updated Storage"
 - Click Save button
 - Verify success message appears
-- Verify updated stoc k location displays in list
+- Verify updated stock location displays in list
 - Verify new name shows as "Updated Storage"
 - Verify status shows as "Inactive"
 
