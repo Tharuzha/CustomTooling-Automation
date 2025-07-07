@@ -376,3 +376,36 @@
 - Verify Sub Total updates to include both parts
 - Verify GST (16%) updates based on new subtotal
 - Verify Total updates to include all parts with GST
+
+#### Step 4: Verify FILE ATTACHMENTS Section Functionality
+
+- Click On "+ File" Button
+- Verify "Add File" dialog opens
+- Verify "Name" field is empty and ready for input
+- Enter "test file pdf" in the "Name" field
+- Verify name field shows "test file pdf"
+- Verify "Date" field shows current date (e.g., "2025-07-07")
+- Verify "Date" field is pre-populated with current date
+- Verify file upload area displays "Upload a file or drag and drop"
+- Verify file upload area shows "PDF, DOCX up to 5MB" file type restrictions
+- Click on the cloud upload icon/area
+- Verify file chooser dialog opens
+- Select and upload a PDF file (e.g., test document)
+- Verify uploaded file appears in the upload area
+- Verify uploaded file name is displayed (e.g., "test-document-428595-quote_attachment.pdf")
+- Verify uploaded file shows proper file extension and format
+- Click "Save" button
+- Verify file attachment is saved successfully
+- Verify success message appears: "Quote Attachment created successfully!"
+- Verify "Add File" dialog closes after successful save
+- Verify file appears in the FILE ATTACHMENTS table
+- Verify file attachment row shows: "test file pdf", current date, PDF filename, action menu
+- Verify FILE ATTACHMENTS table displays all required columns:
+  - NAME column shows "test file pdf"
+  - DATE column shows "2025-07-07"
+  - FILE column shows clickable PDF link "test-document-428595-quote_attachment.pdf"
+  - ACTION column shows "⋮" menu button for file actions
+- Verify PDF file link is clickable for download/view access
+- Verify FILE ATTACHMENTS section no longer shows "No items found" message
+- Verify file attachment is properly integrated with the quote
+- Verify "Refresh Data" button is available for refreshing attachment list
