@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Tooling Test Automation - Test Execution Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #2196F3;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #2196F3;
+            margin: 0;
+            font-size: 2.2em;
+        }
+        .header p {
+            color: #666;
+            margin: 5px 0 0 0;
+            font-size: 1.1em;
+        }
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .summary-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .summary-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.1em;
+        }
+        .summary-card .number {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .test-case {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .test-case-header {
+            background-color: #f8f9fa;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+        .test-case-header:hover {
+            background-color: #e9ecef;
+        }
+        .test-case-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #333;
+        }
+        .test-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .status-passed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .status-in-progress {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .status-failed {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .test-case-content {
+            display: none;
+            padding: 20px;
+        }
+        .test-case-content.active {
+            display: block;
+        }
+        .step {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-left: 4px solid #2196F3;
+            background-color: #f8f9fa;
+        }
+        .step-title {
+            font-weight: bold;
+            color: #2196F3;
+            margin-bottom: 5px;
+        }
+        .step-description {
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .step-result {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .expected, .actual {
+            flex: 1;
+            margin-right: 10px;
+        }
+        .expected strong, .actual strong {
+            color: #333;
+        }
+        .toggle-arrow {
+            transition: transform 0.3s ease;
+        }
+        .toggle-arrow.rotated {
+            transform: rotate(180deg);
+        }
+        .environment-info {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .environment-info h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .env-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .env-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .env-label {
+            font-weight: bold;
+            color: #495057;
+        }
+        .env-value {
+            color: #6c757d;
+        }
+        .phase-separator {
+            border-top: 2px solid #2196F3;
+            margin: 40px 0 30px 0;
+            position: relative;
+        }
+        .phase-separator::after {
+            content: attr(data-phase);
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background-color: white;
+            padding: 0 15px;
+            color: #2196F3;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Custom Tooling Test Automation Report</h1>
+            <p>Quotes Module Test Execution - Phase 2 & 3 Interim Report</p>
+            <p><strong>Execution Date:</strong> July 7, 2025 | <strong>Report ID:</strong> TestResults-07-07-2025-13</p>
+        </div>
+
+        <div class="summary">
+            <div class="summary-card">
+                <h3>Total Test Cases</h3>
+                <div class="number">2</div>
+            </div>
+            <div class="summary-card">
+                <h3>Test Cases Passed</h3>
+                <div class="number">1</div>
+            </div>
+            <div class="summary-card">
+                <h3>Test Cases In Progress</h3>
+                <div class="number">1</div>
+            </div>
+            <div class="summary-card">
+                <h3>Success Rate</h3>
+                <div class="number">50%</div>
+            </div>
+        </div>
+
+        <div class="environment-info">
+            <h3>Test Environment Information</h3>
+            <div class="env-grid">
+                <div class="env-item">
+                    <span class="env-label">Application URL:</span>
+                    <span class="env-value">https://cte-dev.iclick.nz</span>
+                </div>
+                <div class="env-item">
+                    <span class="env-label">Browser:</span>
+                    <span class="env-value">Chrome (Playwright)</span>
+                </div>
+                <div class="env-item">
+                    <span class="env-label">Test User:</span>
+                    <span class="env-value">Jane Doe (Administrator)</span>
+                </div>
+                <div class="env-item">
+                    <span class="env-label">Execution Time:</span>
+                    <span class="env-value">07:58:30 PM - 07:59:39 PM</span>
+                </div>
+                <div class="env-item">
+                    <span class="env-label">OS:</span>
+                    <span class="env-value">Windows</span>
+                </div>
+                <div class="env-item">
+                    <span class="env-label">Test Framework:</span>
+                    <span class="env-value">Playwright Browser Automation</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="phase-separator" data-phase="PHASE 2 COMPLETION"></div>
+
+        <div class="test-case">
+            <div class="test-case-header" onclick="toggleTestCase('tc086')">
+                <div class="test-case-title">TC 086 - Add New Quote as Regular Customer</div>
+                <div>
+                    <span class="test-status status-passed">PASSED</span>
+                    <span class="toggle-arrow" id="arrow-tc086">▼</span>
+                </div>
+            </div>
+            <div class="test-case-content" id="content-tc086">
+                <div class="step">
+                    <div class="step-title">Step 1: Navigate to Add Quote Page</div>
+                    <div class="step-description">Navigate to Quotes page and click "+Quote" button to add new quote</div>
+                    <div class="step-result">
+                        <div class="expected"><strong>Expected:</strong> Add Quote page should load with form fields</div>
+                        <div class="actual"><strong>Actual:</strong> ✓ Add Quote page loaded successfully</div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-title">Step 2: Fill Customer Information</div>
+                    <div class="step-description">Select Regular customer type and fill required customer details</div>
+                    <div class="step-result">
+                        <div class="expected"><strong>Expected:</strong> Customer dropdown should work, required fields should accept input</div>
+                        <div class="actual"><strong>Actual:</strong> ✓ Selected "Acme Corp", filled PO Number "PO-12345", Phone "123456789"</div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-title">Step 3: Fill Quote Details</div>
+                    <div class="step-description">Complete quote details including dates, finish options, and description</div>
+                    <div class="step-result">
+                        <div class="expected"><strong>Expected:</strong> All quote detail fields should accept input and save properly</div>
+                        <div class="actual"><strong>Actual:</strong> ✓ Address "123 Test Street", Description "Test automation quote for regular customer", Status "Draft", Finish "Anodise"</div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-title">Step 4: Save Quote</div>
+                    <div class="step-description">Click Save button and verify quote is created successfully</div>
+                    <div class="step-result">
+                        <div class="expected"><strong>Expected:</strong> Quote should be saved and redirect to edit page with sections unlocked</div>
+                        <div class="actual"><strong>Actual:</strong> ✓ Quote 0021 saved successfully, redirected to edit page with Parts and File Attachments sections visible</div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-title">Step 5: Verify Post-Save State</div>
+                    <div class="step-description">Verify all sections and functionalities are available after saving</div>
+                    <div class="step-result">
+                        <div class="expected"><strong>Expected:</strong> Edit mode with action buttons and data sections available</div>
+                        <div class="actual"><strong>Actual:</strong> ✓ Edit Quote page with Make into Job, Copy Quote, Email Quote, Print buttons. Parts and File Attachments sections with Add buttons enabled</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 15px; padding: 10px; background-color: #d4edda; border-radius: 5px;">
+                    <strong>Test Result:</strong> TC 086 completed successfully. Quote 0021 created for Acme Corp with all required fields populated and proper functionality verified.
+                </div>
+            </div>
+        </div>
+
+        <div class="phase-separator" data-phase="PHASE 3 - IN PROGRESS"></div>
+
+        <div class="test-case">
+            <div class="test-case-header" onclick="toggleTestCase('tc087')">
+                <div class="test-case-title">TC 087 - Add New Quote As One Off Customer</div>
+                <div>
+                    <span class="test-status status-in-progress">IN PROGRESS</span>
+                    <span class="toggle-arrow" id="arrow-tc087">▼</span>
+                </div>
+            </div>
+            <div class="test-case-content" id="content-tc087">
+                <div class="step">
+                    <div class="step-title">Step 1.1: Navigate to Add Quote Page</div>
+                    <div class="step-description">Navigate to Quotes page and click "+Quote" button to create One-Off quote</div>
+                    <div class="step-result">
+                        <div class="expected"><strong>Expected:</strong> Add Quote page should load with Quote Number 0022</div>
+                        <div class="actual"><strong>Actual:</strong> ✓ Add Quote page loaded with auto-generated Quote Number 0022</div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-title">Step 1.2: Select One-Off Customer Type</div>
+                    <div class="step-description">Change customer type from Regular to One-Off</div>
+                    <div class="step-result">
+                        <div class="expected"><strong>Expected:</strong> Customer field should change from dropdown to text input</div>
+                        <div class="actual"><strong>Actual:</strong> ✓ Selected "One-Off", Customer field changed to text input field</div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-title">Step 1.3: Fill One-Off Customer Details</div>
+                    <div class="step-description">Complete all required fields for One-Off customer</div>
+                    <div class="step-result">
+                        <div class="expected"><strong>Expected:</strong> All fields should accept input as per test data</div>
+                        <div class="actual"><strong>Actual:</strong> ✓ Status "Draft", Customer "Test OneOff", P.O Number "33333", Phone "0781212122"</div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-title">Step 1.4: Complete Quote Details</div>
+                    <div class="step-description">Fill description and finish options</div>
+                    <div class="step-result">
+                        <div class="expected"><strong>Expected:</strong> Description and finish fields should accept specified values</div>
+                        <div class="actual"><strong>Actual:</strong> ✓ Description "We gonna be testing new quote as One Off", Finish "Machine Finish"</div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-title">Step 1.5: Save One-Off Quote</div>
+                    <div class="step-description">Save the One-Off quote and verify successful creation</div>
+                    <div class="step-result">
+                        <div class="expected"><strong>Expected:</strong> Quote should be saved and sections should be unlocked</div>
+                        <div class="actual"><strong>Actual:</strong> ✓ Quote 0022 saved successfully. Redirected to Edit Quote page with UUID ea90add1-323e-49ef-9911-fb20a194f016</div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-title">Step 1.6: Verify Post-Save Sections</div>
+                    <div class="step-description">Verify Parts and File Attachments sections are unlocked and functional</div>
+                    <div class="step-result">
+                        <div class="expected"><strong>Expected:</strong> Parts and File Attachments sections with proper buttons and tables</div>
+                        <div class="actual"><strong>Actual:</strong> ✓ Parts section: "+ Add Part" button, table columns, totals ($0.00). File Attachments: "+ File" button, table structure</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 15px; padding: 10px; background-color: #fff3cd; border-radius: 5px;">
+                    <strong>Current Status:</strong> Step 1 (Adding main details for One Off) completed successfully. Quote 0022 created for "Test OneOff" customer. 
+                    <br><strong>Next Steps:</strong> Step 2 (Modifying Parts Section) and Step 3 (Add One-Off Part) still pending.
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background-color: #f8f9fa; border-radius: 8px;">
+            <h3>Execution Summary</h3>
+            <ul>
+                <li><strong>TC 086 (Add New Quote as Regular Customer):</strong> ✅ COMPLETED - Quote 0021 created successfully for Acme Corp with all required functionality verified</li>
+                <li><strong>TC 087 (Add New Quote As One Off Customer):</strong> 🔄 IN PROGRESS - Step 1 completed, One-Off quote 0022 created for "Test OneOff" customer</li>
+            </ul>
+            
+            <h4>Pending Test Cases for Next Execution:</h4>
+            <ul>
+                <li>TC 087 Step 2: Add regular part (PN-0006) to One-Off quote</li>
+                <li>TC 087 Step 3: Add custom One-Off part to quote</li>
+                <li>TC 088: Delete Quote and Verify</li>
+                <li>TC 089: Convert Quote to Job</li>
+                <li>Phase 4: TC 090-092 (Duplicate, Email, Print Quote)</li>
+            </ul>
+            
+            <h4>Technical Notes:</h4>
+            <ul>
+                <li>All quotes created with proper auto-generated quote numbers (0021, 0022)</li>
+                <li>Customer type selection properly switches UI behavior (dropdown vs text input)</li>
+                <li>Post-save state correctly unlocks Parts and File Attachments sections</li>
+                <li>All action buttons (Make into Job, Copy Quote, Email Quote, Print) are available after save</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function toggleTestCase(testCaseId) {
+            const content = document.getElementById('content-' + testCaseId);
+            const arrow = document.getElementById('arrow-' + testCaseId);
+            
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                arrow.classList.remove('rotated');
+                arrow.textContent = '▼';
+            } else {
+                content.classList.add('active');
+                arrow.classList.add('rotated');
+                arrow.textContent = '▲';
+            }
+        }
+
+        // Auto-expand all test cases by default
+        document.addEventListener('DOMContentLoaded', function() {
+            const testCases = ['tc086', 'tc087'];
+            testCases.forEach(testCaseId => {
+                const content = document.getElementById('content-' + testCaseId);
+                const arrow = document.getElementById('arrow-' + testCaseId);
+                content.classList.add('active');
+                arrow.classList.add('rotated');
+                arrow.textContent = '▲';
+            });
+        });
+    </script>
+</body>
+</html>

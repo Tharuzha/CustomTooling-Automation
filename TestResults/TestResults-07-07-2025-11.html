@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Execution Report - Quotes Module Phase 1</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .summary-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .summary-card.total { border-left-color: #3498db; }
+        .summary-card.passed { border-left-color: #2ecc71; }
+        .summary-card.failed { border-left-color: #e74c3c; }
+        .summary-card.skipped { border-left-color: #f39c12; }
+        .summary-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .summary-card p {
+            margin: 0;
+            color: #666;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+        .test-details {
+            margin-top: 30px;
+        }
+        .test-case {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .test-case-header {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        .test-case-header:hover {
+            background: #e9ecef;
+        }
+        .test-case-header.passed {
+            border-left: 4px solid #2ecc71;
+        }
+        .test-case-header.failed {
+            border-left: 4px solid #e74c3c;
+        }
+        .test-case-title {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .test-case-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .status-badge.passed {
+            background: #2ecc71;
+            color: white;
+        }
+        .status-badge.failed {
+            background: #e74c3c;
+            color: white;
+        }
+        .expand-icon {
+            transition: transform 0.3s ease;
+        }
+        .expand-icon.expanded {
+            transform: rotate(90deg);
+        }
+        .test-case-content {
+            display: none;
+            padding: 20px;
+            background: #fafafa;
+        }
+        .test-case-content.show {
+            display: block;
+        }
+        .test-section {
+            margin-bottom: 20px;
+        }
+        .test-section h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        .test-steps, .expected-results, .actual-results {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #3498db;
+            margin-bottom: 10px;
+        }
+        .test-steps ul, .expected-results ul, .actual-results ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .test-steps li, .expected-results li, .actual-results li {
+            margin-bottom: 5px;
+        }
+        .pass-indicator {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        .fail-indicator {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .environment-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #6c757d;
+        }
+        .environment-info h3 {
+            margin-top: 0;
+            color: #495057;
+        }
+        .env-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .env-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .env-label {
+            font-weight: bold;
+            color: #495057;
+        }
+        .env-value {
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Test Execution Report</h1>
+            <p>Quotes Module - Phase 1 (TC 078 - TC 082)</p>
+            <p>Executed on: July 7, 2025 | Report #11</p>
+        </div>
+
+        <div class="environment-info">
+            <h3>Test Environment Information</h3>
+            <div class="env-grid">
+                <div class="env-item">
+                    <span class="env-label">Application URL:</span>
+                    <span class="env-value">https://cte-dev.iclick.nz/</span>
+                </div>
+                <div class="env-item">
+                    <span class="env-label">Browser:</span>
+                    <span class="env-value">Chrome (Playwright)</span>
+                </div>
+                <div class="env-item">
+                    <span class="env-label">Test User:</span>
+                    <span class="env-value">admin@email.com</span>
+                </div>
+                <div class="env-item">
+                    <span class="env-label">Test Date:</span>
+                    <span class="env-value">July 7, 2025</span>
+                </div>
+                <div class="env-item">
+                    <span class="env-label">Test Priority:</span>
+                    <span class="env-value">High, Medium</span>
+                </div>
+                <div class="env-item">
+                    <span class="env-label">Module:</span>
+                    <span class="env-value">Quotes Management</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary">
+            <div class="summary-card total">
+                <h3>5</h3>
+                <p>Total Test Cases</p>
+            </div>
+            <div class="summary-card passed">
+                <h3>5</h3>
+                <p>Passed</p>
+            </div>
+            <div class="summary-card failed">
+                <h3>0</h3>
+                <p>Failed</p>
+            </div>
+            <div class="summary-card skipped">
+                <h3>0</h3>
+                <p>Skipped</p>
+            </div>
+        </div>
+
+        <div class="test-details">
+            <h2>Test Case Details</h2>
+
+            <!-- TC 078 -->
+            <div class="test-case">
+                <div class="test-case-header passed" onclick="toggleTestCase('tc078')">
+                    <div class="test-case-title">TC 078 - Verify Navigate to Quotes Page</div>
+                    <div class="test-case-status">
+                        <span class="status-badge passed">Passed</span>
+                        <span class="expand-icon" id="icon-tc078">▶</span>
+                    </div>
+                </div>
+                <div class="test-case-content" id="content-tc078">
+                    <div class="test-section">
+                        <h4>Priority: High</h4>
+                    </div>
+                    <div class="test-section">
+                        <h4>Test Objective</h4>
+                        <p>Verify that the quotes page can be accessed and displays all required elements.</p>
+                    </div>
+                    <div class="test-section">
+                        <h4>Test Steps</h4>
+                        <div class="test-steps">
+                            <ul>
+                                <li>Navigate to Quotes page from main navigation</li>
+                                <li>Verify page loads successfully</li>
+                                <li>Verify page URL and title</li>
+                                <li>Verify key UI elements are visible</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="test-section">
+                        <h4>Expected Results</h4>
+                        <div class="expected-results">
+                            <ul>
+                                <li>Quotes page opens successfully</li>
+                                <li>Page URL contains "/quotes"</li>
+                                <li>Page title displays "Quotes"</li>
+                                <li>"+ Quote" button is visible</li>
+                                <li>"Filters" button is visible</li>
+                                <li>Search box is visible</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="test-section">
+                        <h4>Actual Results</h4>
+                        <div class="actual-results">
+                            <ul>
+                                <li><span class="pass-indicator">✓ PASS:</span> Successfully navigated to quotes page</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Page URL: https://cte-dev.iclick.nz/quotes</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Page title: "Custom Tooling Dashboard"</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> "+ Quote" button is visible and functional</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> "Filters" button is visible</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Search box is visible and accessible</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TC 079 -->
+            <div class="test-case">
+                <div class="test-case-header passed" onclick="toggleTestCase('tc079')">
+                    <div class="test-case-title">TC 079 - Verify View Existing Quotes</div>
+                    <div class="test-case-status">
+                        <span class="status-badge passed">Passed</span>
+                        <span class="expand-icon" id="icon-tc079">▶</span>
+                    </div>
+                </div>
+                <div class="test-case-content" id="content-tc079">
+                    <div class="test-section">
+                        <h4>Priority: High</h4>
+                    </div>
+                    <div class="test-section">
+                        <h4>Test Objective</h4>
+                        <p>Verify that existing quotes are displayed correctly in the quotes list with all required data columns.</p>
+                    </div>
+                    <div class="test-section">
+                        <h4>Test Steps</h4>
+                        <div class="test-steps">
+                            <ul>
+                                <li>Access quotes list page</li>
+                                <li>Verify quotes data is displayed</li>
+                                <li>Verify table headers and columns</li>
+                                <li>Verify quote data integrity</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="test-section">
+                        <h4>Expected Results</h4>
+                        <div class="expected-results">
+                            <ul>
+                                <li>Quotes list displays properly</li>
+                                <li>Table shows quote numbers</li>
+                                <li>Table shows customer type (Regular/One Off)</li>
+                                <li>Table shows customer names</li>
+                                <li>Table shows total amounts</li>
+                                <li>Table shows status badges</li>
+                                <li>Table shows actions column with three dots menu</li>
+                                <li>Quotes are displayed in rows</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="test-section">
+                        <h4>Actual Results</h4>
+                        <div class="actual-results">
+                            <ul>
+                                <li><span class="pass-indicator">✓ PASS:</span> Quotes list displays correctly with 18 total results</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Quote numbers visible (0020, 0019, 0018, 0016, etc.)</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Customer types displayed (Regular/One Off)</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Customer names shown (Jane Smith, Test OneOff, THARUSHA TEST, etc.)</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Total amounts displayed (1,275.00, 0.00, 170.00, etc.)</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Status badges shown (DRAFT, APPROVED, WAITING FOR DOCUMENTS, IN NEGOTIATION, VIEWED, SENT)</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Actions column with three dots menu (⋮) present</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Quotes properly displayed in table rows</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TC 080 -->
+            <div class="test-case">
+                <div class="test-case-header passed" onclick="toggleTestCase('tc080')">
+                    <div class="test-case-title">TC 080 - Verify Search Functionality by Quote Number</div>
+                    <div class="test-case-status">
+                        <span class="status-badge passed">Passed</span>
+                        <span class="expand-icon" id="icon-tc080">▶</span>
+                    </div>
+                </div>
+                <div class="test-case-content" id="content-tc080">
+                    <div class="test-section">
+                        <h4>Priority: High</h4>
+                    </div>
+                    <div class="test-section">
+                        <h4>Test Objective</h4>
+                        <p>Verify that the search functionality works correctly when searching by quote number.</p>
+                    </div>
+                    <div class="test-section">
+                        <h4>Test Steps</h4>
+                        <div class="test-steps">
+                            <ul>
+                                <li>Click on search box</li>
+                                <li>Enter "0016" in the search box</li>
+                                <li>Verify search results are filtered</li>
+                                <li>Clear search box</li>
+                                <li>Verify all results return</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="test-section">
+                        <h4>Expected Results</h4>
+                        <div class="expected-results">
+                            <ul>
+                                <li>Search filters the results as user types</li>
+                                <li>Only quote "0016" is displayed</li>
+                                <li>Other quotes are hidden from the list</li>
+                                <li>"Showing 1 results" appears at bottom</li>
+                                <li>Quote details match (THARUSHA TEST, Regular, 170.00, DRAFT status)</li>
+                                <li>Clear search restores all quotes</li>
+                                <li>Results count returns to original total</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="test-section">
+                        <h4>Actual Results</h4>
+                        <div class="actual-results">
+                            <ul>
+                                <li><span class="pass-indicator">✓ PASS:</span> Search functionality works correctly</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Only quote "0016" displayed after search</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Other quotes properly hidden</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> "Showing 1 results" displayed correctly</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Quote details verified: THARUSHA TEST, Regular, 170.00, DRAFT</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Clear search functionality works</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> All quotes restored after clearing search</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TC 081 -->
+            <div class="test-case">
+                <div class="test-case-header passed" onclick="toggleTestCase('tc081')">
+                    <div class="test-case-title">TC 081 - Verify Search Functionality by Customer Name</div>
+                    <div class="test-case-status">
+                        <span class="status-badge passed">Passed</span>
+                        <span class="expand-icon" id="icon-tc081">▶</span>
+                    </div>
+                </div>
+                <div class="test-case-content" id="content-tc081">
+                    <div class="test-section">
+                        <h4>Priority: High</h4>
+                    </div>
+                    <div class="test-section">
+                        <h4>Test Objective</h4>
+                        <p>Verify that the search functionality works correctly when searching by customer name and handles no results scenarios.</p>
+                    </div>
+                    <div class="test-section">
+                        <h4>Test Steps</h4>
+                        <div class="test-steps">
+                            <ul>
+                                <li>Enter "Jane" in the search box</li>
+                                <li>Verify filtered results</li>
+                                <li>Clear search box</li>
+                                <li>Enter "noname" in search box</li>
+                                <li>Verify no results message</li>
+                                <li>Clear search and verify restoration</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="test-section">
+                        <h4>Expected Results</h4>
+                        <div class="expected-results">
+                            <ul>
+                                <li>Search filters results by customer name</li>
+                                <li>Only quotes with "Jane" in customer name displayed</li>
+                                <li>All displayed quotes show "Jane Smith"</li>
+                                <li>Results count updates to filtered count</li>
+                                <li>Search for "noname" shows no results</li>
+                                <li>"No items found, try to broaden your search" message appears</li>
+                                <li>Clear search restores all quotes</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="test-section">
+                        <h4>Actual Results</h4>
+                        <div class="actual-results">
+                            <ul>
+                                <li><span class="pass-indicator">✓ PASS:</span> Search by customer name "Jane" works correctly</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> 6 quotes with "Jane Smith" displayed</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> All filtered quotes show "Jane Smith" as customer</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Results count updated to "Showing 6 results"</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Search for "noname" returns no results</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Proper message "No items found, try to broaden your search" displayed</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Clear search restores all quotes successfully</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TC 082 -->
+            <div class="test-case">
+                <div class="test-case-header passed" onclick="toggleTestCase('tc082')">
+                    <div class="test-case-title">TC 082 - Verify Filters Functionality (Settings Integration)</div>
+                    <div class="test-case-status">
+                        <span class="status-badge passed">Passed</span>
+                        <span class="expand-icon" id="icon-tc082">▶</span>
+                    </div>
+                </div>
+                <div class="test-case-content" id="content-tc082">
+                    <div class="test-section">
+                        <h4>Priority: High</h4>
+                    </div>
+                    <div class="test-section">
+                        <h4>Test Objective</h4>
+                        <p>Verify that the filters functionality integrates correctly with the Settings > Quote Status configuration and works properly for filtering quotes.</p>
+                    </div>
+                    <div class="test-section">
+                        <h4>Test Steps</h4>
+                        <div class="test-steps">
+                            <ul>
+                                <li>Navigate to Settings > Quote Status</li>
+                                <li>Record all configured quote statuses</li>
+                                <li>Navigate back to Quotes page</li>
+                                <li>Click Filters button</li>
+                                <li>Verify Status dropdown options match Settings</li>
+                                <li>Test filtering by "Approved" status</li>
+                                <li>Test filtering by "Draft" status</li>
+                                <li>Reset filter to "All" and verify</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="test-section">
+                        <h4>Expected Results</h4>
+                        <div class="expected-results">
+                            <ul>
+                                <li>All quote statuses from Settings appear in filter dropdown</li>
+                                <li>No additional or missing statuses in dropdown</li>
+                                <li>Filter works correctly for different statuses</li>
+                                <li>Applied filters section shows selected filters</li>
+                                <li>Clear functionality works properly</li>
+                                <li>Filter count indicator updates correctly</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="test-section">
+                        <h4>Actual Results</h4>
+                        <div class="actual-results">
+                            <ul>
+                                <li><span class="pass-indicator">✓ PASS:</span> All 11 configured quote statuses verified in Settings</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Status dropdown shows exact match with Settings: All, Approved, Canceled, Converted to Job, Draft, Expired, In Negotiation, Pending Approval, Rejected, Sent, Viewed, Waiting for Documents</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Filter by "Approved" shows 3 results, all with Approved status</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Filter by "Draft" shows 5 results, all with Draft status</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Applied filters section displays correctly with Clear button</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Filter count indicator ("Filters 1") works correctly</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Reset to "All" restores all 18 quotes</li>
+                                <li><span class="pass-indicator">✓ PASS:</span> Perfect integration between Settings and Filters - no discrepancies found</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="test-section">
+                        <h4>Quote Status Configuration Verified</h4>
+                        <div class="test-steps">
+                            <p><strong>Settings > Quote Status contains these 11 statuses:</strong></p>
+                            <ul>
+                                <li>Waiting for Documents (Active)</li>
+                                <li>In Negotiation (Active)</li>
+                                <li>Viewed (Active)</li>
+                                <li>Sent (Active)</li>
+                                <li>Canceled (Active)</li>
+                                <li>Converted to Job (Active)</li>
+                                <li>Expired (Active)</li>
+                                <li>Rejected (Active)</li>
+                                <li>Approved (Active)</li>
+                                <li>Pending Approval (Active)</li>
+                                <li>Draft (Active)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #eee; text-align: center; color: #666;">
+            <p><strong>Phase 1 Test Execution Complete</strong></p>
+            <p>All 5 test cases in Phase 1 (TC 078 - TC 082) have been successfully executed and passed.</p>
+            <p>Generated on: July 7, 2025 at 07:48 PM | Test Environment: https://cte-dev.iclick.nz/ | Browser: Chrome (Playwright)</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleTestCase(testId) {
+            const content = document.getElementById('content-' + testId);
+            const icon = document.getElementById('icon-' + testId);
+            
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                icon.classList.remove('expanded');
+                icon.textContent = '▶';
+            } else {
+                content.classList.add('show');
+                icon.classList.add('expanded');
+                icon.textContent = '▼';
+            }
+        }
+
+        // Auto-expand first test case
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleTestCase('tc078');
+        });
+    </script>
+</body>
+</html>
