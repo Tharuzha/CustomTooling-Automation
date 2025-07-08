@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Tooling - Quotes Module Test Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .summary {
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .summary-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .summary-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .summary-card p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9em;
+        }
+        .passed { color: #28a745; }
+        .failed { color: #dc3545; }
+        .warning { color: #ffc107; }
+        .info { color: #17a2b8; }
+        
+        .content {
+            padding: 30px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+        }
+        .test-section h2 {
+            color: #495057;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .test-case {
+            background: #f8f9fa;
+            border-left: 4px solid #28a745;
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+            overflow: hidden;
+        }
+        .test-case.failed {
+            border-left-color: #dc3545;
+        }
+        .test-case.warning {
+            border-left-color: #ffc107;
+        }
+        .test-case-header {
+            background: white;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e9ecef;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .test-case-header:hover {
+            background: #f1f3f4;
+        }
+        .test-case-title {
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        .test-case-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .status-passed {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-failed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .status-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .test-case-details {
+            padding: 20px;
+            background: white;
+            display: none;
+        }
+        .test-case-details.active {
+            display: block;
+        }
+        .test-steps {
+            margin-top: 15px;
+        }
+        .test-step {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 3px solid #28a745;
+        }
+        .test-step.failed {
+            border-left-color: #dc3545;
+            background: #fff5f5;
+        }
+        .step-description {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        .step-result {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .metadata {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .metadata-item {
+            display: flex;
+            justify-content: space-between;
+        }
+        .metadata-label {
+            font-weight: 600;
+            color: #495057;
+        }
+        .metadata-value {
+            color: #666;
+        }
+        .footer {
+            background: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+        .priority-high {
+            background: #ff6b6b;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .priority-medium {
+            background: #ffa726;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .execution-time {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 5px;
+        }
+        .collapse-btn {
+            background: none;
+            border: none;
+            color: #007bff;
+            cursor: pointer;
+            font-size: 0.9em;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .collapse-btn:hover {
+            background: #e3f2fd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Custom Tooling Automation Test Report</h1>
+            <p>Quotes Module - Complete Test Suite Execution</p>
+        </div>
+
+        <div class="summary">
+            <h2>Test Execution Summary</h2>
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3 class="passed">15</h3>
+                    <p>Total Test Cases</p>
+                </div>
+                <div class="summary-card">
+                    <h3 class="passed">15</h3>
+                    <p>Passed</p>
+                </div>
+                <div class="summary-card">
+                    <h3 class="failed">0</h3>
+                    <p>Failed</p>
+                </div>
+                <div class="summary-card">
+                    <h3 class="passed">100%</h3>
+                    <p>Success Rate</p>
+                </div>
+            </div>
+
+            <div class="metadata">
+                <div class="metadata-item">
+                    <span class="metadata-label">Test Suite:</span>
+                    <span class="metadata-value">Quotes Module</span>
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-label">Test Range:</span>
+                    <span class="metadata-value">TC 078 - TC 092</span>
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-label">Execution Date:</span>
+                    <span class="metadata-value">July 8, 2025</span>
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-label">Environment:</span>
+                    <span class="metadata-value">https://cte-dev.iclick.nz/</span>
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-label">Browser:</span>
+                    <span class="metadata-value">Playwright Automation</span>
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-label">Test Data:</span>
+                    <span class="metadata-value">UserData.md</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="test-section">
+                <h2>Navigation & Basic Functionality Tests</h2>
+                
+                <div class="test-case">
+                    <div class="test-case-header" onclick="toggleDetails('tc078')">
+                        <div>
+                            <div class="test-case-title">TC 078 - Verify Navigate to Quotes Page <span class="priority-high">HIGH</span></div>
+                            <div class="execution-time">Executed: July 8, 2025 08:11 PM</div>
+                        </div>
+                        <div>
+                            <span class="test-case-status status-passed">PASSED</span>
+                            <button class="collapse-btn">▼</button>
+                        </div>
+                    </div>
+                    <div class="test-case-details" id="tc078">
+                        <p><strong>Objective:</strong> Verify navigation to Quotes page and presence of key UI elements</p>
+                        <div class="test-steps">
+                            <div class="test-step">
+                                <div class="step-description">✅ Navigate to Quotes page</div>
+                                <div class="step-result">Successfully navigated to /quotes URL</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify page title displays "Quotes"</div>
+                                <div class="step-result">Page heading confirmed as "Quotes"</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify "+ Quote" button is visible</div>
+                                <div class="step-result">Button located and verified as clickable</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify "Filters" button is visible</div>
+                                <div class="step-result">Filter button confirmed in top action bar</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify search box is visible</div>
+                                <div class="step-result">Search textbox identified and accessible</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-case-header" onclick="toggleDetails('tc079')">
+                        <div>
+                            <div class="test-case-title">TC 079 - Verify View Existing Quotes <span class="priority-high">HIGH</span></div>
+                            <div class="execution-time">Executed: July 8, 2025 08:11 PM</div>
+                        </div>
+                        <div>
+                            <span class="test-case-status status-passed">PASSED</span>
+                            <button class="collapse-btn">▼</button>
+                        </div>
+                    </div>
+                    <div class="test-case-details" id="tc079">
+                        <p><strong>Objective:</strong> Verify quotes list displays all required columns and data</p>
+                        <div class="test-steps">
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify quotes list displays</div>
+                                <div class="step-result">Table with quotes data successfully loaded</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify table shows quote numbers</div>
+                                <div class="step-result">Quote numbers column displays (0026, 0025, 0024, etc.)</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify table shows customer type (Regular/One Off)</div>
+                                <div class="step-result">Customer Type column shows "Regular" and "One Off" values</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify table shows customer names</div>
+                                <div class="step-result">Customer names displayed: THARUSHA TEST, Jane Smith, Test OneOff</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify table shows total amounts and status badges</div>
+                                <div class="step-result">Total amounts and status badges (Draft, Approved) correctly displayed</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify table shows actions column with three dots menu</div>
+                                <div class="step-result">Actions column with "⋮" buttons verified for each row</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-case-header" onclick="toggleDetails('tc080')">
+                        <div>
+                            <div class="test-case-title">TC 080 - Verify Search Functionality by Quote Number <span class="priority-high">HIGH</span></div>
+                            <div class="execution-time">Executed: July 8, 2025 08:11 PM</div>
+                        </div>
+                        <div>
+                            <span class="test-case-status status-passed">PASSED</span>
+                            <button class="collapse-btn">▼</button>
+                        </div>
+                    </div>
+                    <div class="test-case-details" id="tc080">
+                        <p><strong>Objective:</strong> Verify search functionality filters quotes by quote number correctly</p>
+                        <div class="test-steps">
+                            <div class="test-step">
+                                <div class="step-description">✅ Enter "0016" in search box</div>
+                                <div class="step-result">Search term entered and filter activated</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify search filters results</div>
+                                <div class="step-result">Only quote "0016" displayed, other quotes hidden</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify "Showing 1 results" appears</div>
+                                <div class="step-result">Result count correctly updated to "Showing 1 results"</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify quote details match</div>
+                                <div class="step-result">Quote 0016: THARUSHA TEST, Regular, 170.00, Draft - All verified</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Clear search box and verify all quotes return</div>
+                                <div class="step-result">Search cleared, all quotes restored, count returned to "22 results"</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-section">
+                <h2>Search & Filter Functionality Tests</h2>
+                
+                <div class="test-case">
+                    <div class="test-case-header" onclick="toggleDetails('tc081')">
+                        <div>
+                            <div class="test-case-title">TC 081 - Verify Search Functionality by Customer Name <span class="priority-high">HIGH</span></div>
+                            <div class="execution-time">Executed: July 7, 2025</div>
+                        </div>
+                        <div>
+                            <span class="test-case-status status-passed">PASSED</span>
+                            <button class="collapse-btn">▼</button>
+                        </div>
+                    </div>
+                    <div class="test-case-details" id="tc081">
+                        <p><strong>Objective:</strong> Verify search functionality by customer name including no results scenario</p>
+                        <div class="test-steps">
+                            <div class="test-step">
+                                <div class="step-description">✅ Search for "noname" customer</div>
+                                <div class="step-result">Entered "noname" in search box</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify no results found</div>
+                                <div class="step-result">Confirmed no quotes displayed for non-existent customer</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify "No items found" message</div>
+                                <div class="step-result">Message "No items found, try to broaden your search" displayed correctly</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-case-header" onclick="toggleDetails('tc082')">
+                        <div>
+                            <div class="test-case-title">TC 082 - Verify Filters Functionality (Settings Integration) <span class="priority-high">HIGH</span></div>
+                            <div class="execution-time">Executed: July 7, 2025</div>
+                        </div>
+                        <div>
+                            <span class="test-case-status status-passed">PASSED</span>
+                            <button class="collapse-btn">▼</button>
+                        </div>
+                    </div>
+                    <div class="test-case-details" id="tc082">
+                        <p><strong>Objective:</strong> Verify filter functionality with status filter integration</p>
+                        <div class="test-steps">
+                            <div class="test-step">
+                                <div class="step-description">✅ Open Filters dropdown</div>
+                                <div class="step-result">Filters panel opened successfully</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Apply "Draft" status filter</div>
+                                <div class="step-result">Draft status filter applied</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify filtered results</div>
+                                <div class="step-result">Only quotes with Draft status displayed</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify UI updates and filter removal</div>
+                                <div class="step-result">Applied filters section showed, filter successfully removed</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-section">
+                <h2>Quote Management Tests</h2>
+                
+                <div class="test-case">
+                    <div class="test-case-header" onclick="toggleDetails('tc083')">
+                        <div>
+                            <div class="test-case-title">TC 083 - Verify View Quote Details (Read-Only Mode) <span class="priority-high">HIGH</span></div>
+                            <div class="execution-time">Executed: July 7, 2025</div>
+                        </div>
+                        <div>
+                            <span class="test-case-status status-passed">PASSED</span>
+                            <button class="collapse-btn">▼</button>
+                        </div>
+                    </div>
+                    <div class="test-case-details" id="tc083">
+                        <p><strong>Objective:</strong> Verify quote details are displayed in read-only mode</p>
+                        <div class="test-steps">
+                            <div class="test-step">
+                                <div class="step-description">✅ Navigate to view quote "0020"</div>
+                                <div class="step-result">Successfully opened quote in view mode</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify all quote details displayed</div>
+                                <div class="step-result">Customer info, quote details, parts, and attachments verified</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify read-only state</div>
+                                <div class="step-result">All fields confirmed as non-editable</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-case-header" onclick="toggleDetails('tc084')">
+                        <div>
+                            <div class="test-case-title">TC 084 - Verify Edit Existing Quote Functionality <span class="priority-high">HIGH</span></div>
+                            <div class="execution-time">Executed: July 7, 2025</div>
+                        </div>
+                        <div>
+                            <span class="test-case-status status-passed">PASSED</span>
+                            <button class="collapse-btn">▼</button>
+                        </div>
+                    </div>
+                    <div class="test-case-details" id="tc084">
+                        <p><strong>Objective:</strong> Verify quote editing functionality and data persistence</p>
+                        <div class="test-steps">
+                            <div class="test-step">
+                                <div class="step-description">✅ Edit quote "0020"</div>
+                                <div class="step-result">Changed customer to "THARUSHA TEST", phone to "0713240554"</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Save changes</div>
+                                <div class="step-result">Update successful, changes saved</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify persistence</div>
+                                <div class="step-result">Changes confirmed in list view and detail view</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-case-header" onclick="toggleDetails('tc085')">
+                        <div>
+                            <div class="test-case-title">TC 085 - Verify Cancel Functionality <span class="priority-medium">MEDIUM</span></div>
+                            <div class="execution-time">Executed: July 7, 2025</div>
+                        </div>
+                        <div>
+                            <span class="test-case-status status-passed">PASSED</span>
+                            <button class="collapse-btn">▼</button>
+                        </div>
+                    </div>
+                    <div class="test-case-details" id="tc085">
+                        <p><strong>Objective:</strong> Verify cancel functionality discards unsaved changes</p>
+                        <div class="test-steps">
+                            <div class="test-step">
+                                <div class="step-description">✅ Make temporary changes</div>
+                                <div class="step-result">Modified quote data without saving</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Click Cancel button</div>
+                                <div class="step-result">Cancel operation executed</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify changes discarded</div>
+                                <div class="step-result">Confirmed original data persisted, changes not saved</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-section">
+                <h2>Quote Creation Tests</h2>
+                
+                <div class="test-case">
+                    <div class="test-case-header" onclick="toggleDetails('tc086')">
+                        <div>
+                            <div class="test-case-title">TC 086 - Add New Quote As Regular Customer <span class="priority-high">HIGH</span></div>
+                            <div class="execution-time">Executed: July 7, 2025</div>
+                        </div>
+                        <div>
+                            <span class="test-case-status status-passed">PASSED</span>
+                            <button class="collapse-btn">▼</button>
+                        </div>
+                    </div>
+                    <div class="test-case-details" id="tc086">
+                        <p><strong>Objective:</strong> Create new quote as Regular customer with parts</p>
+                        <div class="test-steps">
+                            <div class="test-step">
+                                <div class="step-description">✅ Create new quote (Regular type)</div>
+                                <div class="step-result">Quote created with all required fields, auto-generated quote number</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Add part PN-0006</div>
+                                <div class="step-result">Added part: qty 20, version v2, unit kg, unit price 30</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify calculations</div>
+                                <div class="step-result">Subtotal, GST, and total correctly calculated and displayed</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify UI state</div>
+                                <div class="step-result">Parts and attachments sections unlocked after save</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-case-header" onclick="toggleDetails('tc087')">
+                        <div>
+                            <div class="test-case-title">TC 087 - Add New Quote As One Off Customer <span class="priority-high">HIGH</span></div>
+                            <div class="execution-time">Executed: July 7, 2025</div>
+                        </div>
+                        <div>
+                            <span class="test-case-status status-passed">PASSED</span>
+                            <button class="collapse-btn">▼</button>
+                        </div>
+                    </div>
+                    <div class="test-case-details" id="tc087">
+                        <p><strong>Objective:</strong> Create new quote as One-Off customer with custom parts and attachments</p>
+                        <div class="test-steps">
+                            <div class="test-step">
+                                <div class="step-description">✅ Create One-Off customer quote</div>
+                                <div class="step-result">Quote created with One-Off customer details</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Add regular part (PN-0006)</div>
+                                <div class="step-result">Regular part added: qty 20, v2, kg, price 30</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Add custom One-Off part</div>
+                                <div class="step-result">Custom part CUSTOM-001 added: qty 15, v1, m, price 45</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Add file attachment</div>
+                                <div class="step-result">PDF file successfully uploaded and appears in attachments table</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify calculations and UI</div>
+                                <div class="step-result">All calculations correct, file attachment properly integrated</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-section">
+                <h2>Quote Operations Tests</h2>
+                
+                <div class="test-case">
+                    <div class="test-case-header" onclick="toggleDetails('tc088')">
+                        <div>
+                            <div class="test-case-title">TC 088 - Delete Quote and Verify <span class="priority-high">HIGH</span></div>
+                            <div class="execution-time">Executed: July 7, 2025</div>
+                        </div>
+                        <div>
+                            <span class="test-case-status status-passed">PASSED</span>
+                            <button class="collapse-btn">▼</button>
+                        </div>
+                    </div>
+                    <div class="test-case-details" id="tc088">
+                        <p><strong>Objective:</strong> Verify quote deletion functionality and data persistence</p>
+                        <div class="test-steps">
+                            <div class="test-step">
+                                <div class="step-description">✅ Select quote "0015" for deletion</div>
+                                <div class="step-result">Quote selected from action menu</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Confirm deletion</div>
+                                <div class="step-result">Deletion confirmed in "Are you sure?" dialog</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify removal from list</div>
+                                <div class="step-result">Quote removed, count decremented from 22 to 21</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify persistence after refresh</div>
+                                <div class="step-result">Quote remains deleted after page refresh</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-case-header" onclick="toggleDetails('tc089')">
+                        <div>
+                            <div class="test-case-title">TC 089 - Convert Quote to a Job <span class="priority-high">HIGH</span></div>
+                            <div class="execution-time">Executed: July 7, 2025</div>
+                        </div>
+                        <div>
+                            <span class="test-case-status status-passed">PASSED</span>
+                            <button class="collapse-btn">▼</button>
+                        </div>
+                    </div>
+                    <div class="test-case-details" id="tc089">
+                        <p><strong>Objective:</strong> Verify quote to job conversion functionality</p>
+                        <div class="test-steps">
+                            <div class="test-step">
+                                <div class="step-description">✅ Navigate to quote "0018" edit page</div>
+                                <div class="step-result">Quote edit page loaded successfully</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Initiate conversion to job</div>
+                                <div class="step-result">Clicked "Make into Job", confirmed conversion dialog</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify job creation</div>
+                                <div class="step-result">Quote converted to job with auto-generated job number</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify job details</div>
+                                <div class="step-result">Job status, type, dates, and all data transferred correctly</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-case-header" onclick="toggleDetails('tc090')">
+                        <div>
+                            <div class="test-case-title">TC 090 - Duplicate an Existing Quote <span class="priority-high">HIGH</span></div>
+                            <div class="execution-time">Executed: July 7, 2025</div>
+                        </div>
+                        <div>
+                            <span class="test-case-status status-passed">PASSED</span>
+                            <button class="collapse-btn">▼</button>
+                        </div>
+                    </div>
+                    <div class="test-case-details" id="tc090">
+                        <p><strong>Objective:</strong> Verify quote duplication functionality</p>
+                        <div class="test-steps">
+                            <div class="test-step">
+                                <div class="step-description">✅ Duplicate quote "0020"</div>
+                                <div class="step-result">Initiated duplication via "Copy Quote" button</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Confirm duplication</div>
+                                <div class="step-result">Confirmed in "Are you sure?" dialog</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify new quote created</div>
+                                <div class="step-result">New quote "0026" created with all data copied</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify both quotes exist</div>
+                                <div class="step-result">Original and duplicate quotes both present in list</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-section">
+                <h2>Communication & Reporting Tests</h2>
+                
+                <div class="test-case">
+                    <div class="test-case-header" onclick="toggleDetails('tc091')">
+                        <div>
+                            <div class="test-case-title">TC 091 - Email Quote to Customer <span class="priority-high">HIGH</span></div>
+                            <div class="execution-time">Executed: July 7, 2025</div>
+                        </div>
+                        <div>
+                            <span class="test-case-status status-passed">PASSED</span>
+                            <button class="collapse-btn">▼</button>
+                        </div>
+                    </div>
+                    <div class="test-case-details" id="tc091">
+                        <p><strong>Objective:</strong> Verify email quote functionality is available</p>
+                        <div class="test-steps">
+                            <div class="test-step">
+                                <div class="step-description">✅ Navigate to quote "0026" edit page</div>
+                                <div class="step-result">Quote edit page accessed successfully</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify "Email Quote" button</div>
+                                <div class="step-result">Button visible, clickable, enabled with correct icon and text</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify button position</div>
+                                <div class="step-result">Button correctly positioned alongside other action buttons</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-case-header" onclick="toggleDetails('tc092')">
+                        <div>
+                            <div class="test-case-title">TC 092 - Print Existing Quote <span class="priority-high">HIGH</span></div>
+                            <div class="execution-time">Executed: July 7, 2025</div>
+                        </div>
+                        <div>
+                            <span class="test-case-status status-passed">PASSED</span>
+                            <button class="collapse-btn">▼</button>
+                        </div>
+                    </div>
+                    <div class="test-case-details" id="tc092">
+                        <p><strong>Objective:</strong> Verify print quote functionality generates PDF</p>
+                        <div class="test-steps">
+                            <div class="test-step">
+                                <div class="step-description">✅ Navigate to quote "0026" edit page</div>
+                                <div class="step-result">Quote edit page loaded successfully</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify "Print" button</div>
+                                <div class="step-result">Button visible, clickable with correct icon and text</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Click Print button</div>
+                                <div class="step-result">Print operation executed successfully</div>
+                            </div>
+                            <div class="test-step">
+                                <div class="step-description">✅ Verify PDF generation</div>
+                                <div class="step-result">New tab opened with PDF URL for quote ready for verification</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Custom Tooling Automation Framework | Test Report Generated: July 8, 2025 08:12 PM | Environment: Development</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleDetails(testId) {
+            const details = document.getElementById(testId);
+            const button = details.previousElementSibling.querySelector('.collapse-btn');
+            
+            if (details.classList.contains('active')) {
+                details.classList.remove('active');
+                button.textContent = '▼';
+            } else {
+                details.classList.add('active');
+                button.textContent = '▲';
+            }
+        }
+
+        // Auto-expand first test case
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleDetails('tc078');
+        });
+    </script>
+</body>
+</html>
