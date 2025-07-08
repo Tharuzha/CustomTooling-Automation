@@ -161,3 +161,19 @@
 - Verify active locations are hidden
 - Clear all filters
 - Verify all locations display again
+
+## TC 098 - Verify Duplicate Stock Location Creation
+
+### Priority TC 098 : High
+
+- Note an existing stock location name and status from the list
+- Click on the "+ Stock Location" button
+- Select the same status as an existing location (e.g., "Active")
+- Enter the exact same stock location name as an existing location
+- Click Save button
+- Verify validation error appears: "A stock location with this name already exists" or similar message
+- Verify dialog remains open
+- Verify duplicate location is not saved to the list
+- Verify total count of locations remains unchanged
+- Click Cancel button to close the modal
+- Verify modal closes without creating duplicate location
