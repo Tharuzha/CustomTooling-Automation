@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login Test Execution Report - July 8, 2025</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .header .meta {
+            color: #7f8c8d;
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .summary-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .summary-card.passed {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        }
+        .summary-card.failed {
+            background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+        }
+        .summary-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 2em;
+        }
+        .summary-card p {
+            margin: 0;
+            opacity: 0.9;
+        }
+        .test-case {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .test-case-header {
+            background-color: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .test-case-header:hover {
+            background-color: #e9ecef;
+        }
+        .test-case-header.passed {
+            border-left: 5px solid #4CAF50;
+        }
+        .test-case-header.failed {
+            border-left: 5px solid #f44336;
+        }
+        .test-case-title {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #2c3e50;
+        }
+        .test-case-status {
+            float: right;
+            padding: 5px 15px;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .status-passed {
+            background-color: #4CAF50;
+        }
+        .status-failed {
+            background-color: #f44336;
+        }
+        .test-case-content {
+            padding: 20px;
+            display: none;
+            background-color: #fafafa;
+        }
+        .test-case-content.active {
+            display: block;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h4 {
+            color: #34495e;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        .step-list {
+            list-style: none;
+            padding: 0;
+        }
+        .step-list li {
+            background: white;
+            margin: 8px 0;
+            padding: 12px;
+            border-left: 3px solid #3498db;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .expected-result {
+            color: #2980b9;
+            font-style: italic;
+        }
+        .actual-result {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .error-result {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .env-info {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .toggle-btn {
+            background: none;
+            border: none;
+            font-size: 1.2em;
+            float: right;
+            color: #7f8c8d;
+            margin-left: 10px;
+        }
+        .phase-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: 30px 0 20px 0;
+            border-radius: 8px;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧪 User Login Test Execution Report</h1>
+            <div class="meta">
+                <strong>Test Suite:</strong> User Login Module<br>
+                <strong>Execution Date:</strong> July 8, 2025<br>
+                <strong>Browser:</strong> Chrome<br>
+                <strong>Environment:</strong> https://cte-dev.iclick.nz/<br>
+                <strong>Report ID:</strong> TestResults-07-08-2025-18
+            </div>
+        </div>
+
+        <div class="summary">
+            <div class="summary-card">
+                <h3>10</h3>
+                <p>Total Test Cases</p>
+            </div>
+            <div class="summary-card passed">
+                <h3>10</h3>
+                <p>Passed</p>
+            </div>
+            <div class="summary-card failed">
+                <h3>0</h3>
+                <p>Failed</p>
+            </div>
+            <div class="summary-card">
+                <h3>100%</h3>
+                <p>Success Rate</p>
+            </div>
+        </div>
+
+        <div class="phase-header">📋 Phase 1: Core Login Functionality (TC 001 - TC 006)</div>
+
+        <div class="test-case">
+            <div class="test-case-header passed" onclick="toggleContent('tc001')">
+                <div class="test-case-title">TC 001 - Login as a valid user</div>
+                <span class="test-case-status status-passed">PASSED</span>
+                <button class="toggle-btn">▼</button>
+            </div>
+            <div id="tc001" class="test-case-content">
+                <div class="section">
+                    <h4>📋 Test Steps</h4>
+                    <ul class="step-list">
+                        <li>Navigate to https://cte-dev.iclick.nz/</li>
+                        <li>Enter valid email: admin@email.com</li>
+                        <li>Enter valid password: Admin@123</li>
+                        <li>Click Login button</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h4>✅ Expected Results</h4>
+                    <p class="expected-result">User should be successfully logged in and redirected to dashboard</p>
+                </div>
+                <div class="section">
+                    <h4>🎯 Actual Results</h4>
+                    <p class="actual-result">✅ Successfully logged in and redirected to dashboard (https://cte-dev.iclick.nz/dashboard)</p>
+                    <p class="actual-result">✅ Success message displayed: "You have logged in successfully."</p>
+                </div>
+                <div class="section">
+                    <h4>📊 Test Data</h4>
+                    <p><strong>Email:</strong> admin@email.com<br>
+                    <strong>Password:</strong> Admin@123</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-case">
+            <div class="test-case-header passed" onclick="toggleContent('tc002')">
+                <div class="test-case-title">TC 002 - Login as a Valid email and Invalid Password</div>
+                <span class="test-case-status status-passed">PASSED</span>
+                <button class="toggle-btn">▼</button>
+            </div>
+            <div id="tc002" class="test-case-content">
+                <div class="section">
+                    <h4>📋 Test Steps</h4>
+                    <ul class="step-list">
+                        <li>Navigate to login page</li>
+                        <li>Enter valid email: admin@email.com</li>
+                        <li>Enter invalid password: WrongPassword123</li>
+                        <li>Click Login button</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h4>✅ Expected Results</h4>
+                    <p class="expected-result">Login should fail with appropriate error message</p>
+                </div>
+                <div class="section">
+                    <h4>🎯 Actual Results</h4>
+                    <p class="actual-result">✅ Login failed as expected</p>
+                    <p class="actual-result">✅ Error message displayed: "These credentials do not match our records."</p>
+                </div>
+                <div class="section">
+                    <h4>📊 Test Data</h4>
+                    <p><strong>Email:</strong> admin@email.com<br>
+                    <strong>Password:</strong> WrongPassword123</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-case">
+            <div class="test-case-header passed" onclick="toggleContent('tc003')">
+                <div class="test-case-title">TC 003 - Login with Invalid email and Valid Password</div>
+                <span class="test-case-status status-passed">PASSED</span>
+                <button class="toggle-btn">▼</button>
+            </div>
+            <div id="tc003" class="test-case-content">
+                <div class="section">
+                    <h4>📋 Test Steps</h4>
+                    <ul class="step-list">
+                        <li>Navigate to login page</li>
+                        <li>Enter invalid email: invalid@email.com</li>
+                        <li>Enter valid password: Admin@123</li>
+                        <li>Click Login button</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h4>✅ Expected Results</h4>
+                    <p class="expected-result">Login should fail with appropriate error message</p>
+                </div>
+                <div class="section">
+                    <h4>🎯 Actual Results</h4>
+                    <p class="actual-result">✅ Login failed as expected</p>
+                    <p class="actual-result">✅ Error message displayed: "These credentials do not match our records."</p>
+                </div>
+                <div class="section">
+                    <h4>📊 Test Data</h4>
+                    <p><strong>Email:</strong> invalid@email.com<br>
+                    <strong>Password:</strong> Admin@123</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-case">
+            <div class="test-case-header passed" onclick="toggleContent('tc004')">
+                <div class="test-case-title">TC 004 - Verify Email Format Validation</div>
+                <span class="test-case-status status-passed">PASSED</span>
+                <button class="toggle-btn">▼</button>
+            </div>
+            <div id="tc004" class="test-case-content">
+                <div class="section">
+                    <h4>📋 Test Steps</h4>
+                    <ul class="step-list">
+                        <li>Enter invalid email format: userexample.com (missing @ symbol)</li>
+                        <li>Enter password: password123</li>
+                        <li>Click Login button</li>
+                        <li>Test with another invalid format: user@ (missing domain)</li>
+                        <li>Verify no client-side validation occurs</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h4>✅ Expected Results</h4>
+                    <p class="expected-result">System should accept invalid email format without HTML5 browser validation and allow server submission</p>
+                </div>
+                <div class="section">
+                    <h4>🎯 Actual Results</h4>
+                    <p class="actual-result">✅ Invalid email formats accepted without client-side validation</p>
+                    <p class="actual-result">✅ Form submission proceeded to server for both test cases</p>
+                    <p class="actual-result">✅ Confirmed application lacks client-side email format validation</p>
+                </div>
+                <div class="section">
+                    <h4>📊 Test Data</h4>
+                    <p><strong>Test 1:</strong> userexample.com, password123<br>
+                    <strong>Test 2:</strong> user@, password123</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-case">
+            <div class="test-case-header passed" onclick="toggleContent('tc005')">
+                <div class="test-case-title">TC 005 - Verify Empty Email Field Validation</div>
+                <span class="test-case-status status-passed">PASSED</span>
+                <button class="toggle-btn">▼</button>
+            </div>
+            <div id="tc005" class="test-case-content">
+                <div class="section">
+                    <h4>📋 Test Steps</h4>
+                    <ul class="step-list">
+                        <li>Clear email field (leave empty)</li>
+                        <li>Enter password: password123</li>
+                        <li>Click Login button</li>
+                        <li>Verify error message appears</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h4>✅ Expected Results</h4>
+                    <p class="expected-result">System should show error message indicating email is required and prevent login</p>
+                </div>
+                <div class="section">
+                    <h4>🎯 Actual Results</h4>
+                    <p class="actual-result">✅ Error message displayed: "The email field is required."</p>
+                    <p class="actual-result">✅ Login prevented successfully</p>
+                </div>
+                <div class="section">
+                    <h4>📊 Test Data</h4>
+                    <p><strong>Email:</strong> (empty)<br>
+                    <strong>Password:</strong> password123</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-case">
+            <div class="test-case-header passed" onclick="toggleContent('tc006')">
+                <div class="test-case-title">TC 006 - Verify Unauthorized Access Redirect</div>
+                <span class="test-case-status status-passed">PASSED</span>
+                <button class="toggle-btn">▼</button>
+            </div>
+            <div id="tc006" class="test-case-content">
+                <div class="section">
+                    <h4>📋 Test Steps</h4>
+                    <ul class="step-list">
+                        <li>Ensure no user is logged in</li>
+                        <li>Navigate directly to: https://cte-dev.iclick.nz/dashboard</li>
+                        <li>Verify automatic redirect to login page</li>
+                        <li>Verify login form is displayed</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h4>✅ Expected Results</h4>
+                    <p class="expected-result">User should be automatically redirected to login page and unauthorized access should be prevented</p>
+                </div>
+                <div class="section">
+                    <h4>🎯 Actual Results</h4>
+                    <p class="actual-result">✅ Automatically redirected to login page (https://cte-dev.iclick.nz/login)</p>
+                    <p class="actual-result">✅ Login form displayed instead of dashboard content</p>
+                    <p class="actual-result">✅ Unauthorized access successfully prevented</p>
+                </div>
+                <div class="section">
+                    <h4>📊 Test Data</h4>
+                    <p><strong>Target URL:</strong> https://cte-dev.iclick.nz/dashboard<br>
+                    <strong>Redirect URL:</strong> https://cte-dev.iclick.nz/login</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="phase-header">🔑 Phase 2: Forgot Password Functionality (TC 093 - TC 096)</div>
+
+        <div class="test-case">
+            <div class="test-case-header passed" onclick="toggleContent('tc093')">
+                <div class="test-case-title">TC 093 - Navigate to Forgot Password Page</div>
+                <span class="test-case-status status-passed">PASSED</span>
+                <button class="toggle-btn">▼</button>
+            </div>
+            <div id="tc093" class="test-case-content">
+                <div class="section">
+                    <h4>📋 Test Steps</h4>
+                    <ul class="step-list">
+                        <li>Navigate to login page</li>
+                        <li>Locate "Forgot Password" link</li>
+                        <li>Click on "Forgot Password" link</li>
+                        <li>Verify navigation to Forgot Password page</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h4>✅ Expected Results</h4>
+                    <p class="expected-result">User should be taken to Forgot Password page with email input field visible</p>
+                </div>
+                <div class="section">
+                    <h4>🎯 Actual Results</h4>
+                    <p class="actual-result">✅ Successfully navigated to Forgot Password page</p>
+                    <p class="actual-result">✅ URL changed to: https://cte-dev.iclick.nz/forgot-password</p>
+                    <p class="actual-result">✅ Email input field is visible</p>
+                    <p class="actual-result">✅ Page displays: "Forgot Password?" heading</p>
+                </div>
+                <div class="section">
+                    <h4>📊 Test Data</h4>
+                    <p><strong>Source:</strong> Login page<br>
+                    <strong>Target:</strong> Forgot Password page</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-case">
+            <div class="test-case-header passed" onclick="toggleContent('tc094')">
+                <div class="test-case-title">TC 094 - Submit Valid Email for Reset Link</div>
+                <span class="test-case-status status-passed">PASSED</span>
+                <button class="toggle-btn">▼</button>
+            </div>
+            <div id="tc094" class="test-case-content">
+                <div class="section">
+                    <h4>📋 Test Steps</h4>
+                    <ul class="step-list">
+                        <li>Navigate to Forgot Password page</li>
+                        <li>Enter valid email: tharusha.gunawardhana@leadlanka.lk</li>
+                        <li>Click "Send Reset Link" button</li>
+                        <li>Verify success message appears</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h4>✅ Expected Results</h4>
+                    <p class="expected-result">Success message should appear confirming reset link was sent</p>
+                </div>
+                <div class="section">
+                    <h4>🎯 Actual Results</h4>
+                    <p class="actual-result">✅ Success message displayed: "We have emailed your password reset link."</p>
+                    <p class="actual-result">✅ Email field accepted valid email format</p>
+                    <p class="actual-result">✅ Form submission completed successfully</p>
+                </div>
+                <div class="section">
+                    <h4>📊 Test Data</h4>
+                    <p><strong>Email:</strong> tharusha.gunawardhana@leadlanka.lk</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-case">
+            <div class="test-case-header passed" onclick="toggleContent('tc095')">
+                <div class="test-case-title">TC 095 - Submit Empty Email on Forgot Password Page</div>
+                <span class="test-case-status status-passed">PASSED</span>
+                <button class="toggle-btn">▼</button>
+            </div>
+            <div id="tc095" class="test-case-content">
+                <div class="section">
+                    <h4>📋 Test Steps</h4>
+                    <ul class="step-list">
+                        <li>Navigate to Forgot Password page</li>
+                        <li>Leave email field empty</li>
+                        <li>Click "Send Reset Link" button</li>
+                        <li>Verify error message appears</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h4>✅ Expected Results</h4>
+                    <p class="expected-result">Error message should appear indicating email is required and form should prevent submission</p>
+                </div>
+                <div class="section">
+                    <h4>🎯 Actual Results</h4>
+                    <p class="actual-result">✅ Error message displayed: "The email field is required."</p>
+                    <p class="actual-result">✅ Form prevented submission with empty email</p>
+                    <p class="actual-result">✅ Additional error wrapper: "Whoops! Something went wrong."</p>
+                </div>
+                <div class="section">
+                    <h4>📊 Test Data</h4>
+                    <p><strong>Email:</strong> (empty)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-case">
+            <div class="test-case-header passed" onclick="toggleContent('tc096')">
+                <div class="test-case-title">TC 096 - Submit Invalid Email for Reset Link</div>
+                <span class="test-case-status status-passed">PASSED</span>
+                <button class="toggle-btn">▼</button>
+            </div>
+            <div id="tc096" class="test-case-content">
+                <div class="section">
+                    <h4>📋 Test Steps</h4>
+                    <ul class="step-list">
+                        <li>Navigate to Forgot Password page</li>
+                        <li>Enter invalid email: invalid@nonexistent.com</li>
+                        <li>Click "Send Reset Link" button</li>
+                        <li>Verify appropriate error message appears</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h4>✅ Expected Results</h4>
+                    <p class="expected-result">Error message should indicate email is not registered and no reset link should be sent</p>
+                </div>
+                <div class="section">
+                    <h4>🎯 Actual Results</h4>
+                    <p class="actual-result">✅ Error message displayed: "We can't find a user with that email address."</p>
+                    <p class="actual-result">✅ No reset link sent for unregistered email</p>
+                    <p class="actual-result">✅ Form handled non-registered emails properly</p>
+                </div>
+                <div class="section">
+                    <h4>📊 Test Data</h4>
+                    <p><strong>Email:</strong> invalid@nonexistent.com</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="env-info">
+            <h4>🔧 Environment Information</h4>
+            <p><strong>Test Environment:</strong> Development (https://cte-dev.iclick.nz/)<br>
+            <strong>Browser:</strong> Chrome<br>
+            <strong>Execution Framework:</strong> Playwright MCP<br>
+            <strong>Test Data Source:</strong> TestData/UserData.md<br>
+            <strong>Test Suite:</strong> TestSuites/UserLogin.md<br>
+            <strong>Execution Time:</strong> July 8, 2025 - 02:11 PM<br>
+            <strong>Report Generated:</strong> Automated Test Execution Report</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleContent(testId) {
+            const content = document.getElementById(testId);
+            const button = content.previousElementSibling.querySelector('.toggle-btn');
+            
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                button.textContent = '▼';
+            } else {
+                content.classList.add('active');
+                button.textContent = '▲';
+            }
+        }
+
+        // Add click handlers for all test case headers
+        document.querySelectorAll('.test-case-header').forEach(header => {
+            header.style.cursor = 'pointer';
+        });
+    </script>
+</body>
+</html>
