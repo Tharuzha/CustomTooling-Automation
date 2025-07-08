@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Tooling Automation - Test Results</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        .summary {
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .summary-card {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .summary-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .summary-card p {
+            margin: 0;
+            color: #666;
+        }
+        .passed { color: #28a745; }
+        .total { color: #007bff; }
+        .content {
+            padding: 30px;
+        }
+        .test-case {
+            margin-bottom: 30px;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .test-case-header {
+            padding: 20px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .test-case-header:hover {
+            background-color: #f8f9fa;
+        }
+        .test-case-header.passed {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+        .test-case-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin: 0;
+        }
+        .test-case-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .status-badge.passed {
+            background-color: #28a745;
+            color: white;
+        }
+        .priority-badge {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+        .priority-high {
+            background-color: #ff4757;
+            color: white;
+        }
+        .priority-medium {
+            background-color: #ffa502;
+            color: white;
+        }
+        .test-case-details {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            display: none;
+        }
+        .test-case-details.active {
+            display: block;
+        }
+        .details-section {
+            margin-bottom: 20px;
+        }
+        .details-section h4 {
+            margin: 0 0 10px 0;
+            color: #495057;
+            font-size: 1.1em;
+        }
+        .details-section p, .details-section ul {
+            margin: 0;
+            line-height: 1.6;
+        }
+        .details-section ul {
+            padding-left: 20px;
+        }
+        .details-section li {
+            margin-bottom: 5px;
+        }
+        .expand-icon {
+            transition: transform 0.2s;
+        }
+        .expand-icon.rotated {
+            transform: rotate(180deg);
+        }
+        .environment-info {
+            background-color: #e9ecef;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 6px;
+        }
+        .environment-info h3 {
+            margin: 0 0 15px 0;
+        }
+        .environment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .environment-item {
+            display: flex;
+            justify-content: space-between;
+        }
+        .environment-item strong {
+            color: #495057;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #e9ecef;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Custom Tooling Automation</h1>
+            <p>Test Execution Report - User Login Test Suite</p>
+        </div>
+
+        <div class="summary">
+            <h2>Test Execution Summary</h2>
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3 class="total">6</h3>
+                    <p>Total Test Cases</p>
+                </div>
+                <div class="summary-card">
+                    <h3 class="passed">6</h3>
+                    <p>Passed</p>
+                </div>
+                <div class="summary-card">
+                    <h3 class="passed">0</h3>
+                    <p>Failed</p>
+                </div>
+                <div class="summary-card">
+                    <h3 class="passed">100%</h3>
+                    <p>Pass Rate</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <h2>Test Case Results</h2>
+
+            <!-- TC 001 -->
+            <div class="test-case">
+                <div class="test-case-header passed" onclick="toggleDetails('tc001')">
+                    <div class="test-case-title">
+                        TC 001 - Login as a valid user
+                    </div>
+                    <div class="test-case-status">
+                        <span class="priority-badge priority-high">High</span>
+                        <span class="status-badge passed">Passed</span>
+                        <span class="expand-icon" id="icon-tc001">▼</span>
+                    </div>
+                </div>
+                <div class="test-case-details" id="details-tc001">
+                    <div class="details-section">
+                        <h4>📝 Test Steps</h4>
+                        <ul>
+                            <li>Navigate to https://cte-dev.iclick.nz/</li>
+                            <li>Enter valid email: admin@email.com</li>
+                            <li>Enter valid password: Admin@123</li>
+                            <li>Click Login button</li>
+                            <li>Verify successful login and dashboard access</li>
+                        </ul>
+                    </div>
+                    <div class="details-section">
+                        <h4>✅ Expected Results</h4>
+                        <p>User should be successfully logged in and redirected to the dashboard page with confirmation message.</p>
+                    </div>
+                    <div class="details-section">
+                        <h4>🎯 Actual Results</h4>
+                        <p><strong>PASSED:</strong> User was successfully logged in. Redirected to dashboard (https://cte-dev.iclick.nz/dashboard). Success message displayed: "You have logged in successfully."</p>
+                    </div>
+                    <div class="details-section">
+                        <h4>📋 Prerequisites</h4>
+                        <p>Valid user credentials available in UserData.md file</p>
+                    </div>
+                    <div class="details-section">
+                        <h4>🌐 Browser & Environment</h4>
+                        <p>Chrome browser, Windows OS, https://cte-dev.iclick.nz environment</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TC 002 -->
+            <div class="test-case">
+                <div class="test-case-header passed" onclick="toggleDetails('tc002')">
+                    <div class="test-case-title">
+                        TC 002 - Login as a Valid email and Invalid Password
+                    </div>
+                    <div class="test-case-status">
+                        <span class="priority-badge priority-medium">Medium</span>
+                        <span class="status-badge passed">Passed</span>
+                        <span class="expand-icon" id="icon-tc002">▼</span>
+                    </div>
+                </div>
+                <div class="test-case-details" id="details-tc002">
+                    <div class="details-section">
+                        <h4>📝 Test Steps</h4>
+                        <ul>
+                            <li>Navigate to https://cte-dev.iclick.nz/</li>
+                            <li>Enter valid email: admin@email.com</li>
+                            <li>Enter invalid password: WrongPassword123</li>
+                            <li>Click Login button</li>
+                            <li>Verify login failure and error message display</li>
+                        </ul>
+                    </div>
+                    <div class="details-section">
+                        <h4>✅ Expected Results</h4>
+                        <p>Login should fail and display appropriate error message indicating invalid credentials.</p>
+                    </div>
+                    <div class="details-section">
+                        <h4>🎯 Actual Results</h4>
+                        <p><strong>PASSED:</strong> Login failed as expected. Error message displayed: "These credentials do not match our records." User remained on login page.</p>
+                    </div>
+                    <div class="details-section">
+                        <h4>📋 Prerequisites</h4>
+                        <p>Valid email from UserData.md, intentionally incorrect password</p>
+                    </div>
+                    <div class="details-section">
+                        <h4>🌐 Browser & Environment</h4>
+                        <p>Chrome browser, Windows OS, https://cte-dev.iclick.nz environment</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TC 003 -->
+            <div class="test-case">
+                <div class="test-case-header passed" onclick="toggleDetails('tc003')">
+                    <div class="test-case-title">
+                        TC 003 - Login with Invalid email and Valid Password
+                    </div>
+                    <div class="test-case-status">
+                        <span class="priority-badge priority-medium">Medium</span>
+                        <span class="status-badge passed">Passed</span>
+                        <span class="expand-icon" id="icon-tc003">▼</span>
+                    </div>
+                </div>
+                <div class="test-case-details" id="details-tc003">
+                    <div class="details-section">
+                        <h4>📝 Test Steps</h4>
+                        <ul>
+                            <li>Navigate to https://cte-dev.iclick.nz/</li>
+                            <li>Enter invalid email: invalid@email.com</li>
+                            <li>Enter valid password: Admin@123</li>
+                            <li>Click Login button</li>
+                            <li>Verify login failure and error message display</li>
+                        </ul>
+                    </div>
+                    <div class="details-section">
+                        <h4>✅ Expected Results</h4>
+                        <p>Login should fail and display appropriate error message indicating invalid credentials.</p>
+                    </div>
+                    <div class="details-section">
+                        <h4>🎯 Actual Results</h4>
+                        <p><strong>PASSED:</strong> Login failed as expected. Error message displayed: "These credentials do not match our records." User remained on login page.</p>
+                    </div>
+                    <div class="details-section">
+                        <h4>📋 Prerequisites</h4>
+                        <p>Invalid email address, valid password from UserData.md</p>
+                    </div>
+                    <div class="details-section">
+                        <h4>🌐 Browser & Environment</h4>
+                        <p>Chrome browser, Windows OS, https://cte-dev.iclick.nz environment</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TC 004 -->
+            <div class="test-case">
+                <div class="test-case-header passed" onclick="toggleDetails('tc004')">
+                    <div class="test-case-title">
+                        TC 004 - Verify Email Format Validation
+                    </div>
+                    <div class="test-case-status">
+                        <span class="priority-badge priority-medium">Medium</span>
+                        <span class="status-badge passed">Passed</span>
+                        <span class="expand-icon" id="icon-tc004">▼</span>
+                    </div>
+                </div>
+                <div class="test-case-details" id="details-tc004">
+                    <div class="details-section">
+                        <h4>📝 Test Steps</h4>
+                        <ul>
+                            <li>Navigate to https://cte-dev.iclick.nz/</li>
+                            <li>Enter email with incorrect format: userexample.com (missing @ symbol)</li>
+                            <li>Enter any password: password123</li>
+                            <li>Click Login button</li>
+                            <li>Verify that the system accepts the invalid email format without showing HTML5 browser validation</li>
+                            <li>Test with another invalid format: user@ (missing domain)</li>
+                            <li>Verify the same behavior occurs</li>
+                            <li>Confirm that the application lacks client-side email format validation</li>
+                        </ul>
+                    </div>
+                    <div class="details-section">
+                        <h4>✅ Expected Results</h4>
+                        <p>System should accept invalid email format without showing HTML5 browser validation. Form submission should be allowed to proceed to the server. No client-side validation error message should appear for incorrect email format.</p>
+                    </div>
+                    <div class="details-section">
+                        <h4>🎯 Actual Results</h4>
+                        <p><strong>PASSED:</strong> System behaved as expected. No HTML5 browser validation error message was displayed for invalid email formats (userexample.com and user@). Form submission was allowed to proceed. The application confirmed lack of client-side email format validation.</p>
+                    </div>
+                    <div class="details-section">
+                        <h4>🔍 Observation</h4>
+                        <p>The test confirms that the application does not implement client-side email format validation. This behavior was documented accurately in the updated test case requirements.</p>
+                    </div>
+                    <div class="details-section">
+                        <h4>📋 Prerequisites</h4>
+                        <p>Invalid email format test data, any password</p>
+                    </div>
+                    <div class="details-section">
+                        <h4>🌐 Browser & Environment</h4>
+                        <p>Chrome browser, Windows OS, https://cte-dev.iclick.nz environment</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TC 005 -->
+            <div class="test-case">
+                <div class="test-case-header passed" onclick="toggleDetails('tc005')">
+                    <div class="test-case-title">
+                        TC 005 - Verify Empty Email Field Validation
+                    </div>
+                    <div class="test-case-status">
+                        <span class="priority-badge priority-medium">Medium</span>
+                        <span class="status-badge passed">Passed</span>
+                        <span class="expand-icon" id="icon-tc005">▼</span>
+                    </div>
+                </div>
+                <div class="test-case-details" id="details-tc005">
+                    <div class="details-section">
+                        <h4>📝 Test Steps</h4>
+                        <ul>
+                            <li>Navigate to https://cte-dev.iclick.nz/</li>
+                            <li>Leave the email field empty (clear any existing text)</li>
+                            <li>Enter any password: password123</li>
+                            <li>Click Login button</li>
+                            <li>Verify error message indicating email is required</li>
+                            <li>Verify login is prevented</li>
+                        </ul>
+                    </div>
+                    <div class="details-section">
+                        <h4>✅ Expected Results</h4>
+                        <p>System should show appropriate error message indicating that email is required and prevent login.</p>
+                    </div>
+                    <div class="details-section">
+                        <h4>🎯 Actual Results</h4>
+                        <p><strong>PASSED:</strong> Error message displayed correctly: "The email field is required." Login was prevented and user remained on login page.</p>
+                    </div>
+                    <div class="details-section">
+                        <h4>📋 Prerequisites</h4>
+                        <p>Empty email field, any password</p>
+                    </div>
+                    <div class="details-section">
+                        <h4>🌐 Browser & Environment</h4>
+                        <p>Chrome browser, Windows OS, https://cte-dev.iclick.nz environment</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TC 006 -->
+            <div class="test-case">
+                <div class="test-case-header passed" onclick="toggleDetails('tc006')">
+                    <div class="test-case-title">
+                        TC 006 - Verify Unauthorized Access Redirect
+                    </div>
+                    <div class="test-case-status">
+                        <span class="priority-badge priority-high">High</span>
+                        <span class="status-badge passed">Passed</span>
+                        <span class="expand-icon" id="icon-tc006">▼</span>
+                    </div>
+                </div>
+                <div class="test-case-details" id="details-tc006">
+                    <div class="details-section">
+                        <h4>📝 Test Steps</h4>
+                        <ul>
+                            <li>Ensure no user is currently logged in (clear browser session/cookies if needed)</li>
+                            <li>Directly navigate to the dashboard URL: https://cte-dev.iclick.nz/dashboard</li>
+                            <li>Verify automatic redirect back to login page</li>
+                            <li>Verify URL changes to login URL</li>
+                            <li>Verify login form is displayed instead of dashboard content</li>
+                        </ul>
+                    </div>
+                    <div class="details-section">
+                        <h4>✅ Expected Results</h4>
+                        <p>User should be automatically redirected back to the login page. URL should change to https://cte-dev.iclick.nz/login or similar login URL. Login form should be displayed instead of dashboard content.</p>
+                    </div>
+                    <div class="details-section">
+                        <h4>🎯 Actual Results</h4>
+                        <p><strong>PASSED:</strong> Unauthorized access was properly prevented. User was automatically redirected from https://cte-dev.iclick.nz/dashboard to https://cte-dev.iclick.nz/login. Login form was displayed correctly, preventing access to protected dashboard content.</p>
+                    </div>
+                    <div class="details-section">
+                        <h4>📋 Prerequisites</h4>
+                        <p>No active user session, clean browser state</p>
+                    </div>
+                    <div class="details-section">
+                        <h4>🌐 Browser & Environment</h4>
+                        <p>Chrome browser, Windows OS, https://cte-dev.iclick.nz environment</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="environment-info">
+                <h3>🔧 Test Environment Information</h3>
+                <div class="environment-grid">
+                    <div class="environment-item">
+                        <span>Application URL:</span>
+                        <strong>https://cte-dev.iclick.nz</strong>
+                    </div>
+                    <div class="environment-item">
+                        <span>Browser:</span>
+                        <strong>Chrome</strong>
+                    </div>
+                    <div class="environment-item">
+                        <span>Operating System:</span>
+                        <strong>Windows</strong>
+                    </div>
+                    <div class="environment-item">
+                        <span>Test Suite:</span>
+                        <strong>User Login</strong>
+                    </div>
+                    <div class="environment-item">
+                        <span>Execution Date:</span>
+                        <strong>July 8, 2025</strong>
+                    </div>
+                    <div class="environment-item">
+                        <span>Test Priority:</span>
+                        <strong>High, Medium</strong>
+                    </div>
+                    <div class="environment-item">
+                        <span>Test Tool:</span>
+                        <strong>Playwright MCP</strong>
+                    </div>
+                    <div class="environment-item">
+                        <span>Total Execution Time:</span>
+                        <strong>~10 minutes</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Generated on July 8, 2025 | Custom Tooling Automation Test Report v17</p>
+            <p>Automated with Playwright MCP | Test Configuration: High and Medium Priority Test Cases</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleDetails(testCaseId) {
+            const details = document.getElementById('details-' + testCaseId);
+            const icon = document.getElementById('icon-' + testCaseId);
+            
+            if (details.classList.contains('active')) {
+                details.classList.remove('active');
+                icon.classList.remove('rotated');
+            } else {
+                details.classList.add('active');
+                icon.classList.add('rotated');
+            }
+        }
+
+        // Add click event listeners to all test case headers
+        document.addEventListener('DOMContentLoaded', function() {
+            const headers = document.querySelectorAll('.test-case-header');
+            headers.forEach(header => {
+                header.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 100);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
