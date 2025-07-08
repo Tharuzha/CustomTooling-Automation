@@ -66,3 +66,36 @@
 - Verify that the URL changes to "<https://cte-dev.iclick.nz/login>" or similar login URL
 - Verify that the login form is displayed instead of the dashboard content
 - Ensure unauthorized users cannot access protected dashboard content directly
+
+## TC 093 - Navigate to Forgot Password Page
+
+### Priority TC 093 : Medium
+
+- Navigate to the login page
+- Locate the "Forgot Password" link on the login form
+- Click on the "Forgot Password" link
+- Verify that the user is taken to the Forgot Password page
+- Verify that the page URL changes appropriately
+- Verify that an email input field is visible on the Forgot Password page
+
+## TC 094 - Submit Valid Email for Reset Link
+
+### Priority TC 094 : Medium
+
+- Navigate to the Forgot Password page
+- Enter a valid email address in the email field (e.g., "<tharusha.gunawardhana@leadlanka.lk>")
+- Click the "Send Reset Link" button
+- Verify that a success message appears confirming the reset link was sent
+- Verify that the email field accepts the valid email format
+- Verify that the form submission completes successfully
+
+## TC 095 - Submit Empty Email on Forgot Password Page
+
+### Priority TC 095 : Low
+
+- Navigate to the Forgot Password page
+- Leave the email field empty
+- Click the "Send Reset Link" button
+- Verify that an error message appears indicating email is required
+- Verify that the reset link is not sent when email field is empty
+- Verify that the form prevents submission with empty email field
