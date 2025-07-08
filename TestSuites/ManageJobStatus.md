@@ -91,3 +91,20 @@
 - Verify job status remains in the list (not deleted)
 - Verify no success or error message appears
 - Verify total count of statuses remains unchanged
+
+## TC 097 - Verify Duplicate Job Status Name Validation
+
+### Priority TC 097 : High
+
+- Click on the "+ Status" button
+- Verify Add Status modal opens
+- Set status name to an existing job status name (e.g., "In Progress" or "Completed")
+- Set background color to "#FFFBDE"
+- Set font color to "#0D5EA6"
+- Click Save button
+- Verify validation error appears: "A job status with this name already exists" or similar message
+- Verify dialog remains open
+- Verify duplicate status is not saved to the list
+- Verify total count of statuses remains unchanged
+- Click Cancel button to close the modal
+- Verify modal closes without creating duplicate status.
