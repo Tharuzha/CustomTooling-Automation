@@ -119,7 +119,7 @@ To run this project, ensure the following tools and environments are properly se
   Install and configure the Model Context Protocol (MCP) for AI-driven test execution.
 
 - **✅ Visual Studio Code**  
-  Make sure GitHub Copilot Chat extension (`v0.11.0` or later) is enabled ( Claude 3.7 OR Claude 4.0 )
+  Make sure GitHub Copilot Chat extension (`v0.11.0` or later) is enabled
 
 - **✅ Browser Support**  
   Chrome or any other browser supported by Playwright.
@@ -136,7 +136,7 @@ Follow these steps to run your automated tests using GitHub Copilot Chat:
 ### 🧩 Setup
 
 1. **Open** the project in **Visual Studio Code**
-2. **Launch** the Copilot Chat panel and select **Claude Sonnet** as your model
+2. **Launch** the Copilot Chat panel and select **Claude Sonnet** as your model  ( Claude 3.7 OR Claude 4.0 )
 3. **Navigate** to the `TestConfiguration.md` file
 
 ### ▶️ Execution
