@@ -91,7 +91,7 @@
 
 ## TC 095 - Submit Empty Email on Forgot Password Page
 
-### Priority TC 095 : Low
+### Priority TC 095 : Medium
 
 - Navigate to the Forgot Password page
 - Leave the email field empty
