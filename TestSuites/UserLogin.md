@@ -99,3 +99,14 @@
 - Verify that an error message appears indicating email is required
 - Verify that the reset link is not sent when email field is empty
 - Verify that the form prevents submission with empty email field
+
+## TC 096 - Submit Invalid Email for Reset Link
+
+### Priority TC 096 : Medium
+
+- Navigate to the Forgot Password page
+- Enter an invalid email address in the email field (e.g., "<invalid@nonexistent.com>")
+- Click the "Send Reset Link" button
+- Verify that the system shows "We can't find a user with that email address" message
+- Verify that no reset link is sent for unregistered email addresses
+- Verify that the form handles non-registered emails properly
