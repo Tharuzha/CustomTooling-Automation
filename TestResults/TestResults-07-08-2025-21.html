@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Units Test Execution Report - 07-08-2025-21</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .summary-card.passed { background: #28a745; }
+        .summary-card.failed { background: #dc3545; }
+        .summary-card.total { background: #17a2b8; }
+        .summary-card.pending { background: #ffc107; color: #333; }
+
+        .environment-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 5px solid #007bff;
+        }
+
+        .test-case {
+            border: 1px solid #e0e6ed;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .test-case-header {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .test-case-header:hover {
+            background-color: #f8f9fa;
+        }
+
+        .test-case-header.passed {
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+        }
+
+        .test-case-header.failed {
+            background-color: #f8d7da;
+            border-left: 5px solid #dc3545;
+        }
+
+        .test-case-header.pending {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+        }
+
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-badge.passed {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .status-badge.failed {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .status-badge.pending {
+            background-color: #ffc107;
+            color: #333;
+        }
+
+        .test-case-details {
+            display: none;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #e0e6ed;
+        }
+
+        .test-case-details.show {
+            display: block;
+        }
+
+        .test-steps {
+            margin-top: 15px;
+        }
+
+        .test-step {
+            padding: 10px;
+            margin: 5px 0;
+            border-left: 3px solid #007bff;
+            background-color: white;
+            border-radius: 4px;
+        }
+
+        .step-number {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .expected-result {
+            background-color: #e7f3ff;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .actual-result {
+            background-color: #f0f8f0;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .toggle-icon {
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .toggle-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        .phase-header {
+            background: #6c757d;
+            color: white;
+            padding: 15px;
+            margin: 30px 0 20px 0;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .phase-summary {
+            display: flex;
+            justify-content: space-around;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .phase-summary div {
+            text-align: center;
+        }
+
+        .phase-summary .number {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+        }
+
+        .phase-summary .label {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .summary {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Units Test Suite Execution Report</h1>
+            <p>Execution Date: July 8, 2025 | Report Sequence: 21 | Execution Completed</p>
+        </div>
+
+        <div class="summary">
+            <div class="summary-card total">
+                <h3>10</h3>
+                <p>Total Test Cases</p>
+            </div>
+            <div class="summary-card passed">
+                <h3>10</h3>
+                <p>Passed</p>
+            </div>
+            <div class="summary-card failed">
+                <h3>0</h3>
+                <p>Failed</p>
+            </div>
+            <div class="summary-card pending">
+                <h3>0</h3>
+                <p>Pending</p>
+            </div>
+        </div>
+
+        <div class="environment-info">
+            <h3>Environment Information</h3>
+            <ul>
+                <li><strong>Application URL:</strong> https://cte-dev.iclick.nz/</li>
+                <li><strong>Browser:</strong> Chrome (Playwright)</li>
+                <li><strong>Test Environment:</strong> Development</li>
+                <li><strong>User Account:</strong> admin@email.com</li>
+                <li><strong>Test Suite:</strong> Units Module</li>
+                <li><strong>Test Framework:</strong> Playwright MCP Browser Automation</li>
+                <li><strong>Operating System:</strong> Windows</li>
+                <li><strong>Execution Method:</strong> Automated UI Testing</li>
+            </ul>
+        </div>
+
+        <!-- Phase 1 Test Cases -->
+        <div class="phase-header">Phase 1: Test Cases TC 046 - TC 051 (Completed)</div>
+        
+        <div class="phase-summary">
+            <div>
+                <span class="number" style="color: #28a745;">6</span>
+                <span class="label">Executed</span>
+            </div>
+            <div>
+                <span class="number" style="color: #28a745;">6</span>
+                <span class="label">Passed</span>
+            </div>
+            <div>
+                <span class="number" style="color: #dc3545;">0</span>
+                <span class="label">Failed</span>
+            </div>
+        </div>
+
+        <!-- TC 046 -->
+        <div class="test-case">
+            <div class="test-case-header passed" onclick="toggleDetails('tc046')">
+                <span><strong>TC 046</strong> - Navigate to Units page from Settings menu</span>
+                <div>
+                    <span class="status-badge passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc046">▼</span>
+                </div>
+            </div>
+            <div class="test-case-details" id="details-tc046">
+                <p><strong>Priority:</strong> High</p>
+                <p><strong>Description:</strong> User should be able to access the Units page through the Settings menu navigation.</p>
+                <p><strong>Execution Time:</strong> July 8, 2025 - Phase 1</p>
+                
+                <div class="test-steps">
+                    <div class="test-step">
+                        <span class="step-number">1.</span> Navigate to Login page and login with admin credentials
+                    </div>
+                    <div class="test-step">
+                        <span class="step-number">2.</span> Click on Settings menu in the left sidebar
+                    </div>
+                    <div class="test-step">
+                        <span class="step-number">3.</span> Click on Units submenu
+                    </div>
+                </div>
+                
+                <div class="expected-result">
+                    <strong>Expected Result:</strong> Units page should load successfully with URL https://cte-dev.iclick.nz/units and display "Settings - Units" heading
+                </div>
+                
+                <div class="actual-result">
+                    <strong>Actual Result:</strong> ✅ Successfully navigated to Units page. URL confirmed as https://cte-dev.iclick.nz/units. Page heading "Settings - Units" displayed correctly.
+                </div>
+            </div>
+        </div>
+
+        <!-- TC 047 -->
+        <div class="test-case">
+            <div class="test-case-header passed" onclick="toggleDetails('tc047')">
+                <span><strong>TC 047</strong> - Verify Units page display</span>
+                <div>
+                    <span class="status-badge passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc047">▼</span>
+                </div>
+            </div>
+            <div class="test-case-details" id="details-tc047">
+                <p><strong>Priority:</strong> High</p>
+                <p><strong>Description:</strong> Verify that all elements on the Units page are displayed correctly including table, buttons, and pagination.</p>
+                <p><strong>Execution Time:</strong> July 8, 2025 - Phase 1</p>
+                
+                <div class="expected-result">
+                    <strong>Expected Result:</strong> Page should display units list table with columns (Unit, Description, Actions), +Unit button, search functionality, action buttons (⋮), pagination, and results information
+                </div>
+                
+                <div class="actual-result">
+                    <strong>Actual Result:</strong> ✅ All expected elements verified: Units table with correct columns, +Unit button present, search box functional, action menu buttons (⋮) available, pagination displayed, results counter showing proper information.
+                </div>
+            </div>
+        </div>
+
+        <!-- TC 048 -->
+        <div class="test-case">
+            <div class="test-case-header passed" onclick="toggleDetails('tc048')">
+                <span><strong>TC 048</strong> - Add a new unit</span>
+                <div>
+                    <span class="status-badge passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc048">▼</span>
+                </div>
+            </div>
+            <div class="test-case-details" id="details-tc048">
+                <p><strong>Priority:</strong> High</p>
+                <p><strong>Description:</strong> Verify that a new unit can be successfully added with proper validation and UI feedback.</p>
+                <p><strong>Execution Time:</strong> July 8, 2025 - Phase 1</p>
+                
+                <div class="expected-result">
+                    <strong>Expected Result:</strong> New unit "Kilogram" with description "Unit of mass measurement" should be added successfully with confirmation and appear in the units list
+                </div>
+                
+                <div class="actual-result">
+                    <strong>Actual Result:</strong> ✅ Successfully added new unit "Kilogram" with specified description. Success message displayed, dialog closed automatically, and new unit appeared in the list with correct details.
+                </div>
+            </div>
+        </div>
+
+        <!-- TC 049 -->
+        <div class="test-case">
+            <div class="test-case-header passed" onclick="toggleDetails('tc049')">
+                <span><strong>TC 049</strong> - Edit existing unit</span>
+                <div>
+                    <span class="status-badge passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc049">▼</span>
+                </div>
+            </div>
+            <div class="test-case-details" id="details-tc049">
+                <p><strong>Priority:</strong> High</p>
+                <p><strong>Description:</strong> Verify that an existing unit can be successfully edited with proper validation and UI feedback.</p>
+                <p><strong>Execution Time:</strong> July 8, 2025 - Phase 1</p>
+                
+                <div class="expected-result">
+                    <strong>Expected Result:</strong> "ml" unit description should be updated to "Updated unit for length measurement" with success confirmation
+                </div>
+                
+                <div class="actual-result">
+                    <strong>Actual Result:</strong> ✅ Successfully updated "ml" unit description. Edit dialog populated with existing values, changes saved successfully, and updated description reflected in the units list.
+                </div>
+            </div>
+        </div>
+
+        <!-- TC 050 -->
+        <div class="test-case">
+            <div class="test-case-header passed" onclick="toggleDetails('tc050')">
+                <span><strong>TC 050</strong> - Verify Unit Name field mandatory validation</span>
+                <div>
+                    <span class="status-badge passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc050">▼</span>
+                </div>
+            </div>
+            <div class="test-case-details" id="details-tc050">
+                <p><strong>Priority:</strong> High</p>
+                <p><strong>Description:</strong> Verify that Unit Name field shows proper validation when left empty during unit creation.</p>
+                <p><strong>Execution Time:</strong> July 8, 2025 - Phase 1</p>
+                
+                <div class="expected-result">
+                    <strong>Expected Result:</strong> Error message should appear for empty Unit Name field, Save button should be disabled, and dialog should remain open
+                </div>
+                
+                <div class="actual-result">
+                    <strong>Actual Result:</strong> ✅ Validation working correctly. Error message "Unit Name is required" displayed for empty field, Save button disabled appropriately, dialog remained open until cancelled.
+                </div>
+            </div>
+        </div>
+
+        <!-- TC 051 -->
+        <div class="test-case">
+            <div class="test-case-header passed" onclick="toggleDetails('tc051')">
+                <span><strong>TC 051</strong> - Verify Description field mandatory validation</span>
+                <div>
+                    <span class="status-badge passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc051">▼</span>
+                </div>
+            </div>
+            <div class="test-case-details" id="details-tc051">
+                <p><strong>Priority:</strong> High</p>
+                <p><strong>Description:</strong> Verify that Description field shows proper validation when left empty during unit creation.</p>
+                <p><strong>Execution Time:</strong> July 8, 2025 - Phase 1</p>
+                
+                <div class="expected-result">
+                    <strong>Expected Result:</strong> Error message should appear for empty Description field, Save button should be disabled, and dialog should remain open
+                </div>
+                
+                <div class="actual-result">
+                    <strong>Actual Result:</strong> ✅ Validation working correctly. Error message "Description is required" displayed for empty field, Save button disabled appropriately, dialog remained open until cancelled.
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 2 Test Cases -->
+        <div class="phase-header">Phase 2: Test Cases TC 052 - TC 055 (Completed)</div>
+        
+        <div class="phase-summary">
+            <div>
+                <span class="number" style="color: #28a745;">4</span>
+                <span class="label">Executed</span>
+            </div>
+            <div>
+                <span class="number" style="color: #28a745;">4</span>
+                <span class="label">Passed</span>
+            </div>
+            <div>
+                <span class="number" style="color: #dc3545;">0</span>
+                <span class="label">Failed</span>
+            </div>
+        </div>
+
+        <!-- TC 052 -->
+        <div class="test-case">
+            <div class="test-case-header passed" onclick="toggleDetails('tc052')">
+                <span><strong>TC 052</strong> - Delete Unit</span>
+                <div>
+                    <span class="status-badge passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc052">▼</span>
+                </div>
+            </div>
+            <div class="test-case-details" id="details-tc052">
+                <p><strong>Priority:</strong> High</p>
+                <p><strong>Description:</strong> Verify that a unit can be successfully deleted with proper confirmation dialog.</p>
+                <p><strong>Execution Time:</strong> July 8, 2025 - Phase 2</p>
+                
+                <div class="test-steps">
+                    <div class="test-step">
+                        <span class="step-number">1.</span> Selected existing "Test Unit" from the list
+                    </div>
+                    <div class="test-step">
+                        <span class="step-number">2.</span> Clicked the action menu (⋮) for the selected unit
+                    </div>
+                    <div class="test-step">
+                        <span class="step-number">3.</span> Clicked "Delete" from the dropdown menu
+                    </div>
+                    <div class="test-step">
+                        <span class="step-number">4.</span> Verified confirmation dialog with warning message "Are you sure?" and "This action cannot be undone."
+                    </div>
+                    <div class="test-step">
+                        <span class="step-number">5.</span> Clicked "Yes, delete it!" button
+                    </div>
+                    <div class="test-step">
+                        <span class="step-number">6.</span> Verified unit removal from list and count reduction
+                    </div>
+                </div>
+                
+                <div class="expected-result">
+                    <strong>Expected Result:</strong> Unit should be deleted successfully with confirmation dialog, success message, and removal from list
+                </div>
+                
+                <div class="actual-result">
+                    <strong>Actual Result:</strong> ✅ Successfully deleted unit. Confirmation dialog appeared with correct messages and buttons, deletion confirmed, unit removed from list, and count reduced from 13 to 12 results.
+                </div>
+            </div>
+        </div>
+
+        <!-- TC 053 -->
+        <div class="test-case">
+            <div class="test-case-header passed" onclick="toggleDetails('tc053')">
+                <span><strong>TC 053</strong> - Cancel Delete Unit</span>
+                <div>
+                    <span class="status-badge passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc053">▼</span>
+                </div>
+            </div>
+            <div class="test-case-details" id="details-tc053">
+                <p><strong>Priority:</strong> High</p>
+                <p><strong>Description:</strong> Verify that the delete operation can be cancelled and unit remains unchanged.</p>
+                <p><strong>Execution Time:</strong> July 8, 2025 - Phase 2</p>
+                
+                <div class="test-steps">
+                    <div class="test-step">
+                        <span class="step-number">1.</span> Selected existing "h" unit from the list
+                    </div>
+                    <div class="test-step">
+                        <span class="step-number">2.</span> Clicked the action menu (⋮) for the selected unit
+                    </div>
+                    <div class="test-step">
+                        <span class="step-number">3.</span> Clicked "Delete" from the dropdown menu
+                    </div>
+                    <div class="test-step">
+                        <span class="step-number">4.</span> Verified confirmation dialog appeared
+                    </div>
+                    <div class="test-step">
+                        <span class="step-number">5.</span> Clicked "Cancel" button
+                    </div>
+                    <div class="test-step">
+                        <span class="step-number">6.</span> Verified unit remains in the list unchanged
+                    </div>
+                </div>
+                
+                <div class="expected-result">
+                    <strong>Expected Result:</strong> Delete operation should be cancelled, dialog should close, and unit should remain in the list unchanged
+                </div>
+                
+                <div class="actual-result">
+                    <strong>Actual Result:</strong> ✅ Successfully cancelled delete operation. Confirmation dialog closed, no changes made to the unit, and "h" unit remained in the list with original data intact.
+                </div>
+            </div>
+        </div>
+
+        <!-- TC 054 -->
+        <div class="test-case">
+            <div class="test-case-header passed" onclick="toggleDetails('tc054')">
+                <span><strong>TC 054</strong> - Verify Search Functionality by Description</span>
+                <div>
+                    <span class="status-badge passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc054">▼</span>
+                </div>
+            </div>
+            <div class="test-case-details" id="details-tc054">
+                <p><strong>Priority:</strong> High</p>
+                <p><strong>Description:</strong> Verify that the search functionality filters units correctly by description.</p>
+                <p><strong>Execution Time:</strong> July 8, 2025 - Phase 2</p>
+                
+                <div class="test-steps">
+                    <div class="test-step">
+                        <span class="step-number">1.</span> Located the search textbox on the Units page
+                    </div>
+                    <div class="test-step">
+                        <span class="step-number">2.</span> Entered "Meter" in the search field
+                    </div>
+                    <div class="test-step">
+                        <span class="step-number">3.</span> Pressed Enter to trigger search
+                    </div>
+                    <div class="test-step">
+                        <span class="step-number">4.</span> Verified filtered results
+                    </div>
+                </div>
+                
+                <div class="expected-result">
+                    <strong>Expected Result:</strong> Search should filter results to show only units containing "Meter" in description, with appropriate count display
+                </div>
+                
+                <div class="actual-result">
+                    <strong>Actual Result:</strong> ✅ Search functionality working correctly. Filtered results showed 7 units containing "Meter" in their descriptions (Meter per second, Cubic Meter, Square Meter, Meter, Kilometer, Millimeter, Centimeter). Results counter displayed "Showing 7 results".
+                </div>
+            </div>
+        </div>
+
+        <!-- TC 055 -->
+        <div class="test-case">
+            <div class="test-case-header passed" onclick="toggleDetails('tc055')">
+                <span><strong>TC 055</strong> - Verify Search with No Results</span>
+                <div>
+                    <span class="status-badge passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc055">▼</span>
+                </div>
+            </div>
+            <div class="test-case-details" id="details-tc055">
+                <p><strong>Priority:</strong> High</p>
+                <p><strong>Description:</strong> Verify that searching for non-existent units displays appropriate no results message.</p>
+                <p><strong>Execution Time:</strong> July 8, 2025 - Phase 2</p>
+                
+                <div class="test-steps">
+                    <div class="test-step">
+                        <span class="step-number">1.</span> Located the search textbox on the Units page
+                    </div>
+                    <div class="test-step">
+                        <span class="step-number">2.</span> Entered "xyz123" (non-existent term) in the search field
+                    </div>
+                    <div class="test-step">
+                        <span class="step-number">3.</span> Triggered search by pressing Enter
+                    </div>
+                    <div class="test-step">
+                        <span class="step-number">4.</span> Verified no results message and count
+                    </div>
+                </div>
+                
+                <div class="expected-result">
+                    <strong>Expected Result:</strong> Search should return no results with appropriate "no items found" message and 0 results count
+                </div>
+                
+                <div class="actual-result">
+                    <strong>Actual Result:</strong> ✅ No results scenario handled correctly. Table displayed "No items found, try to broaden your search" message, and results counter showed "Showing 0 results". User-friendly guidance provided for unsuccessful searches.
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; padding: 20px; background-color: #d4edda; border-radius: 8px; border-left: 5px solid #28a745;">
+            <h3>✅ Execution Summary - All Phases Completed</h3>
+            <p><strong>Phase 1 Completion:</strong> 100% (6/6 test cases passed)</p>
+            <p><strong>Phase 2 Completion:</strong> 100% (4/4 test cases passed)</p>
+            <p><strong>Overall Success Rate:</strong> 100% (10/10 total test cases passed)</p>
+            <p><strong>Critical Functionalities Verified:</strong></p>
+            <ul>
+                <li>✅ Units page navigation and display</li>
+                <li>✅ Unit creation with validation</li>
+                <li>✅ Unit editing and updates</li>
+                <li>✅ Unit deletion with confirmation</li>
+                <li>✅ Delete operation cancellation</li>
+                <li>✅ Search functionality with results</li>
+                <li>✅ Search functionality with no results</li>
+                <li>✅ Form validation for required fields</li>
+                <li>✅ UI responsiveness and user feedback</li>
+            </ul>
+            <p><strong>Quality Assessment:</strong> All test cases executed successfully without any failures. The Units module demonstrates robust functionality with proper validation, user-friendly interfaces, and reliable CRUD operations. No critical defects identified.</p>
+        </div>
+
+        <div style="margin-top: 20px; text-align: center; color: #666; font-size: 0.9em;">
+            <p>Report generated on July 8, 2025 at 6:03 PM | Sequence: 21 | Status: Completed</p>
+            <p>Custom Tooling Dashboard - Units Module Test Suite</p>
+            <p>All test phases executed successfully - Ready for production validation</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleDetails(testId) {
+            const details = document.getElementById('details-' + testId);
+            const icon = document.getElementById('icon-' + testId);
+            
+            if (details.classList.contains('show')) {
+                details.classList.remove('show');
+                icon.classList.remove('rotated');
+                icon.textContent = '▼';
+            } else {
+                details.classList.add('show');
+                icon.classList.add('rotated');
+                icon.textContent = '▲';
+            }
+        }
+
+        // Auto-expand first test case for demonstration
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleDetails('tc046');
+        });
+    </script>
+</body>
+</html>

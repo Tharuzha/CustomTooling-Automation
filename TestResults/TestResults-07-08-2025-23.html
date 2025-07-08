@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Locations Test Results - Complete Execution</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .summary-card {
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+        }
+        .passed { background-color: #28a745; }
+        .failed { background-color: #dc3545; }
+        .total { background-color: #007bff; }
+        .environment {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .test-case {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .test-header {
+            background-color: #f8f9fa;
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+        }
+        .test-header:hover {
+            background-color: #e9ecef;
+        }
+        .test-content {
+            padding: 20px;
+            display: none;
+        }
+        .test-content.show {
+            display: block;
+        }
+        .status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status.passed { background-color: #28a745; }
+        .status.failed { background-color: #dc3545; }
+        .status.skipped { background-color: #6c757d; }
+        .toggle-icon {
+            transition: transform 0.3s ease;
+        }
+        .toggle-icon.rotated {
+            transform: rotate(90deg);
+        }
+        .step {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            border-radius: 4px;
+        }
+        .step.passed {
+            border-left-color: #28a745;
+            background-color: #f8fff8;
+        }
+        .step.failed {
+            border-left-color: #dc3545;
+            background-color: #fff8f8;
+        }
+        .expected-actual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .expected, .actual {
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .expected {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+        }
+        .actual {
+            background-color: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+        }
+        .screenshot {
+            text-align: center;
+            margin: 15px 0;
+        }
+        .defect {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .defect-title {
+            font-weight: bold;
+            color: #856404;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Stock Locations Test Results - Complete Execution</h1>
+            <p>Test Suite: StockLocations.md | Date: July 8, 2025 | Time: 6:41 PM</p>
+        </div>
+
+        <div class="summary">
+            <div class="summary-card total">
+                <h3>Total Tests</h3>
+                <p>12 Test Cases</p>
+            </div>
+            <div class="summary-card passed">
+                <h3>Passed</h3>
+                <p>11 Test Cases</p>
+            </div>
+            <div class="summary-card failed">
+                <h3>Failed</h3>
+                <p>1 Test Case</p>
+            </div>
+        </div>
+
+        <div class="environment">
+            <h3>Test Environment Information</h3>
+            <p><strong>Application URL:</strong> https://cte-dev.iclick.nz/</p>
+            <p><strong>Browser:</strong> Playwright Browser (Chromium)</p>
+            <p><strong>Test User:</strong> admin@email.com (Admin Role)</p>
+            <p><strong>Execution Date:</strong> July 8, 2025</p>
+            <p><strong>Execution Time:</strong> 6:20 PM - 6:41 PM NZST</p>
+            <p><strong>Total Execution Time:</strong> ~21 minutes</p>
+            <p><strong>Test Data:</strong> Live environment with existing stock locations</p>
+        </div>
+
+        <!-- TC 056 -->
+        <div class="test-case">
+            <div class="test-header" onclick="toggleTest('tc056')">
+                <span>TC 056 - Verify Navigate to Stock Locations Page</span>
+                <div>
+                    <span class="status passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc056">▶</span>
+                </div>
+            </div>
+            <div class="test-content" id="tc056">
+                <div class="step passed">
+                    <strong>Step 1:</strong> Navigate to Stock Locations page<br>
+                    <strong>Result:</strong> Successfully navigated to /stock-location
+                </div>
+                <div class="step passed">
+                    <strong>Step 2:</strong> Verify page URL and title<br>
+                    <strong>Result:</strong> URL contains "/stock-location" and title shows "Settings - Stock Locations"
+                </div>
+                <div class="expected-actual">
+                    <div class="expected">
+                        <strong>Expected:</strong> Page loads successfully with correct URL and title
+                    </div>
+                    <div class="actual">
+                        <strong>Actual:</strong> Page loaded successfully, URL: https://cte-dev.iclick.nz/stock-location, Title: "Settings - Stock Locations"
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TC 057 -->
+        <div class="test-case">
+            <div class="test-header" onclick="toggleTest('tc057')">
+                <span>TC 057 - Verify View Existing Stock Locations</span>
+                <div>
+                    <span class="status passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc057">▶</span>
+                </div>
+            </div>
+            <div class="test-content" id="tc057">
+                <div class="step passed">
+                    <strong>Step 1:</strong> Verify table structure and columns<br>
+                    <strong>Result:</strong> Table displays with columns: Stock Location, Status, Actions
+                </div>
+                <div class="step passed">
+                    <strong>Step 2:</strong> Verify status display (Active/Inactive)<br>
+                    <strong>Result:</strong> Status column shows Active/Inactive values correctly
+                </div>
+                <div class="step passed">
+                    <strong>Step 3:</strong> Verify action buttons and pagination<br>
+                    <strong>Result:</strong> Action menu (⋮) visible for each row, pagination working, showing "Showing 1 to 10 of X results"
+                </div>
+                <div class="expected-actual">
+                    <div class="expected">
+                        <strong>Expected:</strong> Table displays stock locations with proper structure, status indicators, and pagination
+                    </div>
+                    <div class="actual">
+                        <strong>Actual:</strong> All elements displayed correctly, initial count showed 16 stock locations
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TC 058 -->
+        <div class="test-case">
+            <div class="test-header" onclick="toggleTest('tc058')">
+                <span>TC 058 - Add New Stock Location</span>
+                <div>
+                    <span class="status passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc058">▶</span>
+                </div>
+            </div>
+            <div class="test-content" id="tc058">
+                <div class="step passed">
+                    <strong>Step 1:</strong> Click "+Stock Location" button<br>
+                    <strong>Result:</strong> Modal dialog opened with form fields
+                </div>
+                <div class="step passed">
+                    <strong>Step 2:</strong> Fill form - Status: Active, Name: "Warehouse A"<br>
+                    <strong>Result:</strong> Form fields populated successfully
+                </div>
+                <div class="step passed">
+                    <strong>Step 3:</strong> Click Save and verify success<br>
+                    <strong>Result:</strong> Success message "Stock Location created!" appeared
+                </div>
+                <div class="step passed">
+                    <strong>Step 4:</strong> Verify in list display<br>
+                    <strong>Result:</strong> "Warehouse A" appears in list with Active status, total count increased
+                </div>
+                <div class="expected-actual">
+                    <div class="expected">
+                        <strong>Expected:</strong> New stock location created and visible in list with correct status
+                    </div>
+                    <div class="actual">
+                        <strong>Actual:</strong> "Warehouse A" created successfully, displayed as Active, count increased to 17
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TC 059 -->
+        <div class="test-case">
+            <div class="test-header" onclick="toggleTest('tc059')">
+                <span>TC 059 - Edit Existing Stock Location</span>
+                <div>
+                    <span class="status passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc059">▶</span>
+                </div>
+            </div>
+            <div class="test-content" id="tc059">
+                <div class="step passed">
+                    <strong>Step 1:</strong> Select "Warehouse A" and click Edit<br>
+                    <strong>Result:</strong> Edit modal opened with current values pre-filled
+                </div>
+                <div class="step passed">
+                    <strong>Step 2:</strong> Change name to "Warehouse A Updated" and status to Inactive<br>
+                    <strong>Result:</strong> Form fields updated successfully
+                </div>
+                <div class="step passed">
+                    <strong>Step 3:</strong> Save changes and verify<br>
+                    <strong>Result:</strong> Success message appeared, changes saved
+                </div>
+                <div class="step passed">
+                    <strong>Step 4:</strong> Verify updated display in list<br>
+                    <strong>Result:</strong> Name shows as "Warehouse A Updated" with Inactive status
+                </div>
+                <div class="expected-actual">
+                    <div class="expected">
+                        <strong>Expected:</strong> Stock location updated with new name and status reflected in list
+                    </div>
+                    <div class="actual">
+                        <strong>Actual:</strong> Successfully updated to "Warehouse A Updated" with Inactive status
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TC 060 -->
+        <div class="test-case">
+            <div class="test-header" onclick="toggleTest('tc060')">
+                <span>TC 060 - Verify Status Field is Mandatory</span>
+                <div>
+                    <span class="status passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc060">▶</span>
+                </div>
+            </div>
+            <div class="test-content" id="tc060">
+                <div class="step passed">
+                    <strong>Step 1:</strong> Open Add dialog, enter name without status<br>
+                    <strong>Result:</strong> Form fields populated: Name = "Test Location", Status = "Select a Status"
+                </div>
+                <div class="step passed">
+                    <strong>Step 2:</strong> Click Save without selecting status<br>
+                    <strong>Result:</strong> Validation error appeared: "The status field is required."
+                </div>
+                <div class="step passed">
+                    <strong>Step 3:</strong> Select "Active" status and save<br>
+                    <strong>Result:</strong> Validation cleared, stock location created successfully
+                </div>
+                <div class="expected-actual">
+                    <div class="expected">
+                        <strong>Expected:</strong> Status field validation prevents save, allows save when status selected
+                    </div>
+                    <div class="actual">
+                        <strong>Actual:</strong> Validation working correctly, "Test Location" created after selecting Active status
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TC 061 -->
+        <div class="test-case">
+            <div class="test-header" onclick="toggleTest('tc061')">
+                <span>TC 061 - Verify Stock Location Field is Mandatory</span>
+                <div>
+                    <span class="status passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc061">▶</span>
+                </div>
+            </div>
+            <div class="test-content" id="tc061">
+                <div class="step passed">
+                    <strong>Step 1:</strong> Open Add dialog, leave both fields empty<br>
+                    <strong>Result:</strong> Modal opened with empty form fields
+                </div>
+                <div class="step passed">
+                    <strong>Step 2:</strong> Click Save without filling any fields<br>
+                    <strong>Result:</strong> Both validation errors appeared: "The status field is required." and "The location name field is required."
+                </div>
+                <div class="step passed">
+                    <strong>Step 3:</strong> Enter name "Test Validation Location"<br>
+                    <strong>Result:</strong> Location name validation cleared, status validation remained
+                </div>
+                <div class="step passed">
+                    <strong>Step 4:</strong> Select "Active" status and save<br>
+                    <strong>Result:</strong> All validations cleared, stock location created successfully
+                </div>
+                <div class="expected-actual">
+                    <div class="expected">
+                        <strong>Expected:</strong> Both field validations work independently, form saves when both fields completed
+                    </div>
+                    <div class="actual">
+                        <strong>Actual:</strong> Field validations working correctly, "Test Validation Location" created with Active status, count: 17
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TC 062 -->
+        <div class="test-case">
+            <div class="test-header" onclick="toggleTest('tc062')">
+                <span>TC 062 - Delete Stock Location</span>
+                <div>
+                    <span class="status passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc062">▶</span>
+                </div>
+            </div>
+            <div class="test-content" id="tc062">
+                <div class="step passed">
+                    <strong>Step 1:</strong> Select "Test Delete Cancel" location and click action menu<br>
+                    <strong>Result:</strong> Action menu displayed with Edit and Delete options
+                </div>
+                <div class="step passed">
+                    <strong>Step 2:</strong> Click Delete option<br>
+                    <strong>Result:</strong> Confirmation dialog appeared with proper warning message
+                </div>
+                <div class="step passed">
+                    <strong>Step 3:</strong> Verify dialog content<br>
+                    <strong>Result:</strong> Dialog shows "Are you sure?" title, "This action cannot be undone." warning, and "Yes, delete it!" / "Cancel" buttons
+                </div>
+                <div class="step passed">
+                    <strong>Step 4:</strong> Confirm deletion<br>
+                    <strong>Result:</strong> Success message appeared, item removed from list, count decreased
+                </div>
+                <div class="expected-actual">
+                    <div class="expected">
+                        <strong>Expected:</strong> Deletion process with confirmation, successful removal from list
+                    </div>
+                    <div class="actual">
+                        <strong>Actual:</strong> "Test Delete Cancel" successfully deleted, count decreased, proper confirmation flow
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TC 063 -->
+        <div class="test-case">
+            <div class="test-header" onclick="toggleTest('tc063')">
+                <span>TC 063 - Cancel Delete Stock Location</span>
+                <div>
+                    <span class="status passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc063">▶</span>
+                </div>
+            </div>
+            <div class="test-content" id="tc063">
+                <div class="step passed">
+                    <strong>Step 1:</strong> Select "Test Location" and access delete option<br>
+                    <strong>Result:</strong> Action menu opened, Delete option clicked
+                </div>
+                <div class="step passed">
+                    <strong>Step 2:</strong> Verify confirmation dialog appearance<br>
+                    <strong>Result:</strong> Confirmation dialog displayed with "Are you sure?" and warning message
+                </div>
+                <div class="step passed">
+                    <strong>Step 3:</strong> Click Cancel button<br>
+                    <strong>Result:</strong> Dialog closed, no deletion performed
+                </div>
+                <div class="step passed">
+                    <strong>Step 4:</strong> Verify location remains in list<br>
+                    <strong>Result:</strong> "Test Location" still visible in list, count unchanged at 17, no success/error messages
+                </div>
+                <div class="expected-actual">
+                    <div class="expected">
+                        <strong>Expected:</strong> Cancel operation preserves the stock location, no changes to list
+                    </div>
+                    <div class="actual">
+                        <strong>Actual:</strong> Cancel functionality working correctly, "Test Location" preserved, count remained 17
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TC 064 -->
+        <div class="test-case">
+            <div class="test-header" onclick="toggleTest('tc064')">
+                <span>TC 064 - Verify Search Functionality</span>
+                <div>
+                    <span class="status passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc064">▶</span>
+                </div>
+            </div>
+            <div class="test-content" id="tc064">
+                <div class="step passed">
+                    <strong>Step 1:</strong> Note initial total (17 results)<br>
+                    <strong>Result:</strong> Baseline established with 17 stock locations
+                </div>
+                <div class="step passed">
+                    <strong>Step 2:</strong> Enter "Warehouse" in search box<br>
+                    <strong>Result:</strong> Real-time search filtering applied automatically
+                </div>
+                <div class="step passed">
+                    <strong>Step 3:</strong> Verify filtered results<br>
+                    <strong>Result:</strong> Only 2 locations with "Warehouse" displayed: "Warehouse A Updated" and "Warehouse B"
+                </div>
+                <div class="step passed">
+                    <strong>Step 4:</strong> Verify results count update<br>
+                    <strong>Result:</strong> Results count shows "Showing 2 results"
+                </div>
+                <div class="expected-actual">
+                    <div class="expected">
+                        <strong>Expected:</strong> Search filters results in real-time, shows only matching locations
+                    </div>
+                    <div class="actual">
+                        <strong>Actual:</strong> Search working correctly, filtered from 17 to 2 results matching "Warehouse"
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TC 065 -->
+        <div class="test-case">
+            <div class="test-header" onclick="toggleTest('tc065')">
+                <span>TC 065 - Verify Search with No Results</span>
+                <div>
+                    <span class="status passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc065">▶</span>
+                </div>
+            </div>
+            <div class="test-content" id="tc065">
+                <div class="step passed">
+                    <strong>Step 1:</strong> Enter non-existent search term<br>
+                    <strong>Result:</strong> Searched for "NonExistentLocation123"
+                </div>
+                <div class="step passed">
+                    <strong>Step 2:</strong> Verify no results display<br>
+                    <strong>Result:</strong> Table shows "No items found, try to broaden your search" message
+                </div>
+                <div class="step passed">
+                    <strong>Step 3:</strong> Verify results count<br>
+                    <strong>Result:</strong> Results count shows "Showing 0 results"
+                </div>
+                <div class="step passed">
+                    <strong>Step 4:</strong> Clear search and verify restoration<br>
+                    <strong>Result:</strong> All 17 locations displayed again after clearing search
+                </div>
+                <div class="expected-actual">
+                    <div class="expected">
+                        <strong>Expected:</strong> Proper "no results" message and handling, search clearable
+                    </div>
+                    <div class="actual">
+                        <strong>Actual:</strong> No results handled correctly with proper message, search functionality fully working
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TC 066 -->
+        <div class="test-case">
+            <div class="test-header" onclick="toggleTest('tc066')">
+                <span>TC 066 - Verify Filter Functionality</span>
+                <div>
+                    <span class="status passed">PASSED</span>
+                    <span class="toggle-icon" id="icon-tc066">▶</span>
+                </div>
+            </div>
+            <div class="test-content" id="tc066">
+                <div class="step passed">
+                    <strong>Step 1:</strong> Click Filters button and verify options<br>
+                    <strong>Result:</strong> Filter dropdown opened with Status options: All, Active, Inactive
+                </div>
+                <div class="step passed">
+                    <strong>Step 2:</strong> Apply "Active" filter<br>
+                    <strong>Result:</strong> Results filtered to 12 Active locations only, URL updated to include filter parameter
+                </div>
+                <div class="step passed">
+                    <strong>Step 3:</strong> Verify filter indicators<br>
+                    <strong>Result:</strong> "Applied Filters: Status: Active" indicator shown, "Filters 1" badge on button
+                </div>
+                <div class="step passed">
+                    <strong>Step 4:</strong> Test "Inactive" filter<br>
+                    <strong>Result:</strong> Successfully filtered to 5 Inactive locations only
+                </div>
+                <div class="step passed">
+                    <strong>Step 5:</strong> Clear filters<br>
+                    <strong>Result:</strong> All 17 locations displayed again, filter indicators removed
+                </div>
+                <div class="expected-actual">
+                    <div class="expected">
+                        <strong>Expected:</strong> Filter functionality works for both Active/Inactive status, proper indicators
+                    </div>
+                    <div class="actual">
+                        <strong>Actual:</strong> Filters working correctly - Active: 12 results, Inactive: 5 results, Clear function working
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TC 098 -->
+        <div class="test-case">
+            <div class="test-header" onclick="toggleTest('tc098')">
+                <span>TC 098 - Verify Duplicate Stock Location Creation</span>
+                <div>
+                    <span class="status failed">FAILED</span>
+                    <span class="toggle-icon" id="icon-tc098">▶</span>
+                </div>
+            </div>
+            <div class="test-content" id="tc098">
+                <div class="step passed">
+                    <strong>Step 1:</strong> Note existing "Test Location" entries in list<br>
+                    <strong>Result:</strong> Multiple "Test Location" entries already exist in the system
+                </div>
+                <div class="step passed">
+                    <strong>Step 2:</strong> Open Add dialog and enter duplicate name<br>
+                    <strong>Result:</strong> Form opened, entered "Test Location" (existing name) with "Active" status
+                </div>
+                <div class="step failed">
+                    <strong>Step 3:</strong> Attempt to save duplicate location<br>
+                    <strong>Result:</strong> ❌ Duplicate was allowed to be created - no validation error appeared
+                </div>
+                <div class="step failed">
+                    <strong>Step 4:</strong> Verify duplicate prevention<br>
+                    <strong>Result:</strong> ❌ Success message appeared, duplicate location added to list, count increased to 18
+                </div>
+                <div class="expected-actual">
+                    <div class="expected">
+                        <strong>Expected:</strong> Validation error preventing duplicate stock location creation
+                    </div>
+                    <div class="actual">
+                        <strong>Actual:</strong> ❌ Duplicate allowed - Another "Test Location" created successfully, no validation implemented
+                    </div>
+                </div>
+                <div class="defect">
+                    <div class="defect-title">🐛 DEFECT IDENTIFIED</div>
+                    <p><strong>Issue:</strong> System allows creation of duplicate stock location names</p>
+                    <p><strong>Expected Behavior:</strong> System should prevent duplicate stock location names and show validation error</p>
+                    <p><strong>Actual Behavior:</strong> Duplicate names are allowed, no validation exists</p>
+                    <p><strong>Impact:</strong> Data integrity issue - multiple locations with same name can cause confusion</p>
+                    <p><strong>Recommendation:</strong> Implement unique constraint validation on stock location names</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; padding: 20px; background-color: #f8f9fa; border-radius: 8px;">
+            <h3>Test Execution Summary</h3>
+            <p><strong>Overall Status:</strong> 11/12 Test Cases Passed (91.7% Pass Rate)</p>
+            <p><strong>Key Findings:</strong></p>
+            <ul>
+                <li>✅ All core CRUD operations (Create, Read, Update, Delete) working correctly</li>
+                <li>✅ Form validation for required fields working properly</li>
+                <li>✅ Search and filter functionality fully operational</li>
+                <li>✅ UI components (pagination, action menus, modals) functioning as expected</li>
+                <li>❌ <strong>Critical Issue:</strong> Duplicate stock location names are allowed (missing business rule validation)</li>
+            </ul>
+            <p><strong>Recommendations:</strong></p>
+            <ul>
+                <li>Implement unique constraint validation for stock location names</li>
+                <li>Consider case-insensitive duplicate checking</li>
+                <li>Add appropriate error messages for duplicate attempts</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function toggleTest(testId) {
+            const content = document.getElementById(testId);
+            const icon = document.getElementById('icon-' + testId);
+            
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                icon.textContent = '▶';
+                icon.classList.remove('rotated');
+            } else {
+                content.classList.add('show');
+                icon.textContent = '▼';
+                icon.classList.add('rotated');
+            }
+        }
+
+        // Auto-expand failed tests
+        document.addEventListener('DOMContentLoaded', function() {
+            const failedTests = document.querySelectorAll('.test-case .status.failed');
+            failedTests.forEach(function(status) {
+                const testCase = status.closest('.test-case');
+                const testHeader = testCase.querySelector('.test-header');
+                testHeader.click();
+            });
+        });
+    </script>
+</body>
+</html>

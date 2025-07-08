@@ -41,11 +41,11 @@
 
 - Click on the "+ Stock Location" button
 - Select status "Active" from dropdown
-- Set stock location name to "Warehouse A"
+- Set stock location name (You are free to enter a suitable name)
 - Click Save button
 - Verify success message appears
 - Verify new stock location displays in list
-- Verify location name shows as "Warehouse A"
+- Verify location name shows as you entered.
 - Verify status shows as "Active"
 
 ## TC 059 - Edit Existing Stock Location
@@ -55,11 +55,11 @@
 - Select any existing stock location from the list
 - Click edit action button
 - Change status to "Inactive"
-- Change stock location name to "Updated Storage"
+- Change stock location name (You are free to enter a suitable name)
 - Click Save button
 - Verify success message appears
 - Verify updated stock location displays in list
-- Verify new name shows as "Updated Storage"
+- Verify new name shows as you updated.
 - Verify status shows as "Inactive"
 
 ## TC 060 - Verify Status Field is Mandatory
@@ -161,3 +161,19 @@
 - Verify active locations are hidden
 - Clear all filters
 - Verify all locations display again
+
+## TC 098 - Verify Duplicate Stock Location Creation
+
+### Priority TC 098 : High
+
+- Note an existing stock location name and status from the list
+- Click on the "+ Stock Location" button
+- Select the same status as an existing location (e.g., "Active")
+- Enter the exact same stock location name as an existing location
+- Click Save button
+- Verify validation error appears: "A stock location with this name already exists" or similar message
+- Verify dialog remains open
+- Verify duplicate location is not saved to the list
+- Verify total count of locations remains unchanged
+- Click Cancel button to close the modal
+- Verify modal closes without creating duplicate location
