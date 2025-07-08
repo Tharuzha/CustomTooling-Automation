@@ -41,11 +41,11 @@
 
 - Click on the "+ Stock Location" button
 - Select status "Active" from dropdown
-- Set stock location name to "Warehouse A"
+- Set stock location name (You are free to enter a suitable name)
 - Click Save button
 - Verify success message appears
 - Verify new stock location displays in list
-- Verify location name shows as "Warehouse A"
+- Verify location name shows as you entered.
 - Verify status shows as "Active"
 
 ## TC 059 - Edit Existing Stock Location
@@ -55,11 +55,11 @@
 - Select any existing stock location from the list
 - Click edit action button
 - Change status to "Inactive"
-- Change stock location name to "Updated Storage"
+- Change stock location name (You are free to enter a suitable name)
 - Click Save button
 - Verify success message appears
 - Verify updated stock location displays in list
-- Verify new name shows as "Updated Storage"
+- Verify new name shows as you updated.
 - Verify status shows as "Inactive"
 
 ## TC 060 - Verify Status Field is Mandatory
