@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Units Test Results - TC 099 Execution</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .summary-card {
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+        }
+        .passed { background-color: #28a745; }
+        .failed { background-color: #dc3545; }
+        .total { background-color: #007bff; }
+        .environment {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .test-case {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .test-header {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .test-header.failed {
+            background-color: #f8d7da;
+            border-bottom-color: #f5c6cb;
+        }
+        .test-content {
+            padding: 20px;
+            display: none;
+        }
+        .test-content.active {
+            display: block;
+        }
+        .status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .status.failed {
+            background-color: #dc3545;
+            color: white;
+        }
+        .step {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            border-radius: 4px;
+        }
+        .step.failed {
+            border-left-color: #dc3545;
+            background-color: #f8d7da;
+        }
+        .expected-actual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        .expected, .actual {
+            padding: 15px;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+        }
+        .expected {
+            border-left: 4px solid #28a745;
+        }
+        .actual {
+            border-left: 4px solid #dc3545;
+        }
+        .defect {
+            background-color: #fff3cd;
+            border: 2px solid #ffeaa7;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .defect-title {
+            color: #856404;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .toggle-icon {
+            transition: transform 0.3s ease;
+        }
+        .toggle-icon.rotated {
+            transform: rotate(180deg);
+        }
+    </style>
+    <script>
+        function toggleTest(element) {
+            const content = element.nextElementSibling;
+            const icon = element.querySelector('.toggle-icon');
+            
+            content.classList.toggle('active');
+            icon.classList.toggle('rotated');
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Units Test Results - TC 099 Execution</h1>
+            <p>Test Suite: Units.md | Date: July 8, 2025 | Time: 7:00 PM</p>
+        </div>
+
+        <div class="summary">
+            <div class="summary-card total">
+                <h3>Total Tests</h3>
+                <p>1 Test Case</p>
+            </div>
+            <div class="summary-card failed">
+                <h3>Failed</h3>
+                <p>1 Test Case</p>
+            </div>
+            <div class="summary-card passed">
+                <h3>Passed</h3>
+                <p>0 Test Cases</p>
+            </div>
+        </div>
+
+        <div class="environment">
+            <h3>Test Environment Information</h3>
+            <p><strong>Application URL:</strong> https://cte-dev.iclick.nz/</p>
+            <p><strong>Browser:</strong> Playwright Browser (Chromium)</p>
+            <p><strong>Test User:</strong> admin@email.com (Admin Role)</p>
+            <p><strong>Execution Date:</strong> July 8, 2025</p>
+            <p><strong>Execution Time:</strong> 7:00 PM - 7:01 PM NZST</p>
+            <p><strong>Test Module:</strong> Units Management</p>
+            <p><strong>Page URL:</strong> https://cte-dev.iclick.nz/units</p>
+        </div>
+
+        <div class="test-case">
+            <div class="test-header failed" onclick="toggleTest(this)">
+                <div>
+                    <h3>TC 099 - Verify Duplicate Unit Creation</h3>
+                    <p>Priority: High | Module: Units Management</p>
+                </div>
+                <div>
+                    <span class="status failed">FAILED</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+            </div>
+            <div class="test-content">
+                <h4>Test Objective</h4>
+                <p>Verify that the system prevents creation of duplicate units with the same name and description, and displays appropriate error messages.</p>
+
+                <h4>Test Steps and Results</h4>
+                <div class="step">
+                    <strong>Step 1:</strong> Navigate to Units page (https://cte-dev.iclick.nz/units)<br>
+                    <strong>Result:</strong> ✅ Successfully navigated to Units page
+                </div>
+
+                <div class="step">
+                    <strong>Step 2:</strong> Note an existing unit name and description from the list<br>
+                    <strong>Result:</strong> ✅ Identified existing unit: "Kilogram" with description "Unit of mass measurement"<br>
+                    <strong>Details:</strong> Total units count was 11 before test execution
+                </div>
+
+                <div class="step">
+                    <strong>Step 3:</strong> Click on the "+ Unit" button<br>
+                    <strong>Result:</strong> ✅ Add Unit modal opened successfully with Unit and Description fields
+                </div>
+
+                <div class="step">
+                    <strong>Step 4:</strong> Enter the exact same unit name as an existing unit<br>
+                    <strong>Result:</strong> ✅ Entered "Kilogram" in Unit field
+                </div>
+
+                <div class="step">
+                    <strong>Step 5:</strong> Enter the exact same description as an existing unit<br>
+                    <strong>Result:</strong> ✅ Entered "Unit of mass measurement" in Description field
+                </div>
+
+                <div class="step failed">
+                    <strong>Step 6:</strong> Click Save button<br>
+                    <strong>Result:</strong> ❌ System incorrectly allowed duplicate unit creation
+                </div>
+
+                <div class="step failed">
+                    <strong>Step 7:</strong> Verify validation error appears<br>
+                    <strong>Result:</strong> ❌ No validation error was displayed
+                </div>
+
+                <div class="step failed">
+                    <strong>Step 8:</strong> Verify dialog remains open<br>
+                    <strong>Result:</strong> ❌ Dialog closed automatically (indicating successful save)
+                </div>
+
+                <div class="step failed">
+                    <strong>Step 9:</strong> Verify duplicate unit is not saved to the list<br>
+                    <strong>Result:</strong> ❌ Duplicate unit was incorrectly added to the list
+                </div>
+
+                <div class="step failed">
+                    <strong>Step 10:</strong> Verify total count of units remains unchanged<br>
+                    <strong>Result:</strong> ❌ Total count increased from 11 to 12 units
+                </div>
+
+                <div class="expected-actual">
+                    <div class="expected">
+                        <h4>Expected Result</h4>
+                        <ul>
+                            <li>Validation error message: "A unit with this name already exists" or similar</li>
+                            <li>Add Unit dialog remains open</li>
+                            <li>Duplicate unit is NOT added to the list</li>
+                            <li>Total units count remains 11</li>
+                            <li>No success message appears</li>
+                            <li>Data integrity is maintained</li>
+                        </ul>
+                    </div>
+                    <div class="actual">
+                        <h4>Actual Result</h4>
+                        <ul>
+                            <li>❌ No validation error message displayed</li>
+                            <li>❌ Add Unit dialog closed automatically</li>
+                            <li>❌ Duplicate unit was created and added to list</li>
+                            <li>❌ Total units count increased to 12</li>
+                            <li>❌ System behavior suggests successful creation</li>
+                            <li>❌ Data integrity compromised with duplicate entries</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="defect">
+                    <div class="defect-title">🐛 CRITICAL DEFECT IDENTIFIED</div>
+                    <p><strong>Defect Summary:</strong> Units module allows creation of duplicate unit names without validation</p>
+                    <p><strong>Impact:</strong> High - Data integrity is compromised as the system allows multiple units with identical names and descriptions</p>
+                    <p><strong>Evidence:</strong> Two identical "Kilogram" units with "Unit of mass measurement" description now exist in the system</p>
+                    <p><strong>Root Cause:</strong> Missing duplicate validation logic in the Units creation process</p>
+                    <p><strong>Recommendation:</strong> Implement server-side validation to check for existing unit names before allowing creation</p>
+                    <p><strong>Similar Issue:</strong> This is the same type of defect found in Stock Locations (TC 098) - suggests a systemic validation issue across modules</p>
+                </div>
+
+                <h4>Additional Notes</h4>
+                <ul>
+                    <li>This defect is consistent with TC 098 failure in Stock Locations module</li>
+                    <li>Both modules lack proper duplicate validation</li>
+                    <li>Suggests a pattern of missing validation across the application</li>
+                    <li>Development team should review all CRUD operations for similar validation gaps</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

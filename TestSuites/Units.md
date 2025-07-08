@@ -146,3 +146,19 @@
 - Clear the search box
 - Verify all units display again
 - Verify results count returns to original total
+
+## TC 099 - Verify Duplicate Unit Creation
+
+### Priority TC 099 : High
+
+- Note an existing unit name and description from the list
+- Click on the "+ Unit" button
+- Enter the exact same unit name as an existing unit
+- Enter the exact same description as an existing unit
+- Click Save button
+- Verify validation error appears: "A unit with this name already exists" or similar message
+- Verify dialog remains open
+- Verify duplicate unit is not saved to the list
+- Verify total count of units remains unchanged
+- Click Cancel button to close the modal
+- Verify modal closes without creating duplicate unit
