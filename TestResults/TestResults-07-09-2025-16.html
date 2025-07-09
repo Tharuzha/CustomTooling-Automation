@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Management Test Report - Complete Execution</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .summary {
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .summary-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .summary-card h3 {
+            margin: 0 0 10px 0;
+            color: #666;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .summary-card .value {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 0;
+        }
+        .passed { color: #28a745; }
+        .failed { color: #dc3545; }
+        .total { color: #007bff; }
+        .content {
+            padding: 30px;
+        }
+        .phase {
+            margin-bottom: 40px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .phase-header {
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .phase-header h2 {
+            margin: 0;
+            color: #495057;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .phase-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .phase-status.passed {
+            background: #d4edda;
+            color: #155724;
+        }
+        .test-case {
+            border-bottom: 1px solid #f1f3f4;
+        }
+        .test-case:last-child {
+            border-bottom: none;
+        }
+        .test-header {
+            padding: 20px;
+            cursor: pointer;
+            background: white;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .test-header:hover {
+            background: #f8f9fa;
+        }
+        .test-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .test-id {
+            background: #e9ecef;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .test-title {
+            font-weight: 500;
+            color: #333;
+        }
+        .test-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .status-passed {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-failed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .expand-icon {
+            transition: transform 0.2s;
+            font-size: 1.2em;
+            color: #6c757d;
+        }
+        .test-details {
+            display: none;
+            padding: 0 20px 20px 20px;
+            background: #fafbfc;
+        }
+        .test-details.expanded {
+            display: block;
+        }
+        .expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+        .detail-section {
+            margin-bottom: 25px;
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .detail-header {
+            background: #f8f9fa;
+            padding: 12px 16px;
+            font-weight: 600;
+            color: #495057;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .detail-content {
+            padding: 16px;
+        }
+        .step-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .step-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f3f4;
+            display: flex;
+            gap: 10px;
+        }
+        .step-item:last-child {
+            border-bottom: none;
+        }
+        .step-number {
+            background: #007bff;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .step-text {
+            flex: 1;
+            line-height: 1.5;
+        }
+        .result-item {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 4px;
+            border-left: 4px solid #28a745;
+            margin: 8px 0;
+        }
+        .meta-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .meta-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+        }
+        .meta-label {
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 5px;
+        }
+        .meta-value {
+            color: #6c757d;
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #6c757d;
+            border-top: 1px solid #e9ecef;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .data-table th,
+        .data-table td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .data-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 0;
+            }
+            .content {
+                padding: 20px;
+            }
+            .test-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .meta-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Customer Management Test Report</h1>
+            <p>Complete Test Execution Report - All Phases</p>
+            <p>Executed on July 9, 2025 at 03:31 PM</p>
+        </div>
+
+        <div class="summary">
+            <h2>Executive Summary</h2>
+            <p>Complete execution of Customer Management test suite covering Interface Validation, CRUD Operations, Field Validation, Access Control, Filter & Search functionality.</p>
+            
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Total Test Cases</h3>
+                    <p class="value total">9</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Passed</h3>
+                    <p class="value passed">9</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Failed</h3>
+                    <p class="value failed">0</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Success Rate</h3>
+                    <p class="value passed">100%</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Phase 1: Interface & Basic CRUD -->
+            <div class="phase">
+                <div class="phase-header">
+                    <h2>
+                        Phase 1: Interface & Basic CRUD Operations
+                        <span class="phase-status passed">✅ PASSED</span>
+                    </h2>
+                    <p>Test Cases 018-020: Verifying customer page interface, form validation, and basic customer creation functionality.</p>
+                </div>
+
+                <!-- TC 018 -->
+                <div class="test-case">
+                    <div class="test-header" onclick="toggleDetails('tc018')">
+                        <div class="test-info">
+                            <span class="test-id">TC 018</span>
+                            <span class="test-title">Customer Page Interface Validation</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span class="test-status status-passed">✅ PASSED</span>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="test-details" id="tc018">
+                        <div class="detail-section">
+                            <div class="detail-header">📋 Test Steps</div>
+                            <div class="detail-content">
+                                <ol class="step-list">
+                                    <li class="step-item">
+                                        <span class="step-number">1</span>
+                                        <span class="step-text">Navigate to the Customers page from the dashboard</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">2</span>
+                                        <span class="step-text">Verify the page title displays "Customers"</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">3</span>
+                                        <span class="step-text">Verify the customer table is present with correct columns</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">4</span>
+                                        <span class="step-text">Verify pagination controls are visible</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">5</span>
+                                        <span class="step-text">Verify customer data is displayed correctly</span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <div class="detail-header">✅ Expected Results</div>
+                            <div class="detail-content">
+                                <div class="result-item">✅ Customers page loads successfully with proper navigation</div>
+                                <div class="result-item">✅ Table headers: Customer, Physical Address, Mailing Address, Category, Status, Actions</div>
+                                <div class="result-item">✅ Pagination shows current page and total results count</div>
+                                <div class="result-item">✅ Customer data populates correctly in table format</div>
+                                <div class="result-item">✅ Filter and search controls are accessible</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="detail-header">🔍 Actual Results</div>
+                            <div class="detail-content">
+                                <div class="result-item">✅ Successfully navigated to Customers page via left navigation menu</div>
+                                <div class="result-item">✅ Page title "Customers" displayed correctly in header</div>
+                                <div class="result-item">✅ Table with all required columns present and properly formatted</div>
+                                <div class="result-item">✅ Pagination controls show "1 to 10 of 21 results" with page navigation</div>
+                                <div class="result-item">✅ Multiple customer records displayed with complete information</div>
+                                <div class="result-item">✅ Filters button and search box are functional and accessible</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="detail-header">🔧 Prerequisites & Test Data</div>
+                            <div class="detail-content">
+                                <table class="data-table">
+                                    <tr><th>Prerequisite</th><th>Value</th></tr>
+                                    <tr><td>User Role</td><td>Admin</td></tr>
+                                    <tr><td>Login Status</td><td>Authenticated</td></tr>
+                                    <tr><td>Test Environment</td><td>cte-dev.iclick.nz</td></tr>
+                                    <tr><td>Expected Customer Count</td><td>21 total customers</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TC 019 -->
+                <div class="test-case">
+                    <div class="test-header" onclick="toggleDetails('tc019')">
+                        <div class="test-info">
+                            <span class="test-id">TC 019</span>
+                            <span class="test-title">Add Customer Form Interface Validation</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span class="test-status status-passed">✅ PASSED</span>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="test-details" id="tc019">
+                        <div class="detail-section">
+                            <div class="detail-header">📋 Test Steps</div>
+                            <div class="detail-content">
+                                <ol class="step-list">
+                                    <li class="step-item">
+                                        <span class="step-number">1</span>
+                                        <span class="step-text">Click the "+Customer" button on the Customers page</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">2</span>
+                                        <span class="step-text">Verify navigation to Add Customer form page</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">3</span>
+                                        <span class="step-text">Verify all form sections are present</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">4</span>
+                                        <span class="step-text">Verify all required and optional fields are available</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">5</span>
+                                        <span class="step-text">Verify form controls (dropdowns, checkboxes, buttons) work correctly</span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <div class="detail-header">✅ Expected Results</div>
+                            <div class="detail-content">
+                                <div class="result-item">✅ Add Customer form page loads with proper URL</div>
+                                <div class="result-item">✅ Form sections: Basic Info, Physical Address, Mailing Address, Contact Info, Business Settings</div>
+                                <div class="result-item">✅ All required fields have proper labels and validation</div>
+                                <div class="result-item">✅ Dropdown menus populate with valid options</div>
+                                <div class="result-item">✅ Save and Cancel buttons are functional</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="detail-header">🔍 Actual Results</div>
+                            <div class="detail-content">
+                                <div class="result-item">✅ "+Customer" button successfully navigated to /customers/create</div>
+                                <div class="result-item">✅ Form contains all expected sections with proper organization</div>
+                                <div class="result-item">✅ Customer name field marked as required with asterisk (*)</div>
+                                <div class="result-item">✅ Category dropdown contains options: Power, Flues, etc.</div>
+                                <div class="result-item">✅ Payment terms dropdown with Prepaid, 7 days, 14 days, 20 days, 30 days options</div>
+                                <div class="result-item">✅ "Show Deliveries on Invoice" checkbox functions correctly</div>
+                                <div class="result-item">✅ Save and Cancel buttons present and accessible</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="detail-header">🔧 Prerequisites & Test Data</div>
+                            <div class="detail-content">
+                                <table class="data-table">
+                                    <tr><th>Form Section</th><th>Fields Verified</th></tr>
+                                    <tr><td>Basic Info</td><td>Customer Name (*), Category, Status</td></tr>
+                                    <tr><td>Physical Address</td><td>Address Line 1, Address Line 2, City/Suburb</td></tr>
+                                    <tr><td>Mailing Address</td><td>Address Line 1, Address Line 2, City/Suburb</td></tr>
+                                    <tr><td>Contact Info</td><td>Phone, Fax, Email, Main Contact, Contact Phone, Contact Email</td></tr>
+                                    <tr><td>Business Settings</td><td>Payment Terms, Discount Days, Balance Due Days, Notes, Checkbox</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TC 020 -->
+                <div class="test-case">
+                    <div class="test-header" onclick="toggleDetails('tc020')">
+                        <div class="test-info">
+                            <span class="test-id">TC 020</span>
+                            <span class="test-title">Create New Customer</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span class="test-status status-passed">✅ PASSED</span>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="test-details" id="tc020">
+                        <div class="detail-section">
+                            <div class="detail-header">📋 Test Steps</div>
+                            <div class="detail-content">
+                                <ol class="step-list">
+                                    <li class="step-item">
+                                        <span class="step-number">1</span>
+                                        <span class="step-text">Fill all required and optional fields with test data</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">2</span>
+                                        <span class="step-text">Select appropriate category and payment terms</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">3</span>
+                                        <span class="step-text">Configure business settings and preferences</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">4</span>
+                                        <span class="step-text">Click Save button to create customer</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">5</span>
+                                        <span class="step-text">Verify customer appears in the customer list</span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <div class="detail-header">✅ Expected Results</div>
+                            <div class="detail-content">
+                                <div class="result-item">✅ Form accepts all entered data without validation errors</div>
+                                <div class="result-item">✅ Successfully redirects to customer list after saving</div>
+                                <div class="result-item">✅ New customer appears in the table with correct information</div>
+                                <div class="result-item">✅ All entered data is preserved and displayed accurately</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="detail-header">🔍 Actual Results</div>
+                            <div class="detail-content">
+                                <div class="result-item">✅ Successfully created customer "Test Automation Tharusha"</div>
+                                <div class="result-item">✅ Form accepted all data including addresses, contact info, and business settings</div>
+                                <div class="result-item">✅ Automatic redirect to /customers after successful save</div>
+                                <div class="result-item">✅ New customer visible in table with Status: Active</div>
+                                <div class="result-item">✅ All field values correctly displayed in customer list</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="detail-header">🔧 Test Data Used</div>
+                            <div class="detail-content">
+                                <table class="data-table">
+                                    <tr><th>Field</th><th>Value</th></tr>
+                                    <tr><td>Customer Name</td><td>Test Automation Tharusha</td></tr>
+                                    <tr><td>Physical Address</td><td>456 Business Center Road, Floor 3, Suite 300, Tech District</td></tr>
+                                    <tr><td>Mailing Address</td><td>PO Box 789, Commercial Hub, Business Zone</td></tr>
+                                    <tr><td>Contact Info</td><td>Phone: +1-555-123-4567, Email: contact@testautomation.com</td></tr>
+                                    <tr><td>Main Contact</td><td>Sarah Wilson, +1-555-987-6543, sarah.wilson@testautomation.com</td></tr>
+                                    <tr><td>Category</td><td>Power</td></tr>
+                                    <tr><td>Payment Terms</td><td>30 days</td></tr>
+                                    <tr><td>Settings</td><td>Show Deliveries: Yes, Discount Days: 15, Balance Due: 45</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2: Validation & Access -->
+            <div class="phase">
+                <div class="phase-header">
+                    <h2>
+                        Phase 2: Validation & Access Control
+                        <span class="phase-status passed">✅ PASSED</span>
+                    </h2>
+                    <p>Test Cases 021-023: Verifying form validation rules, required field validation, and admin access controls.</p>
+                </div>
+
+                <!-- TC 021 -->
+                <div class="test-case">
+                    <div class="test-header" onclick="toggleDetails('tc021')">
+                        <div class="test-info">
+                            <span class="test-id">TC 021</span>
+                            <span class="test-title">Customer Field Validation (Required Fields)</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span class="test-status status-passed">✅ PASSED</span>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="test-details" id="tc021">
+                        <div class="detail-section">
+                            <div class="detail-header">📋 Test Steps</div>
+                            <div class="detail-content">
+                                <ol class="step-list">
+                                    <li class="step-item">
+                                        <span class="step-number">1</span>
+                                        <span class="step-text">Navigate to Add Customer form</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">2</span>
+                                        <span class="step-text">Leave the required Customer Name field empty</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">3</span>
+                                        <span class="step-text">Fill other non-required fields with valid data</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">4</span>
+                                        <span class="step-text">Click Save button to attempt form submission</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">5</span>
+                                        <span class="step-text">Verify validation error message appears</span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <div class="detail-header">✅ Expected Results</div>
+                            <div class="detail-content">
+                                <div class="result-item">✅ Form submission should be prevented</div>
+                                <div class="result-item">✅ Validation error message should appear for Customer Name field</div>
+                                <div class="result-item">✅ User should remain on the form page to correct errors</div>
+                                <div class="result-item">✅ Error should clearly indicate which field is required</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="detail-header">🔍 Actual Results</div>
+                            <div class="detail-content">
+                                <div class="result-item">✅ Form validation triggered when Save button clicked</div>
+                                <div class="result-item">✅ Error message appeared: "The customer field is required."</div>
+                                <div class="result-item">✅ Form submission was blocked, remained on /customers/create</div>
+                                <div class="result-item">✅ Clear, specific error message for the missing required field</div>
+                                <div class="result-item">✅ Other field values were preserved during validation</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="detail-header">🔧 Validation Test Data</div>
+                            <div class="detail-content">
+                                <table class="data-table">
+                                    <tr><th>Field</th><th>Test Value</th><th>Validation Result</th></tr>
+                                    <tr><td>Customer Name</td><td>[Empty]</td><td>❌ Required field error</td></tr>
+                                    <tr><td>Physical Address</td><td>123 Test Street</td><td>✅ Accepted</td></tr>
+                                    <tr><td>Category</td><td>Power</td><td>✅ Accepted</td></tr>
+                                    <tr><td>Payment Terms</td><td>30 days</td><td>✅ Accepted</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TC 022 -->
+                <div class="test-case">
+                    <div class="test-header" onclick="toggleDetails('tc022')">
+                        <div class="test-info">
+                            <span class="test-id">TC 022</span>
+                            <span class="test-title">Customer Field Validation (All Fields Empty)</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span class="test-status status-passed">✅ PASSED</span>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="test-details" id="tc022">
+                        <div class="detail-section">
+                            <div class="detail-header">📋 Test Steps</div>
+                            <div class="detail-content">
+                                <ol class="step-list">
+                                    <li class="step-item">
+                                        <span class="step-number">1</span>
+                                        <span class="step-text">Navigate to Add Customer form</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">2</span>
+                                        <span class="step-text">Leave all form fields completely empty</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">3</span>
+                                        <span class="step-text">Click Save button without entering any data</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">4</span>
+                                        <span class="step-text">Verify comprehensive validation error handling</span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <div class="detail-header">✅ Expected Results</div>
+                            <div class="detail-content">
+                                <div class="result-item">✅ Form submission should be completely blocked</div>
+                                <div class="result-item">✅ Validation errors should appear for all required fields</div>
+                                <div class="result-item">✅ System should handle empty form gracefully</div>
+                                <div class="result-item">✅ No customer record should be created</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="detail-header">🔍 Actual Results</div>
+                            <div class="detail-content">
+                                <div class="result-item">✅ Form validation successfully blocked submission</div>
+                                <div class="result-item">✅ Primary validation error: "The customer field is required."</div>
+                                <div class="result-item">✅ System handled empty form gracefully without errors</div>
+                                <div class="result-item">✅ No database record was created, remained on form page</div>
+                                <div class="result-item">✅ Form state preserved for user to correct</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="detail-header">🔧 Empty Form Test</div>
+                            <div class="detail-content">
+                                <table class="data-table">
+                                    <tr><th>Form Section</th><th>Fields Left Empty</th><th>Validation Behavior</th></tr>
+                                    <tr><td>Basic Info</td><td>Customer Name, Category</td><td>Customer name error triggered</td></tr>
+                                    <tr><td>Address Sections</td><td>All address fields</td><td>No errors (optional fields)</td></tr>
+                                    <tr><td>Contact Info</td><td>All contact fields</td><td>No errors (optional fields)</td></tr>
+                                    <tr><td>Business Settings</td><td>All settings fields</td><td>Defaults applied where applicable</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TC 023 -->
+                <div class="test-case">
+                    <div class="test-header" onclick="toggleDetails('tc023')">
+                        <div class="test-info">
+                            <span class="test-id">TC 023</span>
+                            <span class="test-title">Admin Customer Access Verification</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span class="test-status status-passed">✅ PASSED</span>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="test-details" id="tc023">
+                        <div class="detail-section">
+                            <div class="detail-header">📋 Test Steps</div>
+                            <div class="detail-content">
+                                <ol class="step-list">
+                                    <li class="step-item">
+                                        <span class="step-number">1</span>
+                                        <span class="step-text">Login as Admin user to verify access rights</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">2</span>
+                                        <span class="step-text">Navigate to Customers page and verify data access</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">3</span>
+                                        <span class="step-text">Verify admin can view all customer records</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">4</span>
+                                        <span class="step-text">Test pagination and navigation controls</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">5</span>
+                                        <span class="step-text">Verify admin access to customer management functions</span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <div class="detail-header">✅ Expected Results</div>
+                            <div class="detail-content">
+                                <div class="result-item">✅ Admin should have full access to customer data</div>
+                                <div class="result-item">✅ All customer records should be visible and accessible</div>
+                                <div class="result-item">✅ Pagination should work correctly for large datasets</div>
+                                <div class="result-item">✅ Admin should have access to all customer management features</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="detail-header">🔍 Actual Results</div>
+                            <div class="detail-content">
+                                <div class="result-item">✅ Admin user "Admin" successfully accessed customer management</div>
+                                <div class="result-item">✅ Full customer list visible with 21 total records</div>
+                                <div class="result-item">✅ Pagination controls functional: Pages 1, 2, 3 with navigation</div>
+                                <div class="result-item">✅ Admin can access Add Customer, Filters, Search, and Actions menu</div>
+                                <div class="result-item">✅ All customer data fields properly displayed across pages</div>
+                                <div class="result-item">✅ Navigation between pages preserves state and functionality</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="detail-header">🔧 Admin Access Verification</div>
+                            <div class="detail-content">
+                                <table class="data-table">
+                                    <tr><th>Access Area</th><th>Admin Permissions</th><th>Verification Result</th></tr>
+                                    <tr><td>Customer List View</td><td>View all customers</td><td>✅ 21 customers visible</td></tr>
+                                    <tr><td>Customer Creation</td><td>Add new customers</td><td>✅ +Customer button accessible</td></tr>
+                                    <tr><td>Customer Management</td><td>Edit/manage customers</td><td>✅ Actions menu available</td></tr>
+                                    <tr><td>Data Filtering</td><td>Use filters and search</td><td>✅ Filters and search functional</td></tr>
+                                    <tr><td>Pagination</td><td>Navigate all pages</td><td>✅ All pages accessible</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3: Edit, Filter & Search -->
+            <div class="phase">
+                <div class="phase-header">
+                    <h2>
+                        Phase 3: Edit, Filter & Search Functionality
+                        <span class="phase-status passed">✅ PASSED</span>
+                    </h2>
+                    <p>Test Cases 024-026: Verifying customer editing capabilities, filtering system, and search functionality.</p>
+                </div>
+
+                <!-- TC 024 -->
+                <div class="test-case">
+                    <div class="test-header" onclick="toggleDetails('tc024')">
+                        <div class="test-info">
+                            <span class="test-id">TC 024</span>
+                            <span class="test-title">Edit Customer Information</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span class="test-status status-passed">✅ PASSED</span>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="test-details" id="tc024">
+                        <div class="detail-section">
+                            <div class="detail-header">📋 Test Steps</div>
+                            <div class="detail-content">
+                                <ol class="step-list">
+                                    <li class="step-item">
+                                        <span class="step-number">1</span>
+                                        <span class="step-text">Locate existing customer in the customer list</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">2</span>
+                                        <span class="step-text">Access Edit function via Actions menu</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">3</span>
+                                        <span class="step-text">Update all customer information fields</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">4</span>
+                                        <span class="step-text">Save changes and verify successful update</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">5</span>
+                                        <span class="step-text">Confirm updated data appears correctly in customer list</span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <div class="detail-header">✅ Expected Results</div>
+                            <div class="detail-content">
+                                <div class="result-item">✅ Edit form should load with existing customer data</div>
+                                <div class="result-item">✅ All fields should be editable and accept new values</div>
+                                <div class="result-item">✅ Update should save successfully without errors</div>
+                                <div class="result-item">✅ Updated information should be reflected in customer list</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="detail-header">🔍 Actual Results</div>
+                            <div class="detail-content">
+                                <div class="result-item">✅ Successfully located "Test Automation Tharusha" in customer list</div>
+                                <div class="result-item">✅ Edit form opened with all existing data pre-populated</div>
+                                <div class="result-item">✅ Updated customer name to "Updated Test Automation Customer Ltd"</div>
+                                <div class="result-item">✅ Modified addresses, contact information, and business settings</div>
+                                <div class="result-item">✅ Changed category from "Power" to "Flues"</div>
+                                <div class="result-item">✅ Updated payment terms and delivery preferences</div>
+                                <div class="result-item">✅ Successfully saved all changes with redirect to customer list</div>
+                                <div class="result-item">✅ Updated customer visible in table with all new information</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="detail-header">🔧 Edit Test Data</div>
+                            <div class="detail-content">
+                                <table class="data-table">
+                                    <tr><th>Field</th><th>Original Value</th><th>Updated Value</th></tr>
+                                    <tr><td>Customer Name</td><td>Test Automation Tharusha</td><td>Updated Test Automation Customer Ltd</td></tr>
+                                    <tr><td>Physical Address</td><td>456 Business Center Road...</td><td>789 Updated Business Center Road...</td></tr>
+                                    <tr><td>Mailing Address</td><td>PO Box 789...</td><td>PO Box 999, Updated Commercial Hub...</td></tr>
+                                    <tr><td>Contact Phone</td><td>+1-555-123-4567</td><td>+1-555-999-8888</td></tr>
+                                    <tr><td>Category</td><td>Power</td><td>Flues</td></tr>
+                                    <tr><td>Payment Terms</td><td>30 days</td><td>Prepaid</td></tr>
+                                    <tr><td>Show Deliveries</td><td>Yes</td><td>No</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TC 025 -->
+                <div class="test-case">
+                    <div class="test-header" onclick="toggleDetails('tc025')">
+                        <div class="test-info">
+                            <span class="test-id">TC 025</span>
+                            <span class="test-title">Customer Filter Functionality</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span class="test-status status-passed">✅ PASSED</span>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="test-details" id="tc025">
+                        <div class="detail-section">
+                            <div class="detail-header">📋 Test Steps</div>
+                            <div class="detail-content">
+                                <ol class="step-list">
+                                    <li class="step-item">
+                                        <span class="step-number">1</span>
+                                        <span class="step-text">Click Filters button to open filter panel</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">2</span>
+                                        <span class="step-text">Test Active status filter with "Yes" option</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">3</span>
+                                        <span class="step-text">Test Active status filter with "No" option</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">4</span>
+                                        <span class="step-text">Verify filter results and count accuracy</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">5</span>
+                                        <span class="step-text">Test Clear filters functionality</span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <div class="detail-header">✅ Expected Results</div>
+                            <div class="detail-content">
+                                <div class="result-item">✅ Filter panel should open with available filter options</div>
+                                <div class="result-item">✅ Active filter should show only matching customers</div>
+                                <div class="result-item">✅ Inactive filter should show inactive customers</div>
+                                <div class="result-item">✅ Clear function should remove all filters</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="detail-header">🔍 Actual Results</div>
+                            <div class="detail-content">
+                                <div class="result-item">✅ Filters button opened dropdown panel with Active status options</div>
+                                <div class="result-item">✅ "Yes" filter showed 20 active customers (reduced from 21 total)</div>
+                                <div class="result-item">✅ "No" filter showed 1 inactive customer: "John Doe"</div>
+                                <div class="result-item">✅ Applied filters displayed properly with "Active: Yes/No" labels</div>
+                                <div class="result-item">✅ Filter button showed count indicator "Filters 1"</div>
+                                <div class="result-item">✅ URL updated with filter parameters</div>
+                                <div class="result-item">✅ Clear button successfully removed all filters</div>
+                                <div class="result-item">✅ After clearing, returned to full 21 customer list</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="detail-header">🔧 Filter Test Results</div>
+                            <div class="detail-content">
+                                <table class="data-table">
+                                    <tr><th>Filter Option</th><th>Results Count</th><th>Customer Status</th><th>URL Parameter</th></tr>
+                                    <tr><td>All (Default)</td><td>21 customers</td><td>Active + Inactive</td><td>No parameters</td></tr>
+                                    <tr><td>Active: Yes</td><td>20 customers</td><td>Active only</td><td>?table-filters[active]=yes</td></tr>
+                                    <tr><td>Active: No</td><td>1 customer</td><td>Inactive only</td><td>?table-filters[active]=no</td></tr>
+                                    <tr><td>Clear Filters</td><td>21 customers</td><td>All customers</td><td>Clean URL</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TC 026 -->
+                <div class="test-case">
+                    <div class="test-header" onclick="toggleDetails('tc026')">
+                        <div class="test-info">
+                            <span class="test-id">TC 026</span>
+                            <span class="test-title">Customer Search Functionality</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span class="test-status status-passed">✅ PASSED</span>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="test-details" id="tc026">
+                        <div class="detail-section">
+                            <div class="detail-header">📋 Test Steps</div>
+                            <div class="detail-content">
+                                <ol class="step-list">
+                                    <li class="step-item">
+                                        <span class="step-number">1</span>
+                                        <span class="step-text">Test search with valid customer name partial match</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">2</span>
+                                        <span class="step-text">Test search with non-existent customer name</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">3</span>
+                                        <span class="step-text">Test search with special characters</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">4</span>
+                                        <span class="step-text">Verify search results accuracy and count</span>
+                                    </li>
+                                    <li class="step-item">
+                                        <span class="step-number">5</span>
+                                        <span class="step-text">Test clearing search to return to full list</span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <div class="detail-header">✅ Expected Results</div>
+                            <div class="detail-content">
+                                <div class="result-item">✅ Valid search should return relevant customer matches</div>
+                                <div class="result-item">✅ Invalid search should show "no results" message</div>
+                                <div class="result-item">✅ Special characters should be handled gracefully</div>
+                                <div class="result-item">✅ Clear search should restore full customer list</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="detail-header">🔍 Actual Results</div>
+                            <div class="detail-content">
+                                <div class="result-item">✅ Search "Test Automation" returned 4 relevant customers</div>
+                                <div class="result-item">✅ All results contained "Test Automation" in customer names</div>
+                                <div class="result-item">✅ Search "XYZ NonExistent Customer" showed "No items found, try to broaden your search"</div>
+                                <div class="result-item">✅ Zero results count displayed correctly</div>
+                                <div class="result-item">✅ Special characters "@#$%^&*()" handled without system errors</div>
+                                <div class="result-item">✅ Special character search returned appropriate "no results" message</div>
+                                <div class="result-item">✅ Clearing search box restored full 21 customer list</div>
+                                <div class="result-item">✅ Search functionality works with real-time filtering</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="detail-header">🔧 Search Test Cases</div>
+                            <div class="detail-content">
+                                <table class="data-table">
+                                    <tr><th>Search Query</th><th>Results Count</th><th>Matching Customers</th><th>Result Type</th></tr>
+                                    <tr><td>"Test Automation"</td><td>4 results</td><td>Updated Test Automation Customer Ltd, Test Automation Tharusha (2x), Test Automation Customer Ltd - Updated</td><td>✅ Valid matches</td></tr>
+                                    <tr><td>"XYZ NonExistent Customer"</td><td>0 results</td><td>None</td><td>✅ No results message</td></tr>
+                                    <tr><td>"@#$%^&*()"</td><td>0 results</td><td>None</td><td>✅ Special chars handled</td></tr>
+                                    <tr><td>[Empty search]</td><td>21 results</td><td>All customers</td><td>✅ Full list restored</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="meta-info">
+                <div class="meta-item">
+                    <div class="meta-label">Test Environment</div>
+                    <div class="meta-value">cte-dev.iclick.nz</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Browser</div>
+                    <div class="meta-value">Chrome (via Playwright)</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Test User</div>
+                    <div class="meta-value">Admin (ADMIN)</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Execution Date</div>
+                    <div class="meta-value">July 9, 2025 @ 03:31 PM</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Total Execution Time</div>
+                    <div class="meta-value">~45 minutes (All Phases)</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Test Priority</div>
+                    <div class="meta-value">High Priority</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Test Report Generated:</strong> July 9, 2025 at 03:31 PM</p>
+            <p><strong>Customer Management Module - Complete Test Execution</strong></p>
+            <p>All test cases executed successfully with 100% pass rate. Customer management functionality verified across interface validation, CRUD operations, field validation, access control, filtering, and search capabilities.</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleDetails(testId) {
+            const details = document.getElementById(testId);
+            const header = details.previousElementSibling;
+            const icon = header.querySelector('.expand-icon');
+            
+            if (details.classList.contains('expanded')) {
+                details.classList.remove('expanded');
+                header.classList.remove('expanded');
+            } else {
+                details.classList.add('expanded');
+                header.classList.add('expanded');
+            }
+        }
+
+        // Auto-expand first test case for demonstration
+        document.addEventListener('DOMContentLoaded', function() {
+            // Optional: Auto-expand a specific test case
+            // toggleDetails('tc018');
+        });
+    </script>
+</body>
+</html>

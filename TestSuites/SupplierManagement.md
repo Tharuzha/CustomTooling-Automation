@@ -95,29 +95,29 @@
 - Verify the "Add Supplier" page is loaded
 - Fill in BASIC INFORMATION section:
   - Select "Active" from Status dropdown (if not already selected)
-  - Enter "Test Automation Supplier Ltd" in Supplier Name field
-- Fill in CONTACT DETAILS section:
+  - Enter "Test Automation Supplier Ltd New" in Supplier Name field
+- Should Fill in CONTACT DETAILS section:
   - Physical Address:
     - Enter "123 Business Park Avenue" in Address Line 1
     - Enter "Suite 200" in Address Line 2
     - Enter "Industrial Zone" in Address Line 3
-  - Mailing Address:
+  - Should Fill in Mailing Address:
     - Enter "PO Box 456" in Address Line 1
     - Enter "Business District" in Address Line 2
     - Enter "Commercial Area" in Address Line 3
   - Enter "+1-555-123-4567" in Phone field
   - Enter "+1-555-123-4568" in Fax field
   - Enter "<contact@testautomationsupplier.com>" in Email field
-  - MAIN CONTACT section:
+  -Should Fill in MAIN CONTACT section:
     - Enter "John Anderson" in Name field
     - Enter "+1-555-987-6543" in Phone field
     - Enter "<john.anderson@testautomationsupplier.com>" in Email field
-- Fill in PAYMENT DETAILS section:
+- Should Fill in PAYMENT DETAILS section:
   - Select "In a Given No of Days" from Payment is Due dropdown
   - Enter "45" in Discount Days field
   - Enter "60" in Balance Due Days field
   - Check the "Use 31 for EOM" checkbox
-- Fill in Note section:
+- Should Fill in Note section:
   - Enter "Test supplier created for automation testing purposes. Specializes in office supplies and equipment." in Note text area
 - Click the "Save" button
 - Verify successful supplier creation:
