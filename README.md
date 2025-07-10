@@ -9,7 +9,7 @@ MCP (Model Context Protocol) is a framework that allows AI models like Claude to
 ## 🚀 Project Overview
 
 CustomTooling-Automation is designed to:
-- Enable scalable and maintainable UI testing workflows.
+
 - Integrate with AI models (via MCP) to simplify test execution without traditional scripting.
 - Provide structured test data, configurations, and results for the CTE platform.
 
@@ -34,7 +34,9 @@ CustomTooling-Automation is designed to:
 - **Documentation** — Test strategy PDFs and configuration files  
 - **README.md** — Project documentation overview  
 - **TestConfiguration.md** — Setup and environment instructions  
+
 ---
+
 ## 🧪 TestSuites Module Summary
 
 The `TestSuites` folder contains modular Markdown files, each representing test flows or strategies for key modules in the CTE platform.
@@ -51,6 +53,7 @@ The `TestSuites` folder contains modular Markdown files, each representing test 
 - `SystemSettings.md` — Tests updates to system configurations and field behaviors  
 - `Units.md` — Verifies unit search functionality, creation, and deletion  
 - `UserLogin.md` — Confirms authentication workflows and error handling  
+
 ---
 
 ## 🧪 Test Execution Workflow
@@ -88,7 +91,8 @@ Before running the tests, make sure your environment meets the following require
 
 - ✅ **Playwright MCP**  
   Install and configure the Model Context Protocol (MCP) to enable AI-powered test execution.  
-  _Refer to the [Playwright MCP Documentation](#) for setup instructions._
+
+  _Refer to the Playwright MCP Documentation for setup instructions._
 
 - 🧠 **Visual Studio Code**  
   With GitHub Copilot Chat extension (`v0.11.0` or later) for NLP-based test triggering.
@@ -107,11 +111,12 @@ Follow these steps to execute your test suite in priority-based order.
 
 ### 🔧 Step 1: Clone & Install
 
-# Clone the repo
-git clone https://github.com/Tharuzha/CustomTooling-Automation.git
+## Clone the repo
+
+git clone <https://github.com/Tharuzha/CustomTooling-Automation.git>
 cd CustomTooling-Automation
 
-## ⚙️ Prerequisites
+## 🔧 Setup Requirements
 
 To run this project, ensure the following tools and environments are properly set up:
 
@@ -142,23 +147,24 @@ Follow these steps to run your automated tests using GitHub Copilot Chat:
 ### ▶️ Execution
 
 ## for simple execution, you can use "Run the Test Suite"
- 
-4. For advance test executions, You can use this.
+
+1. For advance test executions, You can use this.
    In the Copilot Chat box, enter these commands:
-   
+
    ```text
-    You should definitely execute all test cases (TC 067–TC 078) from the Routing.md using Playwright automation.
-    Follow the exact test steps and data specified in the test case file. Then generate a report that meets the requirements defined in TestConfiguration.md.
+   You should definitely execute all test cases (TC 067–TC 078) from the Routing.md using Playwright automation.
+   Follow the exact test steps and data specified in the test case file. Then generate a report that meets the requirements defined in TestConfiguration.md.
+   ```
 
-  ```text
-  You should definitely execute all test cases (TC 078- TC 092) from the Quotes.md using Playwright automation.
-Follow the exact test steps and data specified in the test case file. should do this execute by four test phases.
-1. 1st phase: TC 078 - TC 082
-2. 2nd phase : TC 083 - TC 086
-3. 3rd Phase : TC 087 - TC 089
-4. 4th Phase : TC 090 - TC 092
-and finally should create a test report according to the requirements of TestConfiguration.md. and included all the test cases ( TC 078 - TC 092)
+   ```text
+   You should definitely execute all test cases (TC 078- TC 092) from the Quotes.md using Playwright automation.
+   Follow the exact test steps and data specified in the test case file. should do this execute by four test phases.
 
+   1. 1st phase: TC 078 - TC 082
+   2. 2nd phase : TC 083 - TC 086
+   3. 3rd Phase : TC 087 - TC 089
+   4. 4th Phase : TC 090 - TC 092
 
-
- 
+   and finally should create a test report according to the requirements of TestConfiguration.md. and included all the test cases ( TC 078 - TC 092)
+   ```
+  
